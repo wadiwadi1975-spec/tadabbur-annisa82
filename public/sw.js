@@ -1,5 +1,5 @@
-var CACHE = 'tadabbur-annisa82-v2';
-var CORE = ['/', '/index.html', '/background.jpg'];
+var CACHE = 'tadabbur-annisa82-v3';
+var CORE = ['/', '/index.html', '/background-v2.jpg'];
 self.addEventListener('install', function(e) {
   e.waitUntil(
     caches.open(CACHE).then(function(c) { return c.addAll(CORE); }).then(function() { return self.skipWaiting(); })
