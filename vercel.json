@@ -1,1 +1,1 @@
-{"version": 2, "builds": [{"src": "public/index.html", "use": "@vercel/static"}], "routes": [{"src": "/(.*)", "dest": "/public/index.html"}], "framework": null, "regions": ["iad1"]}
+{"version": 2, "name": "tadabbur-annisa82", "builds": [{"src": "public/index.html", "use": "@vercel/static"}], "routes": [{"src": "/(.*)", "dest": "/public/index.html"}], "framework": null, "regions": ["iad1"]}
