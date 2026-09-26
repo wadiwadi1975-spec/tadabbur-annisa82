@@ -1,1 +1,1 @@
-{"version": 2, "name": "yatadabrun", "builds": [{"src": "public/index.html", "use": "@vercel/static"}], "routes": [{"src": "/(.*)", "dest": "/public/index.html"}], "framework": null, "regions": ["iad1"]}
+{"version": 2, "name": "yatadabrun", "builds": [{"src": "public/index.html", "use": "@vercel/static"}], "routes": [{"src": "/(.*)\\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2)$", "dest": "/public/$1.$2"}, {"src": "/(.*)", "dest": "/public/index.html"}], "framework": null, "regions": ["iad1"]}
