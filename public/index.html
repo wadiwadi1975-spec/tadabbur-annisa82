@@ -289,6 +289,9 @@ function saveReflection(){
     list.unshift({date:new Date().toLocaleDateString('ar-KW'), text});
     localStorage.setItem('tadabbur_annisa82', JSON.stringify(list));
     box.value='';
+    renderReflections();
+  }catch(e){}
+}
 var QDATA = null;
 function arNum(n){ return String(n).replace(/\d/g, function(d){ return '٠١٢٣٤٥٦٧٨٩'[d]; }); }
 function loadQuran(){
@@ -320,9 +323,6 @@ function showSurah(n){
     return '<p class="v">'+v+' <span class="mark">﴿'+arNum(i + 1)+'﴾</span></p>';
   }).join('');
   document.getElementById('surahView').innerHTML = html;
-}
-renderReflections();
-  }catch(e){}
 }
 renderReflections();
 </script>
