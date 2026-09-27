@@ -44,6 +44,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(6,19,16,.92);backdrop-filte
 .drop{position:relative;}
 .drop .menu{display:none;position:absolute;top:100%;right:0;min-width:190px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 14px 40px rgba(0,0,0,.4);}
 .drop:hover .menu{display:block;}
+.drop.open .menu{display:block;}
 .menu a{display:block;color:var(--ink);text-decoration:none;font-size:.88rem;padding:8px 12px;border-radius:8px;}
 .menu a:hover{background:var(--gold-soft);color:var(--gold);}
 .iconbtn{background:none;border:1px solid var(--line);color:var(--gold);border-radius:10px;padding:6px 10px;cursor:pointer;font-size:1rem;white-space:nowrap;}
@@ -428,6 +429,17 @@ function gotoStudy(id){
   showTab(id);
   document.getElementById('study').scrollIntoView({behavior:'smooth'});
 }
+document.querySelectorAll('.drop>button').forEach(function(b){
+  b.addEventListener('click', function(e){
+    e.stopPropagation();
+    var d = b.parentElement, was = d.classList.contains('open');
+    document.querySelectorAll('.drop.open').forEach(function(x){ x.classList.remove('open'); });
+    if(!was) d.classList.add('open');
+  });
+});
+document.addEventListener('click', function(){
+  document.querySelectorAll('.drop.open').forEach(function(x){ x.classList.remove('open'); });
+});
 function toggleTheme(){
   var r = document.documentElement;
   var light = r.getAttribute('data-theme') === 'light';
