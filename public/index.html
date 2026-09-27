@@ -108,6 +108,12 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .v{font-family:'Amiri',serif;font-size:1.45rem;line-height:2.1;text-align:justify;margin:0 0 4px;}
 .v .mark{color:var(--gold);font-size:1.1rem;}
 .v.hl{background:var(--gold-soft);border-radius:8px;}
+#surahView .v{cursor:pointer;border-radius:8px;padding:2px 6px;}
+#surahView .v:hover{background:var(--gold-soft);}
+.ayahead{background:var(--card);border:1px solid var(--gold);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px;}
+.ayahead .an{color:var(--gold);font-weight:800;}
+.ayahead .at{font-family:'Amiri',serif;font-size:1.7rem;line-height:2;}
+.soonbox{background:var(--card);border:1px dashed var(--gold);border-radius:16px;padding:26px;text-align:center;}
 .daily{background:linear-gradient(160deg, rgba(201,164,92,.22), rgba(201,164,92,.05)), var(--card);border:1px solid var(--gold);border-radius:16px;padding:22px;text-align:center;}
 .daily .dt{font-family:'Amiri',serif;font-size:1.5rem;line-height:2.1;color:var(--ink);}
 .daily .acts{display:flex;gap:14px;justify-content:center;margin-top:10px;color:var(--gold);font-size:.9rem;font-weight:700;}
@@ -186,6 +192,13 @@ footer a{color:var(--gold);text-decoration:none;}
     <h2 class="sec-t">رحلة تدبر الآية 82</h2>
     <p class="sub">آية واحدة... قد تفتح لك عالمًا من المعاني.</p>
     <div class="orn">— ✦ —</div>
+    <div id="ayaHead"></div>
+    <div id="soonBox" class="soonbox" style="display:none">
+      <h3 style="color:var(--gold);margin-top:0">رحلة التدبر لهذه الآية قيد الإعداد</h3>
+      <p class="hint">الدراسة التفاعلية الكاملة متوفرة حالياً لآية النساء 82. يمكنك استكشاف نص الآية وسياقها في السورة.</p>
+      <button class="btn" onclick="setVerse(4,82)">العودة لدراسة النساء 82</button>
+      <button class="btn-ghost" onclick="document.getElementById('quran-sec').scrollIntoView({behavior:'smooth'})">سياق السورة</button>
+    </div>
     <div id="panels"></div>
   </section>
 
@@ -414,10 +427,30 @@ function showTab(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('hl', p.id==='panel-'+id));
 }
 function gotoStudy(id){
+  CUR = {s:4, a:82}; renderAyaHead();
   showTab(id);
   var el = document.getElementById('panel-'+id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
 }
+var CUR = {s:4, a:82};
+function ayaText(s,a){ try{ return QDATA.surahs[s-1].verses[a-1]; }catch(e){ return ''; } }
+function surahName(s){ try{ return QDATA.surahs[s-1].name; }catch(e){ return ''; } }
+function renderAyaHead(){
+  var el = document.getElementById('ayaHead');
+  if(!el) return;
+  if(!QDATA){ el.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; loadQuran(renderAyaHead); return; }
+  var is82 = (CUR.s === 4 && CUR.a === 82);
+  el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'</div>';
+  document.getElementById('panels').style.display = is82 ? '' : 'none';
+  var soon = document.getElementById('soonBox');
+  if(soon) soon.style.display = is82 ? 'none' : '';
+}
+function setVerse(s,a){
+  CUR = {s:parseInt(s,10), a:parseInt(a,10)};
+  renderAyaHead();
+  document.getElementById('study').scrollIntoView({behavior:'smooth'});
+}
+function openAya(s,a){ setVerse(s,a); }
 document.querySelectorAll('.drop>button').forEach(function(b){
   b.addEventListener('click', function(e){
     e.stopPropagation();
@@ -480,6 +513,7 @@ function loadQuran(cb){
     QDATA = d;
     renderSurahGrid('');
     upgradeDaily();
+    renderAyaHead();
     QWAIT.forEach(function(f){ f(); }); QWAIT = [];
   }).catch(function(){
     if(grid) grid.innerHTML = '<p class="hint">تعذر تحميل ملف القرآن</p>';
@@ -509,7 +543,7 @@ function showSurah(n, hl){
   var html = '<div class="qbox"><h3>سورة '+s.name+' — '+arNum(s.verses.length)+' آية</h3>';
   html += s.verses.map(function(v, i){
     var cls = (hl === i + 1) ? 'v hl' : 'v';
-    return '<p class="'+cls+'" id="v'+n+'-'+(i+1)+'">'+v+' <span class="mark">﴿'+arNum(i + 1)+'﴾</span></p>';
+    return '<p class="'+cls+'" id="v'+n+'-'+(i+1)+'" onclick="openAya('+n+','+(i+1)+')">'+v+' <span class="mark">﴿'+arNum(i + 1)+'﴾</span></p>';
   }).join('') + '</div>';
   document.getElementById('surahView').innerHTML = html;
 }
