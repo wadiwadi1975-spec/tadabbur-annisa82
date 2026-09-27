@@ -108,6 +108,7 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .v{font-family:'Amiri',serif;font-size:1.45rem;line-height:2.1;text-align:justify;margin:0 0 4px;}
 .v .mark{color:var(--gold);font-size:1.1rem;}
 .v.hl{background:var(--gold-soft);border-radius:8px;}
+.wchip{background:var(--gold-soft);border:1px solid var(--gold);color:var(--ink);border-radius:16px;padding:4px 12px;margin:3px;font-family:'Amiri',serif;font-size:1.1rem;cursor:pointer;}
 #surahView .v{cursor:pointer;border-radius:8px;padding:2px 6px;}
 #surahView .v:hover{background:var(--gold-soft);}
 .ayahead{background:var(--card);border:1px solid var(--gold);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px;}
@@ -193,12 +194,6 @@ footer a{color:var(--gold);text-decoration:none;}
     <p class="sub">آية واحدة... قد تفتح لك عالمًا من المعاني.</p>
     <div class="orn">— ✦ —</div>
     <div id="ayaHead"></div>
-    <div id="soonBox" class="soonbox" style="display:none">
-      <h3 style="color:var(--gold);margin-top:0">رحلة التدبر لهذه الآية قيد الإعداد</h3>
-      <p class="hint">الدراسة التفاعلية الكاملة متوفرة حالياً لآية النساء 82. يمكنك استكشاف نص الآية وسياقها في السورة.</p>
-      <button class="btn" onclick="setVerse(4,82)">العودة لدراسة النساء 82</button>
-      <button class="btn-ghost" onclick="document.getElementById('quran-sec').scrollIntoView({behavior:'smooth'})">سياق السورة</button>
-    </div>
     <div id="panels"></div>
   </section>
 
@@ -415,13 +410,19 @@ const sections = [
 ];
 
 const panelsEl = document.getElementById('panels');
-sections.forEach((s)=>{
-  const panel = document.createElement('div');
-  panel.className = 'panel';
-  panel.id = 'panel-'+s.id;
-  panel.innerHTML = '<h3>'+s.title+'</h3>'+s.html;
-  panelsEl.appendChild(panel);
-});
+var CURATED = false;
+function buildCuratedPanels(){
+  panelsEl.innerHTML = '';
+  sections.forEach((s)=>{
+    const panel = document.createElement('div');
+    panel.className = 'panel';
+    panel.id = 'panel-'+s.id;
+    panel.innerHTML = '<h3>'+s.title+'</h3>'+s.html;
+    panelsEl.appendChild(panel);
+  });
+  CURATED = true;
+  renderReflections();
+}
 
 function showTab(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('hl', p.id==='panel-'+id));
@@ -441,9 +442,80 @@ function renderAyaHead(){
   if(!QDATA){ el.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; loadQuran(renderAyaHead); return; }
   var is82 = (CUR.s === 4 && CUR.a === 82);
   el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'</div>';
-  document.getElementById('panels').style.display = is82 ? '' : 'none';
-  var soon = document.getElementById('soonBox');
-  if(soon) soon.style.display = is82 ? 'none' : '';
+  if(is82){ if(!CURATED) buildCuratedPanels(); }
+  else { CURATED = false; buildVersePanels(); }
+}
+function verseKey(){ return 'tadabbur_aya_'+CUR.s+'_'+CUR.a; }
+function loadVerseRefs(){
+  try{ var raw = localStorage.getItem(verseKey()); return raw ? JSON.parse(raw) : []; }catch(e){ return []; }
+}
+function renderVerseRefs(){
+  var el = document.getElementById('vSavedList');
+  if(!el) return;
+  el.innerHTML = loadVerseRefs().map(function(r){ return '<div class="saved-note">📅 '+r.date+'<br>'+r.text+'</div>'; }).join('');
+}
+function saveVerseReflection(){
+  var box = document.getElementById('vReflectionBox');
+  var text = box.value.trim();
+  if(!text) return;
+  try{
+    var list = loadVerseRefs();
+    list.unshift({date:new Date().toLocaleDateString('ar-KW'), text:text});
+    localStorage.setItem(verseKey(), JSON.stringify(list));
+    box.value = '';
+    renderVerseRefs();
+  }catch(e){}
+}
+function sigWords(t){
+  var seen = {}, out = [];
+  norm(t).split(/\s+/).forEach(function(w){
+    if(w.length >= 4 && !seen[w]){ seen[w] = 1; out.push(w); }
+  });
+  return out.slice(0, 3);
+}
+function buildVersePanels(){
+  var s = QDATA.surahs[CUR.s - 1];
+  var v = s.verses[CUR.a - 1];
+  var h = '';
+  h += '<div class="panel"><h3>النص</h3><p class="v">'+v+'</p><p class="hint">سورة '+s.name+' — الآية '+arNum(CUR.a)+' · رسم عثماني</p></div>';
+  var words = v.split(/\s+/).filter(function(w){ return w; });
+  h += '<div class="panel"><h3>الكلمات</h3><p class="hint">اضغط أي كلمة للبحث عن مواضعها في القرآن.</p><div>'+
+    words.map(function(w){ return '<button class="wchip" onclick="wordSearch(this.textContent)">'+w+'</button>'; }).join('')+'</div></div>';
+  var cx = '';
+  for(var k = Math.max(0, CUR.a - 3); k < Math.min(s.verses.length, CUR.a + 2); k++){
+    if(k === CUR.a - 1) continue;
+    cx += '<div class="res" onclick="openAya('+s.n+','+(k+1)+')"><b>'+s.name+' ﴿'+arNum(k+1)+'﴾</b><br>'+s.verses[k]+'</div>';
+  }
+  h += '<div class="panel"><h3>السياق — ما قبلها وما بعدها</h3>'+cx+'</div>';
+  var keys = sigWords(v), rel = [];
+  if(keys.length){
+    outer:
+    for(var i = 0; i < QDATA.surahs.length; i++){
+      var su = QDATA.surahs[i];
+      for(var j = 0; j < su.verses.length; j++){
+        if(su.n === s.n && j === CUR.a - 1) continue;
+        var nv = norm(su.verses[j]);
+        for(var m = 0; m < keys.length; m++){
+          if(nv.indexOf(keys[m]) >= 0){ rel.push({s:su.n, sn:su.name, a:j+1, t:su.verses[j]}); break; }
+        }
+        if(rel.length >= 8) break outer;
+      }
+    }
+  }
+  h += '<div class="panel"><h3>الترابط — آيات تشترك في ألفاظها</h3>'+(rel.length ? rel.map(function(r){
+    return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…</div>';
+  }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
+  h += '<div class="panel"><h3>تدبر هذه الآية</h3><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
+  h += '<div class="panel"><h3>بقية الزوايا</h3><p class="hint">الإعراب والتفسير والحديث والآخرون والآفاق والعقل لهذه الآية قيد الإعداد — الدراسة الكاملة متوفرة لآية النساء 82.</p><button class="btn-ghost" onclick="setVerse(4,82)">العودة لدراسة النساء 82</button></div>';
+  panelsEl.innerHTML = h;
+  renderVerseRefs();
+}
+function wordSearch(w){
+  w = (w || '').trim();
+  if(!w) return;
+  document.getElementById('searchInput').value = w;
+  quranSearch();
+  document.getElementById('search').scrollIntoView({behavior:'smooth'});
 }
 function setVerse(s,a){
   CUR = {s:parseInt(s,10), a:parseInt(a,10)};
@@ -503,7 +575,7 @@ function saveReflection(){
 
 var QDATA = null, QLOAD = false, QWAIT = [], SHOWALL = false;
 function arNum(n){ return String(n).replace(/\d/g, function(d){ return '٠١٢٣٤٥٦٧٨٩'[d]; }); }
-function norm(s){ return s.replace(/[ً-ٰٟ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/ة/g,'ه').replace(/ى/g,'ي'); }
+function norm(s){ return s.replace(/[ً-ٰٟـۖ-ۭ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,' ').trim(); }
 function loadQuran(cb){
   if(QDATA){ if(cb)cb(); return; }
   if(cb)QWAIT.push(cb);
@@ -597,7 +669,7 @@ function randomAya(){
   if(!pick) return;
   box.innerHTML = '<div class="daily"><div class="dt">'+pick.t+'</div><div style="color:var(--muted)">'+pick.sn+' ﴿'+arNum(pick.a)+'﴾</div><br><button class="btn" onclick="openSurahLink('+pick.s+','+pick.a+')">ابدأ رحلة التدبر</button></div>';
 }
-renderReflections();
+buildCuratedPanels();
 loadQuran();
 </script>
 </body>
