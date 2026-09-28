@@ -573,7 +573,7 @@ function buildVersePanels(){
     return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…<br><span class="hint">رابط لفظي: '+r.hit.join('، ')+'</span></div>';
   }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
   h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3><div class="q">ما الذي لفت انتباهك في هذه الآية؟</div><div class="q">ما السؤال الذي أثارته لديك؟</div><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
-  h += '<div class="panel" id="panel-v-mind"><h3>العقل — أسئلة للتفكير</h3><div class="q">ما الدليل الذي يدعم فهمك لهذه الآية؟</div><div class="q">هل اللغة تدعم هذا الفهم؟ راجع لوحة الكلمات أعلاه.</div><div class="q">هل السياق (ما قبلها وما بعدها) يدعمه؟</div><div class="q">هل هذا المعنى حقيقة ثابتة أم احتمال؟</div><div class="q">هل هو تفسير منقول أم استنباط شخصي؟</div><div class="q">ما الفرق بين «يمكن أن يكون» و«هذا هو معنى الآية» هنا؟</div></div>';
+  h += mindHTML(s, (typeof rel === 'undefined' ? [] : rel), (typeof rare === 'undefined' ? '' : rare));
   h += '<div class="panel" id="panel-v-irab"><h3>الإعراب</h3><div id="vIrabBody"><p class="hint">جارٍ التحميل…</p></div></div>';
   h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
   h += emptyPanel('panel-v-hadith','الحديث');
@@ -616,6 +616,19 @@ function horizonsHTML(){
   h += verifiedNumeric();
   h += '<div class="q">ما الآفاق (العلمية أو التاريخية أو اللغوية) التي يمكن بحثها في هذه الآية بمنهج موثق ومصادر معلنة؟</div>';
   h += '<p class="hint">العدّ من النص العثماني في ملف الموقع. المواد العلمية والتاريخية المحررة قيد الجمع والتوثيق.</p>';
+  return h;
+}
+function mindHTML(s, rel, rare){
+  rel = rel || [];
+  var dfc = 0;
+  try{ dfc = QDF[skel(rare || '')] || 0; }catch(e){}
+  var h = '<div class="panel" id="panel-v-mind"><h3>العقل — أسئلة للتفكير</h3>';
+  h += '<div class="q">هذه الآية (' + s.name + ' ﴿' + arNum(CUR.a) + '﴾) ترتيبها ' + arNum(CUR.a) + ' من ' + arNum(s.verses.length) + ' — هل موضعها في السياق يدعم فهمك؟</div>';
+  if(rare) h += '<div class="q">لفظ «' + rare + '» يرد بصيغته في ' + arNum(dfc) + ' آية — هل يقوّي تكراره أو تفرده هذا الفهم أم يضعفه؟</div>';
+  h += '<div class="q">لها ' + arNum(rel.length) + ' آيات مرتبطة لفظياً أعلاه — هل تؤيد فهمك أم تعارضه؟</div>';
+  h += '<div class="q">ما الدليل الذي يدعم فهمك لهذه الآية؟</div>';
+  h += '<div class="q">هل هذا المعنى حقيقة ثابتة أم احتمال؟ وهل هو تفسير منقول أم استنباط شخصي؟</div>';
+  h += '<div class="q">ما الفرق بين «يمكن أن يكون» و«هذا هو معنى الآية» هنا؟</div></div>';
   return h;
 }
 function emptyPanel(id, title){
