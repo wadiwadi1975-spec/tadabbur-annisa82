@@ -137,6 +137,7 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .philo b{color:var(--gold);}
 footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 16px 40px;text-align:center;color:var(--muted);font-size:.85rem;}
 footer .fl{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:10px 0;}
+.ttxt{white-space:pre-line;}
 footer a{color:var(--gold);text-decoration:none;}
 @media (prefers-reduced-motion:no-preference){.sec{animation:fadeUp .7s ease both;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}}
@@ -276,6 +277,7 @@ const sections = [
     <span class="tag study">إعراب منقول</span>
     <hr class="divider">
     <div class="q">ماذا أضافت صيغة الاستفهام «أفلا» بدل «لا يتدبرون» المجردة؟</div>
+    <div id="darwish82"></div>
   `},
   {id:"context", label:"السياق", title:"ثلاثة مستويات", html:`
     <p><b>قريب:</b> تأتي بعد الحديث عمن يُظهرون الطاعة ثم يُبيّت فريق منهم غيرها.</p>
@@ -302,6 +304,7 @@ const sections = [
     <hr class="divider">
     <p><b>الاتفاق:</b> التدبر + سلامة القرآن من التناقض. <b>الاختلاف:</b> زاوية العرض فقط، لا التعارض.</p>
     <div id="contempTafsir82"></div>
+    <div id="fullTafsir82"></div>
   `},
   {id:"hadith", label:"الحديث", title:"سبب النزول", html:`
     <p>لم يثبت من المصادر التي رُوجعت سبب نزول صحيح صريح لهذه الآية.</p>
@@ -438,6 +441,8 @@ function buildCuratedPanels(){
   renderReflections();
   renderContempInto(document.getElementById('contempTafsir82'), 4, 82);
   renderScholarDir();
+  fillFullTafsir82();
+  fillDarwish82();
 }
 
 function showTab(id){
@@ -530,17 +535,105 @@ function buildVersePanels(){
   }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
   h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3><div class="q">ما الذي لفت انتباهك في هذه الآية؟</div><div class="q">ما السؤال الذي أثارته لديك؟</div><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
   h += '<div class="panel" id="panel-v-mind"><h3>العقل — أسئلة للتفكير</h3><div class="q">ما الدليل الذي يدعم فهمك لهذه الآية؟</div><div class="q">هل اللغة تدعم هذا الفهم؟ راجع لوحة الكلمات أعلاه.</div><div class="q">هل السياق (ما قبلها وما بعدها) يدعمه؟</div><div class="q">هل هذا المعنى حقيقة ثابتة أم احتمال؟</div><div class="q">هل هو تفسير منقول أم استنباط شخصي؟</div><div class="q">ما الفرق بين «يمكن أن يكون» و«هذا هو معنى الآية» هنا؟</div></div>';
-  h += emptyPanel('panel-v-irab','الإعراب');
-  h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><p class="hint">التفاسير التراثية لهذه الآية قيد الجمع والتوثيق.</p><div id="contempTafsirV"></div></div>';
+  h += '<div class="panel" id="panel-v-irab"><h3>الإعراب</h3><div id="vIrabBody"><p class="hint">جارٍ التحميل…</p></div></div>';
+  h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
   h += emptyPanel('panel-v-hadith','الحديث');
   h += emptyPanel('panel-v-others','الآخرون');
   h += emptyPanel('panel-v-horizons','آفاق');
   panelsEl.innerHTML = h;
   renderVerseRefs();
   renderContempInto(document.getElementById('contempTafsirV'), CUR.s, CUR.a);
+  renderVerseTafsir();
+  renderVerseIrab();
 }
 function emptyPanel(id, title){
   return '<div class="panel" id="'+id+'"><h3>'+title+'</h3><p class="hint">لا تتوفر حاليًا مادة موثقة لهذا القسم لهذه الآية.</p><button class="btn-ghost" onclick="setVerse(4,82)">استعرض مثالاً كاملاً: النساء 82</button></div>';
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+var TAFSIRS = [
+  {id:'tabari', n:'الطبري', slug:'ar-tafsir-al-tabari', qul:37},
+  {id:'qurtubi', n:'القرطبي', slug:'ar-tafseer-al-qurtubi', qul:23},
+  {id:'kathir', n:'ابن كثير', slug:'ar-tafsir-ibn-kathir', qul:22},
+  {id:'baghawi', n:'البغوي', slug:'ar-tafsir-al-baghawi', qul:27}
+];
+function srcLink(id){ return 'https://qul.tarteel.ai/resources/tafsir/' + id; }
+var IRAB = {};
+function getIrab(s, cb){
+  if(IRAB[s]){ cb(IRAB[s]); return; }
+  fetch('data/irab/' + s + '.json').then(function(r){ return r.json(); }).then(function(d){
+    IRAB[s] = d.verses; cb(d.verses);
+  }).catch(function(){ cb(null); });
+}
+var CDNC = {};
+function cdnAyah(slug, s, a, cb){
+  var k = slug + '/' + s + '/' + a;
+  if(CDNC[k] !== undefined){ cb(CDNC[k]); return; }
+  fetch('https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/' + slug + '/' + s + '/' + a + '.json')
+    .then(function(r){ return r.json(); }).then(function(d){
+      CDNC[k] = (d && d.text) ? d.text : ''; cb(CDNC[k]);
+    }).catch(function(){ CDNC[k] = ''; cb(''); });
+}
+function tafsirCard(t, text){
+  return '<div class="res"><b>' + t.n + '</b> <span class="tag fact">تفسير تراثي</span><br><span class="ttxt">' + esc(text) + '</span><br><span class="hint">المصدر: QUL Tarteel — <a href="' + srcLink(t.qul) + '" target="_blank" rel="noopener">' + t.n + '</a></span></div>';
+}
+function renderVerseTafsir(){
+  var box = document.getElementById('vTafsirBody');
+  if(!box) return;
+  var s = CUR.s, a = CUR.a, done = 0;
+  var texts = TAFSIRS.map(function(){ return null; });
+  box.innerHTML = TAFSIRS.map(function(){ return '<p class="hint">جارٍ التحميل…</p>'; }).join('');
+  TAFSIRS.forEach(function(t, i){
+    cdnAyah(t.slug, s, a, function(text){
+      texts[i] = text;
+      if(++done < TAFSIRS.length) return;
+      box.innerHTML = TAFSIRS.map(function(t2, j){
+        return texts[j] ? tafsirCard(t2, texts[j]) : '<div class="res"><b>' + t2.n + '</b><br><p class="hint">تعذر التحميل — تحقق من الاتصال.</p></div>';
+      }).join('');
+    });
+  });
+}
+function fillFullTafsir82(){
+  var box = document.getElementById('fullTafsir82');
+  if(!box || box.getAttribute('data-done')) return;
+  box.setAttribute('data-done', '1');
+  box.innerHTML = '<div class="group-label">النصوص الكاملة</div><p class="hint">جارٍ التحميل…</p>';
+  var done = 0, texts = TAFSIRS.map(function(){ return null; });
+  TAFSIRS.forEach(function(t, i){
+    cdnAyah(t.slug, 4, 82, function(text){
+      texts[i] = text;
+      if(++done < TAFSIRS.length) return;
+      box.innerHTML = '<div class="group-label">النصوص الكاملة</div>' + TAFSIRS.map(function(t2, j){
+        return texts[j] ? tafsirCard(t2, texts[j]) : '';
+      }).join('');
+    });
+  });
+}
+function fillDarwish82(){
+  var box = document.getElementById('darwish82');
+  if(!box || box.getAttribute('data-done')) return;
+  box.setAttribute('data-done', '1');
+  box.innerHTML = '<div class="group-label">التفصيل — إعراب الدرويش</div><p class="hint">جارٍ التحميل…</p>';
+  cdnAyah('i-rab-al-quran-li-al-darwish', 4, 82, function(text){
+    box.innerHTML = '<div class="group-label">التفصيل — إعراب الدرويش</div>' +
+      (text ? '<p class="ttxt">' + esc(text) + '</p><p class="hint">المصدر: QUL Tarteel — <a href="' + srcLink(506) + '" target="_blank" rel="noopener">إعراب القرآن للدرويش</a></p>'
+            : '<p class="hint">تعذر التحميل — تحقق من الاتصال.</p>');
+  });
+}
+function renderVerseIrab(){
+  var box = document.getElementById('vIrabBody');
+  if(!box) return;
+  var s = CUR.s, a = CUR.a;
+  getIrab(s, function(verses){
+    var my = verses ? verses[a - 1] : '';
+    var h = my ? '<p class="ttxt">' + esc(my) + '</p><p class="hint">المصدر: إعراب الميسّر — <a href="' + srcLink(504) + '" target="_blank" rel="noopener">QUL Tarteel</a></p>'
+                : '<p class="hint">تعذر التحميل — تحقق من الاتصال.</p>';
+    h += '<div class="group-label">التفصيل — إعراب الدرويش</div><div id="vDarwish"><p class="hint">جارٍ التحميل…</p></div>';
+    box.innerHTML = h;
+    cdnAyah('i-rab-al-quran-li-al-darwish', s, a, function(text){
+      var d = document.getElementById('vDarwish');
+      if(d) d.innerHTML = text ? '<p class="ttxt">' + esc(text) + '</p>' : '<p class="hint">تعذر التحميل.</p>';
+    });
+  });
 }
 function wordSearch(w){
   w = (w || '').trim();
