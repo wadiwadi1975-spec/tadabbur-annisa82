@@ -503,6 +503,23 @@ function sigWords(t){
 }
 function skel(w){ return w.replace(/ا/g, ''); }
 var QNORM = null, QSKELETON = null, QDF = null, QNTOT = 0;
+function ensureCorpus(){
+  if(QNORM) return;
+  QNORM = []; QSKELETON = []; QDF = {}; QNTOT = 0;
+  for(var qi = 0; qi < QDATA.surahs.length; qi++){
+    var suq = QDATA.surahs[qi], arr = [], skarr = [];
+    for(var qj = 0; qj < suq.verses.length; qj++){
+      var nvq = norm(suq.verses[qj]);
+      arr.push(nvq);
+      var skv = nvq.replace(/ا/g, '');
+      skarr.push(skv);
+      QNTOT++;
+      var seen2 = {};
+      skv.split(/\s+/).forEach(function(w){ if(w.length >= 2 && !seen2[w]){ seen2[w] = 1; QDF[w] = (QDF[w] || 0) + 1; } });
+    }
+    QNORM.push(arr); QSKELETON.push(skarr);
+  }
+}
 function buildVersePanels(){
   var s = QDATA.surahs[CUR.s - 1];
   var v = s.verses[CUR.a - 1];
@@ -519,22 +536,7 @@ function buildVersePanels(){
   h += '<div class="panel" id="panel-v-context"><h3>السياق — ما قبلها وما بعدها</h3>'+cx+'</div>';
   var keys = sigWords(v), rel = [];
   if(keys.length){
-    if(!QNORM){
-      QNORM = []; QSKELETON = []; QDF = {}; QNTOT = 0;
-      for(var qi = 0; qi < QDATA.surahs.length; qi++){
-        var suq = QDATA.surahs[qi], arr = [], skarr = [];
-        for(var qj = 0; qj < suq.verses.length; qj++){
-          var nvq = norm(suq.verses[qj]);
-          arr.push(nvq);
-          var skv = nvq.replace(/ا/g, '');
-          skarr.push(skv);
-          QNTOT++;
-          var seen2 = {};
-          skv.split(/\s+/).forEach(function(w){ if(w.length >= 2 && !seen2[w]){ seen2[w] = 1; QDF[w] = (QDF[w] || 0) + 1; } });
-        }
-        QNORM.push(arr); QSKELETON.push(skarr);
-      }
-    }
+    ensureCorpus();
     var idf = function(k){ var kk = skel(k); return Math.log(QNTOT / (QDF[kk] || 1)); };
     var rare = keys[0];
     keys.forEach(function(k){ if(idf(k) > idf(rare)) rare = k; });
@@ -576,12 +578,32 @@ function buildVersePanels(){
   h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
   h += emptyPanel('panel-v-hadith','الحديث');
   h += emptyPanel('panel-v-others','الآخرون');
-  h += emptyPanel('panel-v-horizons','آفاق');
+  h += '<div class="panel" id="panel-v-horizons"><h3>آفاق</h3>' + horizonsHTML() + '</div>';
   panelsEl.innerHTML = h;
   renderVerseRefs();
   renderContempInto(document.getElementById('contempTafsirV'), CUR.s, CUR.a);
   renderVerseTafsir();
   renderVerseIrab();
+}
+function horizonsHTML(){
+  var s = QDATA.surahs[CUR.s - 1];
+  var v = s.verses[CUR.a - 1];
+  ensureCorpus();
+  var words = v.split(/\s+/).filter(function(w){ return w; });
+  var letters = norm(v).replace(/ /g, '').length;
+  var seen = {}, rare = [];
+  words.forEach(function(w){
+    var nw = norm(w);
+    if(nw.length >= 4 && !seen[nw]){
+      seen[nw] = 1;
+      if((QDF[nw.replace(/ا/g, '')] || 0) <= 1 && rare.length < 6) rare.push(nw);
+    }
+  });
+  var h = '<div class="q">عدد كلمات الآية: ' + arNum(words.length) + ' · حروفها (دون تشكيل): ' + arNum(letters) + ' · ترتيبها ' + arNum(CUR.a) + ' من ' + arNum(s.verses.length) + '</div>';
+  if(rare.length) h += '<p><span class="tag fact">ألفاظ متفردة الصيغة</span> ' + rare.map(function(w){ return '<button class="wchip" onclick="wordSearch(this.textContent)">' + w + '</button>'; }).join(' ') + '</p>';
+  h += '<div class="q">ما الآفاق (العلمية أو التاريخية أو اللغوية) التي يمكن بحثها في هذه الآية بمنهج موثق ومصادر معلنة؟</div>';
+  h += '<p class="hint">العدّ من النص العثماني في ملف الموقع. المواد العلمية والتاريخية المحررة قيد الجمع والتوثيق.</p>';
+  return h;
 }
 function emptyPanel(id, title){
   return '<div class="panel" id="'+id+'"><h3>'+title+'</h3><p class="hint">لا تتوفر حاليًا مادة موثقة لهذا القسم لهذه الآية.</p><button class="btn-ghost" onclick="setVerse(4,82)">استعرض مثالاً كاملاً: النساء 82</button></div>';
