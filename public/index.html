@@ -301,6 +301,7 @@ const sections = [
     <span class="tag fact">نقل موثق عن المصادر الثلاثة</span>
     <hr class="divider">
     <p><b>الاتفاق:</b> التدبر + سلامة القرآن من التناقض. <b>الاختلاف:</b> زاوية العرض فقط، لا التعارض.</p>
+    <div id="contempTafsir82"></div>
   `},
   {id:"hadith", label:"الحديث", title:"سبب النزول", html:`
     <p>لم يثبت من المصادر التي رُوجعت سبب نزول صحيح صريح لهذه الآية.</p>
@@ -309,6 +310,8 @@ const sections = [
   `},
   {id:"others", label:"الآخرون", title:"قراءات معاصرة", html:`
     <p class="hint">تفسير كل شخص لهذه الآية بعينها (لا منهجه العام) هو المطلوب هنا. المؤكّد حاليًا: <b>الشعراوي</b> فقط. البقية تُركت فارغة من "ماذا فسّر" — بانتظار مصادر تحدد أين قال كل واحد رأيه في هذه الآية تحديدًا.</p>
+
+    <div id="scholarDir"></div>
 
     <div class="group-label">مفكرون تأويليون/نقديون معاصرون</div>
 
@@ -433,6 +436,8 @@ function buildCuratedPanels(){
   });
   CURATED = true;
   renderReflections();
+  renderContempInto(document.getElementById('contempTafsir82'), 4, 82);
+  renderScholarDir();
 }
 
 function showTab(id){
@@ -526,12 +531,13 @@ function buildVersePanels(){
   h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3><div class="q">ما الذي لفت انتباهك في هذه الآية؟</div><div class="q">ما السؤال الذي أثارته لديك؟</div><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
   h += '<div class="panel" id="panel-v-mind"><h3>العقل — أسئلة للتفكير</h3><div class="q">ما الدليل الذي يدعم فهمك لهذه الآية؟</div><div class="q">هل اللغة تدعم هذا الفهم؟ راجع لوحة الكلمات أعلاه.</div><div class="q">هل السياق (ما قبلها وما بعدها) يدعمه؟</div><div class="q">هل هذا المعنى حقيقة ثابتة أم احتمال؟</div><div class="q">هل هو تفسير منقول أم استنباط شخصي؟</div><div class="q">ما الفرق بين «يمكن أن يكون» و«هذا هو معنى الآية» هنا؟</div></div>';
   h += emptyPanel('panel-v-irab','الإعراب');
-  h += emptyPanel('panel-v-tafsir','التفسير');
+  h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><p class="hint">التفاسير التراثية لهذه الآية قيد الجمع والتوثيق.</p><div id="contempTafsirV"></div></div>';
   h += emptyPanel('panel-v-hadith','الحديث');
   h += emptyPanel('panel-v-others','الآخرون');
   h += emptyPanel('panel-v-horizons','آفاق');
   panelsEl.innerHTML = h;
   renderVerseRefs();
+  renderContempInto(document.getElementById('contempTafsirV'), CUR.s, CUR.a);
 }
 function emptyPanel(id, title){
   return '<div class="panel" id="'+id+'"><h3>'+title+'</h3><p class="hint">لا تتوفر حاليًا مادة موثقة لهذا القسم لهذه الآية.</p><button class="btn-ghost" onclick="setVerse(4,82)">استعرض مثالاً كاملاً: النساء 82</button></div>';
@@ -608,6 +614,50 @@ function saveReflection(){
   }catch(e){}
 }
 
+var SCHOLARS = [
+  {id:'m-hedayah', name:'الدكتور محمد هداية', category:'باحث / قراءة معاصرة', bio:''},
+  {id:'h-sebai', name:'الدكتور حسن السباعي', category:'باحث / قراءة معاصرة', bio:''}
+];
+// READINGS: verified verbatim materials only. NEVER invent content.
+// {authorId, surahNumber, verseNumber, title, content, sourceTitle, sourceUrl, sourceType, publicationDate, verified}
+var READINGS = [];
+function scholarById(id){
+  for(var i = 0; i < SCHOLARS.length; i++) if(SCHOLARS[i].id === id) return SCHOLARS[i];
+  return null;
+}
+function readingsFor(s, a){
+  return READINGS.filter(function(r){
+    return r.verified && r.surahNumber === s && r.verseNumber === a && scholarById(r.authorId);
+  });
+}
+function typeLabel(t){
+  var m = {video:'فيديو', article:'مقال', book:'كتاب', lecture:'محاضرة', episode:'حلقة', paper:'بحث'};
+  return m[t] || 'مادة';
+}
+function readingCard(r){
+  var au = scholarById(r.authorId);
+  var h = '<div class="res"><b>'+au.name+'</b> <span class="tag reading">قراءة معاصرة · '+typeLabel(r.sourceType)+'</span><br>';
+  if(r.title) h += '<b>'+r.title+'</b><br>';
+  h += r.content + '<br><span class="hint">المصدر: '+r.sourceTitle+(r.publicationDate ? ' · '+r.publicationDate : '')+'</span>';
+  if(r.sourceUrl) h += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;" href="'+r.sourceUrl+'" target="_blank" rel="noopener">المصدر ↗</a>';
+  return h + '</div>';
+}
+function renderContempInto(el, s, a){
+  if(!el) return;
+  var list = readingsFor(s, a);
+  var h = '<div class="group-label">قراءات وتفاسير أخرى</div>';
+  h += list.length ? list.map(readingCard).join('') : '<p class="hint">لا توجد حاليًا قراءات موثقة لهذه الآية.</p>';
+  el.innerHTML = h;
+}
+function renderScholarDir(){
+  var el = document.getElementById('scholarDir');
+  if(!el) return;
+  el.innerHTML = SCHOLARS.map(function(p){
+    var n = READINGS.filter(function(r){ return r.verified && r.authorId === p.id; }).length;
+    return '<details><summary>'+p.name+' <span class="tag reading">'+p.category+'</span></summary>'+
+      '<p class="hint">المواد المرتبطة به تظهر تلقائيًا في تبويب «تفسير» عند توفر مادة موثقة. '+(n ? 'المواد الموثقة: '+arNum(n) : 'لا مواد موثقة بعد.')+'</p></details>';
+  }).join('');
+}
 var QDATA = null, QLOAD = false, QWAIT = [], SHOWALL = false;
 function arNum(n){ return String(n).replace(/\d/g, function(d){ return '٠١٢٣٤٥٦٧٨٩'[d]; }); }
 function norm(s){ return s.replace(/[ً-ٰٟـۖ-ۭ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,' ').trim(); }
