@@ -138,6 +138,7 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 16px 40px;text-align:center;color:var(--muted);font-size:.85rem;}
 footer .fl{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:10px 0;}
 .ttxt{white-space:pre-line;}
+.asbab-text{max-height:320px;overflow:auto;}
 footer a{color:var(--gold);text-decoration:none;}
 @media (prefers-reduced-motion:no-preference){.sec{animation:fadeUp .7s ease both;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}}
@@ -310,6 +311,7 @@ const sections = [
     <p>لم يثبت من المصادر التي رُوجعت سبب نزول صحيح صريح لهذه الآية.</p>
     <span class="tag fact">لا روايات ضعيفة تُدرج</span>
     <p>توجد أحاديث صحيحة مرتبطة بموضوع «الاختلاف في القرآن» عمومًا (منها ما أخرجه مسلم)، لكنها ليست سبب نزول للآية بعينها.</p>
+    <div id="asbab82"></div>
   `},
   {id:"others", label:"الآخرون", title:"قراءات معاصرة", html:`
     <p class="hint">تفسير كل شخص لهذه الآية بعينها (لا منهجه العام) هو المطلوب هنا. المؤكّد حاليًا: <b>الشعراوي</b> فقط. البقية تُركت فارغة من "ماذا فسّر" — بانتظار مصادر تحدد أين قال كل واحد رأيه في هذه الآية تحديدًا.</p>
@@ -443,6 +445,7 @@ function buildCuratedPanels(){
   renderScholarDir();
   fillFullTafsir82();
   fillDarwish82();
+  renderAsbabInto(document.getElementById('asbab82'), 4, 82);
 }
 
 function showTab(id){
@@ -576,7 +579,7 @@ function buildVersePanels(){
   h += mindHTML(s, (typeof rel === 'undefined' ? [] : rel), (typeof rare === 'undefined' ? '' : rare));
   h += '<div class="panel" id="panel-v-irab"><h3>الإعراب</h3><div id="vIrabBody"><p class="hint">جارٍ التحميل…</p></div></div>';
   h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
-  h += emptyPanel('panel-v-hadith','الحديث');
+  h += '<div class="panel" id="panel-v-hadith"><h3>الحديث — سبب النزول</h3><div id="vHadithBody"><p class="hint">جارٍ التحميل…</p></div></div>';
   h += emptyPanel('panel-v-others','الآخرون');
   h += '<div class="panel" id="panel-v-horizons"><h3>آفاق</h3>' + horizonsHTML() + '</div>';
   panelsEl.innerHTML = h;
@@ -584,6 +587,7 @@ function buildVersePanels(){
   renderContempInto(document.getElementById('contempTafsirV'), CUR.s, CUR.a);
   renderVerseTafsir();
   renderVerseIrab();
+  renderVerseHadith();
 }
 var VERIFIED_NUM = {
   '1:1': [{title:'حروف البسملة 19', tag:'حقيقة نصية قابلة للتحقق',
@@ -719,6 +723,34 @@ function renderVerseIrab(){
       if(d) d.innerHTML = text ? '<p class="ttxt">' + esc(text) + '</p>' : '<p class="hint">تعذر التحميل.</p>';
     });
   });
+}
+var ASBAB = {};
+function getAsbab(s, cb){
+  if(ASBAB[s]){ cb(ASBAB[s]); return; }
+  fetch('data/asbab/' + s + '.json').then(function(r){ return r.json(); }).then(function(d){
+    ASBAB[s] = d; cb(d);
+  }).catch(function(){ cb(null); });
+}
+function asbabCards(list, tagLabel){
+  return list.map(function(t){
+    return '<div class="res"><span class="tag fact">' + tagLabel + '</span><div class="asbab-text">' + t + '</div></div>';
+  }).join('');
+}
+function renderAsbabInto(el, s, a){
+  if(!el) return;
+  getAsbab(s, function(d){
+    if(!d){ el.innerHTML = '<p class="hint">تعذر التحميل — تحقق من الاتصال.</p>'; return; }
+    var w = (d.wahidi && d.wahidi[a]) || [], m = (d.muharrar && d.muharrar[a]) || [];
+    var h = '';
+    if(w.length) h += '<div class="group-label">أسباب النزول — الواحدي</div>' + asbabCards(w, 'رواية بأسانيدها');
+    if(m.length) h += '<div class="group-label">الدراسة والتحقق — المحرر من الكتب التسعة</div>' + asbabCards(m, 'سبب + دراسة + نتيجة');
+    if(!h) h = '<p class="hint">لم يثبت في هذين المرجعين سبب نزول صحيح صريح لهذه الآية.</p>';
+    h += '<p class="src">المصدران: <a href="https://quranpedia.net/dumps" target="_blank" rel="noopener">الموسوعة القرآنية</a> — الواحدي والمحرر.</p>';
+    el.innerHTML = h;
+  });
+}
+function renderVerseHadith(){
+  renderAsbabInto(document.getElementById('vHadithBody'), CUR.s, CUR.a);
 }
 function wordSearch(w){
   w = (w || '').trim();
