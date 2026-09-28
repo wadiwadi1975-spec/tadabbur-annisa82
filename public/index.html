@@ -585,6 +585,18 @@ function buildVersePanels(){
   renderVerseTafsir();
   renderVerseIrab();
 }
+var VERIFIED_NUM = {
+  '1:1': [{title:'حروف البسملة 19', tag:'حقيقة نصية قابلة للتحقق',
+    text:'عدد حروف «بسم الله الرحمن الرحيم» وفق الرسم العثماني دون مسافات: 19 حرفًا.',
+    method:'حذف التشكيل والتطويل والألف الخنجرية ثم عدّ الحروف دون مسافات — محسوب آليًا من نص الموقع نفسه.'}]
+};
+function verifiedNumeric(){
+  var list = VERIFIED_NUM[CUR.s + ':' + CUR.a];
+  if(!list || !list.length) return '';
+  return '<div class="group-label">ملاحظات عددية قابلة للتحقق</div>' + list.map(function(o){
+    return '<div class="res"><b>' + o.title + '</b> <span class="tag fact">' + o.tag + '</span><br>' + o.text + '<br><span class="hint">المنهج: ' + o.method + '</span></div>';
+  }).join('');
+}
 function horizonsHTML(){
   var s = QDATA.surahs[CUR.s - 1];
   var v = s.verses[CUR.a - 1];
@@ -601,6 +613,7 @@ function horizonsHTML(){
   });
   var h = '<div class="q">عدد كلمات الآية: ' + arNum(words.length) + ' · حروفها (دون تشكيل): ' + arNum(letters) + ' · ترتيبها ' + arNum(CUR.a) + ' من ' + arNum(s.verses.length) + '</div>';
   if(rare.length) h += '<p><span class="tag fact">ألفاظ متفردة الصيغة</span> ' + rare.map(function(w){ return '<button class="wchip" onclick="wordSearch(this.textContent)">' + w + '</button>'; }).join(' ') + '</p>';
+  h += verifiedNumeric();
   h += '<div class="q">ما الآفاق (العلمية أو التاريخية أو اللغوية) التي يمكن بحثها في هذه الآية بمنهج موثق ومصادر معلنة؟</div>';
   h += '<p class="hint">العدّ من النص العثماني في ملف الموقع. المواد العلمية والتاريخية المحررة قيد الجمع والتوثيق.</p>';
   return h;
