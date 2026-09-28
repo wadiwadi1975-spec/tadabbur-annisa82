@@ -419,6 +419,7 @@ const sections = [
     <div class="q">هل كل اختلاف ظاهري تناقض؟</div>
     <div class="q">كيف يميّز العقل بين التناقض الحقيقي واختلاف زاوية العرض؟</div>
     <div class="q">هل تدخل اختلافات القراءات في «الاختلاف الكثير»؟</div>
+    <div id="mindDynamic82"></div>
   `},
   {id:"tadabbur", label:"تدبر", title:"ماذا فهمت أنت؟", html:`
     <p>سؤال اليوم: هل قراءتنا اليومية للقرآن تقوم على التدبر أم على التلاوة فقط؟</p>
@@ -446,6 +447,7 @@ function buildCuratedPanels(){
   fillFullTafsir82();
   fillDarwish82();
   renderAsbabInto(document.getElementById('asbab82'), 4, 82);
+  fillMindDynamic();
 }
 
 function showTab(id){
@@ -473,7 +475,7 @@ function renderAyaHead(){
   if(!QDATA){ el.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; loadQuran(renderAyaHead); return; }
   var is82 = (CUR.s === 4 && CUR.a === 82);
   el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'<div class="acts"><span onclick="listenAya()">🔊 استماع</span><span onclick="saveAya(this)">🔖 حفظ</span><span onclick="shareAyaText()">↗ مشاركة</span><span onclick="noteAya()">✍️ ملاحظة</span><span onclick="journeyAya()">🧭 رحلة التدبر</span></div></div>';
-  if(is82){ if(!CURATED) buildCuratedPanels(); }
+  if(is82){ if(!CURATED) buildCuratedPanels(); fillMindDynamic(); }
   else { CURATED = false; buildVersePanels(); }
 }
 function verseKey(){ return 'tadabbur_aya_'+CUR.s+'_'+CUR.a; }
@@ -523,31 +525,20 @@ function ensureCorpus(){
     QNORM.push(arr); QSKELETON.push(skarr);
   }
 }
-function buildVersePanels(){
-  var s = QDATA.surahs[CUR.s - 1];
-  var v = s.verses[CUR.a - 1];
-  var h = '';
-  h += '<div class="panel" id="panel-v-text"><h3>النص</h3><p class="v">'+v+'</p><p class="hint">سورة '+s.name+' — الآية '+arNum(CUR.a)+' · رسم عثماني</p></div>';
-  var words = v.split(/\s+/).filter(function(w){ return w; });
-  h += '<div class="panel" id="panel-v-words"><h3>الكلمات</h3><p class="hint">اضغط أي كلمة للبحث عن مواضعها في القرآن. التحليل الجذري والأوزان موثق حالياً لآية النساء 82 فقط.</p><div>'+
-    words.map(function(w){ return '<button class="wchip" onclick="wordSearch(this.textContent)">'+w+'</button>'; }).join('')+'</div></div>';
-  var cx = '';
-  for(var k = Math.max(0, CUR.a - 3); k < Math.min(s.verses.length, CUR.a + 2); k++){
-    if(k === CUR.a - 1) continue;
-    cx += '<div class="res" onclick="openAya('+s.n+','+(k+1)+')"><b>'+s.name+' ﴿'+arNum(k+1)+'﴾</b><br>'+s.verses[k]+'</div>';
-  }
-  h += '<div class="panel" id="panel-v-context"><h3>السياق — ما قبلها وما بعدها</h3>'+cx+'</div>';
-  var keys = sigWords(v), rel = [];
+function linksFor(sN, aN){
+  var sx = QDATA.surahs[sN - 1];
+  var vx = sx.verses[aN - 1];
+  var keys = sigWords(vx), rel = [], rare = '';
   if(keys.length){
     ensureCorpus();
     var idf = function(k){ var kk = skel(k); return Math.log(QNTOT / (QDF[kk] || 1)); };
-    var rare = keys[0];
+    rare = keys[0];
     keys.forEach(function(k){ if(idf(k) > idf(rare)) rare = k; });
     var per = {}, cand = [];
     for(var i = 0; i < QDATA.surahs.length; i++){
       var su = QDATA.surahs[i];
       for(var j = 0; j < su.verses.length; j++){
-        if(su.n === s.n && j === CUR.a - 1) continue;
+        if(su.n === sx.n && j === aN - 1) continue;
         var hit = [], sc = 0;
         for(var m = 0; m < keys.length; m++){
           var ksk = skel(keys[m]);
@@ -572,11 +563,162 @@ function buildVersePanels(){
       }
     }
   }
+  return {rel:rel, rare:rare, keys:keys};
+}
+var MIND_D = null;
+function getMindData(s, a){
+  if(!QDATA) return null;
+  var su = QDATA.surahs[s - 1];
+  var v = su.verses[a - 1];
+  var words = v.split(/\s+/).filter(function(w){ return w; });
+  var L = linksFor(s, a);
+  var dfc = 0;
+  try{ dfc = L.rare ? (QDF[skel(L.rare)] || 0) : 0; }catch(e){}
+  var hasAsbab = false;
+  try{ hasAsbab = !!(ASBAB[s] && ((ASBAB[s].wahidi && ASBAB[s].wahidi[a]) || (ASBAB[s].muharrar && ASBAB[s].muharrar[a]))); }catch(e){}
+  var contemp = [];
+  try{ contemp = readingsFor(s, a); }catch(e){}
+  var verified = [];
+  try{ verified = (VERIFIED_NUM[s + ':' + a]) || []; }catch(e){}
+  var first = words[0] || '', last = words[words.length - 1] || '';
+  var is82 = (s === 4 && a === 82);
+  var aspects = [
+    {t:'النص القرآني', st:'نص', d:'النص أعلاه برسمه العثماني.'},
+    {t:'المعنى اللغوي', st:'موثق جزئيًا', d:'قائمة كلمات الآية أعلاه؛ التحليل الجذري والأوزان موثق للنساء 82 فقط.'},
+    {t:'التفسير التراثي', st:is82 ? 'موثق' : 'في لوحة التفسير', d:is82 ? 'ملخصات الطبري وابن كثير والقرطبي + النصوص الكاملة.' : 'النصوص الكاملة للطبري والقرطبي وابن كثير والبغوي في لوحة التفسير أعلاه.'},
+    {t:'الحديث وسبب النزول', st:hasAsbab ? 'موثق' : 'لا مادة موثقة', d:hasAsbab ? 'الروايات والدراسة في لوحة الحديث أعلاه.' : 'لم يثبت في مرجعي الواحدي والمحرر سبب نزول صريح لهذه الآية.'},
+    {t:'القراءة المعاصرة', st:contemp.length ? ('موثق (' + contemp.length + ')') : 'لا مادة موثقة', d:contemp.length ? 'المواد في لوحة التفسير (قراءات وتفاسير أخرى).' : 'لا مادة موثقة لأي باحث حول هذه الآية بعد.'},
+    {t:'الاستنتاج البشري', st:'تمييز واجب', d:'كل ما ليس نصًا أو نقلًا موثقًا هو استنتاج يُعرض كاحتمال لا كيقين.'}
+  ];
+  var comparisons = TAFSIRS.map(function(t){
+    var has = false;
+    try{ has = !!((CDNC[t.slug + '/' + s + '/' + a] || '').length > 100); }catch(e){}
+    return {src:t.n, st:has ? 'محمَّل' : 'يُحمَّل في لوحة التفسير'};
+  });
+  comparisons.push({src:'قراءات معاصرة', st:contemp.length ? ('موثق (' + contemp.length + ')') : 'لا مادة موثقة'});
+  var claims = [{label:'النص القرآني للآية', source:'نص عثماني (Tanzil)', etype:'القرآن',
+    sup:['النص أعلاه برسمه العثماني'], need:['القراءات الأخرى إن وُجدت مؤثرة في المعنى'],
+    inf:'—', open:['هل تُقرأ الآية بقراءات أخرى مؤثرة في المعنى؟']}];
+  TAFSIRS.forEach(function(t){
+    claims.push({label:'تفسير ' + t.n + ' لهذه الآية', source:t.n + ' عبر QUL Tarteel', etype:'التفسير',
+      sup:['النص الكامل في لوحة التفسير'], need:['تحميل النص أولًا', 'درجة الثبوت التفصيلية لرواياته الداخلية'],
+      inf:'الترجيح بين الأقوال داخل التفسير', open:['هل وافق غيره من المفسرين؟']});
+  });
+  if(hasAsbab) claims.push({label:'سبب النزول المروي', source:'الواحدي / المحرر', etype:'الحديث',
+    sup:['الرواية والدراسة في لوحة الحديث'], need:['درجة كل رواية على حدة'],
+    inf:'تعميم السبب على كل من تنطبق عليه الآية', open:['هل السبب صريح أم رواية مرتبطة؟']});
+  verified.forEach(function(o){ claims.push({label:o.title, source:'ملاحظة عددية موثقة', etype:'استنتاج',
+    sup:['المنهج: ' + o.method], need:[], inf:'دلالة الرقم نفسها', open:['هل للعدد دلالة مقصودة أم توافق؟']}); });
+  var openQ = [];
+  openQ.push('لماذا بدأت الآية بـ«' + first + '» وخُتمت بـ«' + last + '»؟ وهل للترتيب دلالة؟');
+  if(L.rare) openQ.push('ما دلالة لفظ «' + L.rare + '» هنا؟ وهل يختلف معناه عن مواضعه الأخرى؟');
+  if(L.rel.length) openQ.push('ما دلالة اختلاف التعبير بين هذه الآية و' + L.rel[0].sn + ' ﴿' + arNum(L.rel[0].a) + '﴾؟');
+  openQ.push('هل اختلف المفسرون في هذه الآية؟ وما سبب الاختلاف — اللغة أم الرواية أم السياق؟');
+  openQ.push('هل توجد معلومات تاريخية موثقة تساعد على فهم سياق النزول؟ (راجع لوحة الحديث)');
+  return {
+    verse:{s:s, sn:su.name, a:a, text:v, first:first, last:last, total:su.verses.length},
+    rare:L.rare, rareCount:dfc, links:L.rel, aspects:aspects,
+    evidenceTypes:['القرآن','اللغة','الإعراب','سياق الآيات','الحديث','سبب النزول','التفسير','مصدر تاريخي','مصدر علمي','بحث أكاديمي','استنتاج','احتمال'],
+    levels:[['نص','ما هو موجود صراحة في الآية.'],['موثق','معلومة لها مصدر يمكن التحقق منه.'],['استنتاج','نتيجة مبنية على أدلة — تُعرض كذلك لا كيقين.'],['احتمال / سؤال مفتوح','فكرة ممكنة بلا دليل كافٍ للحسم.']],
+    questions:[
+      'لماذا اختيرت هذه الكلمة دون غيرها؟ وماذا تضيف إلى المعنى؟',
+      'هل المعنى المقترح تدعمه اللغة العربية؟',
+      'هل يؤيده سياق الآيات السابقة واللاحقة؟',
+      'هل وردت الكلمة أو الجذر في مواضع أخرى من القرآن؟',
+      'هل يوجد اختلاف بين المفسرين؟ وما سببه؟',
+      'هل الرواية المتعلقة بالآية ثابتة؟',
+      'هل هذه المعلومة صريحة في الآية أم استنتاج؟',
+      'هل هناك افتراض مسبق يؤثر في فهمنا؟ وهل توجد قراءة أخرى مدعومة بأدلة؟'
+    ],
+    comparisons:comparisons, claims:claims, openQuestions:openQ,
+    tid:(is82 ? 'panel-tafsir' : 'panel-v-tafsir')
+  };
+}
+function statusTag(st){
+  if(st === 'نص' || st === 'موثق' || st.indexOf('موثق (') === 0) return 'fact';
+  if(st.indexOf('لا مادة') === 0 || st.indexOf('لا توجد') === 0) return 'reading';
+  return 'study';
+}
+function compareRows(list){
+  return list.map(function(c){
+    return '<div class="res"><b>' + c.src + '</b> <span class="tag ' + statusTag(c.st) + '">' + c.st + '</span></div>';
+  }).join('');
+}
+function mindToolHTML(d){
+  var h = '';
+  h += '<p><b>العقل لا يضيف إلى القرآن ما ليس فيه، ولا يستبدل التفسير بالرأي؛ بل يساعدك على فحص الدليل، وتمييز النص من التفسير، والتفسير من الاستنتاج.</b></p>';
+  h += '<p class="hint">هنا لا نبحث عن إجابة جاهزة، بل نفحص ما نعرفه، ومصدر معرفتنا، وما يمكن استنتاجه، وما يزال سؤالًا مفتوحًا.</p>';
+  h += '<div class="group-label">أين ينتهي النص وأين يبدأ التفسير؟</div>';
+  h += d.aspects.map(function(x){
+    return '<div class="res"><b>' + x.t + '</b> <span class="tag ' + statusTag(x.st) + '">' + x.st + '</span><br><span class="hint">' + x.d + '</span></div>';
+  }).join('');
+  h += '<div class="group-label">أنواع الأدلة</div><p>' + d.evidenceTypes.map(function(t){ return '<span class="tag study">' + t + '</span>'; }).join(' ') + '</p>';
+  h += '<div class="group-label">درجة المعرفة</div>' + d.levels.map(function(l){
+    return '<div class="res"><b>' + l[0] + '</b><br><span class="hint">' + l[1] + '</span></div>';
+  }).join('');
+  h += '<div class="group-label">أسئلة تستحق التفكير</div>' + d.questions.map(function(q){ return '<div class="q">' + q + '</div>'; }).join('');
+  h += '<div class="group-label">قارن بنفسك</div><div id="mindCompareBody">' + compareRows(d.comparisons) + '</div>';
+  h += '<p class="hint">أوجه الاتفاق والاختلاف وسببها تُستخلص بقراءة النصوص في لوحة التفسير — لا يحسمها النظام ولا يختار فائزًا. <button class="more" style="display:inline" onclick="scrollToId(\'' + d.tid + '\')">اذهب للوحة التفسير</button></p>';
+  h += '<div class="group-label">افحص الفكرة</div><select class="qsel" id="claimSel" onchange="examineClaim(this.value)">' +
+    d.claims.map(function(c, i){ return '<option value="' + i + '">' + c.label + '</option>'; }).join('') + '</select><div id="claimBox"></div>';
+  h += '<div class="group-label">ماذا لم نفهم بعد؟</div>' + d.openQuestions.map(function(q){ return '<div class="q">' + q + '</div>'; }).join('');
+  h += '<hr class="divider"><p><b>بعد أن فحصت النص والدليل... ماذا تقول لك الآية؟</b></p><button class="btn" onclick="noteAya()">ابدأ تدبرك</button>';
+  return h;
+}
+function scrollToId(id){
+  var el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+}
+function examineClaim(i){
+  var box = document.getElementById('claimBox');
+  if(!box || !MIND_D || !MIND_D.claims[i]) return;
+  var c = MIND_D.claims[i];
+  var li = function(arr){ return arr.length ? arr.map(function(x){ return '<div class="q">' + x + '</div>'; }).join('') : '<p class="hint">—</p>'; };
+  box.innerHTML = '<div class="res"><b>الفكرة:</b> ' + c.label +
+    '<br><b>مصدرها:</b> ' + c.source +
+    '<br><b>نوع الدليل:</b> <span class="tag study">' + c.etype + '</span>' +
+    '<br><b>ما الذي يدعمها؟</b>' + li(c.sup) +
+    '<b>ما الذي يحتاج إلى تحقق؟</b>' + li(c.need) +
+    '<b>أين يبدأ الاستنتاج؟</b><div class="q">' + c.inf + '</div>' +
+    '<b>أسئلة مفتوحة:</b>' + li(c.open) + '</div>';
+}
+function updateMindComparisons(){
+  var el = document.getElementById('mindCompareBody');
+  if(!el || !MIND_D) return;
+  try{
+    var d = getMindData(MIND_D.verse.s, MIND_D.verse.a);
+    MIND_D.comparisons = d.comparisons;
+    el.innerHTML = compareRows(d.comparisons);
+  }catch(e){}
+}
+function fillMindDynamic(){
+  var el = document.getElementById('mindDynamic82');
+  if(!el || !QDATA || el.getAttribute('data-done')) return;
+  el.setAttribute('data-done', '1');
+  MIND_D = getMindData(4, 82);
+  el.innerHTML = mindToolHTML(MIND_D);
+}
+function buildVersePanels(){
+  var s = QDATA.surahs[CUR.s - 1];
+  var v = s.verses[CUR.a - 1];
+  var h = '';
+  h += '<div class="panel" id="panel-v-text"><h3>النص</h3><p class="v">'+v+'</p><p class="hint">سورة '+s.name+' — الآية '+arNum(CUR.a)+' · رسم عثماني</p></div>';
+  var words = v.split(/\s+/).filter(function(w){ return w; });
+  h += '<div class="panel" id="panel-v-words"><h3>الكلمات</h3><p class="hint">اضغط أي كلمة للبحث عن مواضعها في القرآن. التحليل الجذري والأوزان موثق حالياً لآية النساء 82 فقط.</p><div>'+
+    words.map(function(w){ return '<button class="wchip" onclick="wordSearch(this.textContent)">'+w+'</button>'; }).join('')+'</div></div>';
+  var cx = '';
+  for(var k = Math.max(0, CUR.a - 3); k < Math.min(s.verses.length, CUR.a + 2); k++){
+    if(k === CUR.a - 1) continue;
+    cx += '<div class="res" onclick="openAya('+s.n+','+(k+1)+')"><b>'+s.name+' ﴿'+arNum(k+1)+'﴾</b><br>'+s.verses[k]+'</div>';
+  }
+  h += '<div class="panel" id="panel-v-context"><h3>السياق — ما قبلها وما بعدها</h3>'+cx+'</div>';
+  var __L = linksFor(CUR.s, CUR.a);
+  var keys = __L.keys, rel = __L.rel, rare = __L.rare;
   h += '<div class="panel" id="panel-v-links"><h3>الترابط — آيات تشترك في ألفاظها</h3><p class="hint">مرتبة بتكرار الألفاظ المميزة مع تنويع السور.</p>'+(rel.length ? rel.map(function(r){
     return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…<br><span class="hint">رابط لفظي: '+r.hit.join('، ')+'</span></div>';
   }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
   h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3><div class="q">ما الذي لفت انتباهك في هذه الآية؟</div><div class="q">ما السؤال الذي أثارته لديك؟</div><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
-  h += mindHTML(s, (typeof rel === 'undefined' ? [] : rel), (typeof rare === 'undefined' ? '' : rare));
+  h += mindHTML();
   h += '<div class="panel" id="panel-v-irab"><h3>الإعراب</h3><div id="vIrabBody"><p class="hint">جارٍ التحميل…</p></div></div>';
   h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
   h += '<div class="panel" id="panel-v-hadith"><h3>الحديث — سبب النزول</h3><div id="vHadithBody"><p class="hint">جارٍ التحميل…</p></div></div>';
@@ -622,18 +764,10 @@ function horizonsHTML(){
   h += '<p class="hint">العدّ من النص العثماني في ملف الموقع. المواد العلمية والتاريخية المحررة قيد الجمع والتوثيق.</p>';
   return h;
 }
-function mindHTML(s, rel, rare){
-  rel = rel || [];
-  var dfc = 0;
-  try{ dfc = QDF[skel(rare || '')] || 0; }catch(e){}
-  var h = '<div class="panel" id="panel-v-mind"><h3>العقل — أسئلة للتفكير</h3>';
-  h += '<div class="q">هذه الآية (' + s.name + ' ﴿' + arNum(CUR.a) + '﴾) ترتيبها ' + arNum(CUR.a) + ' من ' + arNum(s.verses.length) + ' — هل موضعها في السياق يدعم فهمك؟</div>';
-  if(rare) h += '<div class="q">لفظ «' + rare + '» يرد بصيغته في ' + arNum(dfc) + ' آية — هل يقوّي تكراره أو تفرده هذا الفهم أم يضعفه؟</div>';
-  h += '<div class="q">لها ' + arNum(rel.length) + ' آيات مرتبطة لفظياً أعلاه — هل تؤيد فهمك أم تعارضه؟</div>';
-  h += '<div class="q">ما الدليل الذي يدعم فهمك لهذه الآية؟</div>';
-  h += '<div class="q">هل هذا المعنى حقيقة ثابتة أم احتمال؟ وهل هو تفسير منقول أم استنباط شخصي؟</div>';
-  h += '<div class="q">ما الفرق بين «يمكن أن يكون» و«هذا هو معنى الآية» هنا؟</div></div>';
-  return h;
+function mindHTML(){
+  MIND_D = getMindData(CUR.s, CUR.a);
+  if(!MIND_D) return '<div class="panel" id="panel-v-mind"><h3>العقل — أداة التفكير والتحقق</h3><p class="hint">جارٍ التحميل…</p></div>';
+  return '<div class="panel" id="panel-v-mind"><h3>العقل — أداة التفكير والتحقق</h3>' + mindToolHTML(MIND_D) + '</div>';
 }
 function emptyPanel(id, title){
   return '<div class="panel" id="'+id+'"><h3>'+title+'</h3><p class="hint">لا تتوفر حاليًا مادة موثقة لهذا القسم لهذه الآية.</p><button class="btn-ghost" onclick="setVerse(4,82)">استعرض مثالاً كاملاً: النساء 82</button></div>';
@@ -678,6 +812,7 @@ function renderVerseTafsir(){
       box.innerHTML = TAFSIRS.map(function(t2, j){
         return texts[j] ? tafsirCard(t2, texts[j]) : '<div class="res"><b>' + t2.n + '</b><br><p class="hint">تعذر التحميل — تحقق من الاتصال.</p></div>';
       }).join('');
+      updateMindComparisons();
     });
   });
 }
@@ -694,6 +829,7 @@ function fillFullTafsir82(){
       box.innerHTML = '<div class="group-label">النصوص الكاملة</div>' + TAFSIRS.map(function(t2, j){
         return texts[j] ? tafsirCard(t2, texts[j]) : '';
       }).join('');
+      updateMindComparisons();
     });
   });
 }
