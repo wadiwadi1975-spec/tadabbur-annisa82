@@ -499,8 +499,10 @@ function sigWords(t){
   norm(t).split(/\s+/).forEach(function(w){
     if(w.length >= 4 && !seen[w]){ seen[w] = 1; out.push(w); }
   });
-  return out.slice(0, 3);
+  return out.slice(0, 8);
 }
+function skel(w){ return w.replace(/ا/g, ''); }
+var QNORM = null, QSKELETON = null, QDF = null, QNTOT = 0;
 function buildVersePanels(){
   var s = QDATA.surahs[CUR.s - 1];
   var v = s.verses[CUR.a - 1];
@@ -517,21 +519,56 @@ function buildVersePanels(){
   h += '<div class="panel" id="panel-v-context"><h3>السياق — ما قبلها وما بعدها</h3>'+cx+'</div>';
   var keys = sigWords(v), rel = [];
   if(keys.length){
-    outer:
+    if(!QNORM){
+      QNORM = []; QSKELETON = []; QDF = {}; QNTOT = 0;
+      for(var qi = 0; qi < QDATA.surahs.length; qi++){
+        var suq = QDATA.surahs[qi], arr = [], skarr = [];
+        for(var qj = 0; qj < suq.verses.length; qj++){
+          var nvq = norm(suq.verses[qj]);
+          arr.push(nvq);
+          var skv = nvq.replace(/ا/g, '');
+          skarr.push(skv);
+          QNTOT++;
+          var seen2 = {};
+          skv.split(/\s+/).forEach(function(w){ if(w.length >= 2 && !seen2[w]){ seen2[w] = 1; QDF[w] = (QDF[w] || 0) + 1; } });
+        }
+        QNORM.push(arr); QSKELETON.push(skarr);
+      }
+    }
+    var idf = function(k){ var kk = skel(k); return Math.log(QNTOT / (QDF[kk] || 1)); };
+    var rare = keys[0];
+    keys.forEach(function(k){ if(idf(k) > idf(rare)) rare = k; });
+    var per = {}, cand = [];
     for(var i = 0; i < QDATA.surahs.length; i++){
       var su = QDATA.surahs[i];
       for(var j = 0; j < su.verses.length; j++){
         if(su.n === s.n && j === CUR.a - 1) continue;
-        var nv = norm(su.verses[j]);
+        var hit = [], sc = 0;
         for(var m = 0; m < keys.length; m++){
-          if(nv.indexOf(keys[m]) >= 0){ rel.push({s:su.n, sn:su.name, a:j+1, t:su.verses[j]}); break; }
+          var ksk = skel(keys[m]);
+          if(ksk.length >= 2 && QSKELETON[i][j].indexOf(ksk) >= 0){ hit.push(keys[m]); sc += idf(keys[m]); }
         }
-        if(rel.length >= 8) break outer;
+        if(hit.length) cand.push({s:su.n, sn:su.name, a:j+1, t:su.verses[j], sc:sc, hit:hit});
+      }
+    }
+    cand.sort(function(x, y){ return y.sc - x.sc; });
+    for(var c = 0; c < cand.length && rel.length < 6; c++){
+      var r = cand[c];
+      per[r.s] = (per[r.s] || 0) + 1;
+      if(per[r.s] <= 2) rel.push(r);
+    }
+    if(rel.length < 8){
+      for(var c2 = 0; c2 < cand.length && rel.length < 8; c2++){
+        var r2 = cand[c2];
+        if(r2.hit.indexOf(rare) >= 0 && rel.indexOf(r2) < 0 && (per[r2.s] || 0) < 2){
+          per[r2.s] = (per[r2.s] || 0) + 1;
+          rel.push(r2);
+        }
       }
     }
   }
-  h += '<div class="panel" id="panel-v-links"><h3>الترابط — آيات تشترك في ألفاظها</h3>'+(rel.length ? rel.map(function(r){
-    return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…</div>';
+  h += '<div class="panel" id="panel-v-links"><h3>الترابط — آيات تشترك في ألفاظها</h3><p class="hint">مرتبة بتكرار الألفاظ المميزة مع تنويع السور.</p>'+(rel.length ? rel.map(function(r){
+    return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…<br><span class="hint">رابط لفظي: '+r.hit.join('، ')+'</span></div>';
   }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
   h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3><div class="q">ما الذي لفت انتباهك في هذه الآية؟</div><div class="q">ما السؤال الذي أثارته لديك؟</div><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
   h += '<div class="panel" id="panel-v-mind"><h3>العقل — أسئلة للتفكير</h3><div class="q">ما الدليل الذي يدعم فهمك لهذه الآية؟</div><div class="q">هل اللغة تدعم هذا الفهم؟ راجع لوحة الكلمات أعلاه.</div><div class="q">هل السياق (ما قبلها وما بعدها) يدعمه؟</div><div class="q">هل هذا المعنى حقيقة ثابتة أم احتمال؟</div><div class="q">هل هو تفسير منقول أم استنباط شخصي؟</div><div class="q">ما الفرق بين «يمكن أن يكون» و«هذا هو معنى الآية» هنا؟</div></div>';
