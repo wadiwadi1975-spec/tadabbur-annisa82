@@ -1277,7 +1277,7 @@ function openSurahLink(n, a){
   loadQuran(function(){
     showSurah(n, a);
     var el = a ? document.getElementById('v'+n+'-'+a) : document.getElementById('surahView');
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+    if(el) el.scrollIntoView({behavior:'smooth', block: a ? 'center' : 'start'});
   });
 }
 function cycleFont(){
