@@ -114,6 +114,14 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .v .mark{color:var(--gold);font-size:1.1rem;}
 .v.hl{background:var(--gold-soft);border-radius:8px;}
 .wchip{background:var(--gold-soft);border:1px solid var(--gold);color:var(--ink);border-radius:16px;padding:4px 12px;margin:3px;font-family:'Scheherazade New','Amiri',serif;font-size:1.1rem;cursor:pointer;}
+.wchip.on{background:var(--gold);color:#141310;font-weight:800;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;}
+.chip{background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:18px;padding:6px 14px;font-family:inherit;cursor:pointer;font-size:.85rem;}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#141310;font-weight:800;}
+.tadq{background:var(--bg);border-inline-start:3px solid var(--gold);border-radius:8px;padding:8px 12px;margin:8px 0;}
+.nbitem{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.88rem;}
+.nbitem b{color:var(--gold);}
+.quiet{color:var(--muted);font-size:.78rem;}
 #surahView .v{cursor:pointer;border-radius:8px;padding:2px 6px;}
 #surahView .v:hover{background:var(--gold-soft);}
 .ayahead{background:var(--card);border:1px solid var(--gold);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px;}
@@ -426,6 +434,7 @@ const sections = [
     <textarea id="reflectionBox" placeholder="اكتب تأملك هنا..."></textarea>
     <br><button class="primary" onclick="saveReflection()">حفظ في دفتر التدبر</button>
     <div id="savedList"></div>
+    <div id="tadExtra82"></div>
   `}
 ];
 
@@ -448,6 +457,7 @@ function buildCuratedPanels(){
   fillDarwish82();
   renderAsbabInto(document.getElementById('asbab82'), 4, 82);
   fillMindDynamic();
+  fillTadabbur82();
 }
 
 function showTab(id){
@@ -473,9 +483,10 @@ function renderAyaHead(){
   var el = document.getElementById('ayaHead');
   if(!el) return;
   if(!QDATA){ el.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; loadQuran(renderAyaHead); return; }
+  if(!ayaText(CUR.s, CUR.a)){ el.innerHTML = '<p class="hint">الآية غير متوفرة.</p>'; return; }
   var is82 = (CUR.s === 4 && CUR.a === 82);
   el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'<div class="acts"><span onclick="listenAya()">🔊 استماع</span><span onclick="saveAya(this)">🔖 حفظ</span><span onclick="shareAyaText()">↗ مشاركة</span><span onclick="noteAya()">✍️ ملاحظة</span><span onclick="journeyAya()">🧭 رحلة التدبر</span></div></div>';
-  if(is82){ if(!CURATED) buildCuratedPanels(); fillMindDynamic(); }
+  if(is82){ if(!CURATED) buildCuratedPanels(); fillMindDynamic(); fillTadabbur82(); }
   else { CURATED = false; buildVersePanels(); }
 }
 function verseKey(){ return 'tadabbur_aya_'+CUR.s+'_'+CUR.a; }
@@ -569,7 +580,9 @@ var MIND_D = null;
 function getMindData(s, a){
   if(!QDATA) return null;
   var su = QDATA.surahs[s - 1];
+  if(!su) return null;
   var v = su.verses[a - 1];
+  if(!v) return null;
   var words = v.split(/\s+/).filter(function(w){ return w; });
   var L = linksFor(s, a);
   var dfc = 0;
@@ -700,7 +713,8 @@ function fillMindDynamic(){
 }
 function buildVersePanels(){
   var s = QDATA.surahs[CUR.s - 1];
-  var v = s.verses[CUR.a - 1];
+  var v = s && s.verses[CUR.a - 1];
+  if(!s || !v){ panelsEl.innerHTML = '<div class="panel"><h3>الآية غير متوفرة</h3><p class="hint">تعذر تحميل نص هذه الآية.</p></div>'; return; }
   var h = '';
   h += '<div class="panel" id="panel-v-text"><h3>النص</h3><p class="v">'+v+'</p><p class="hint">سورة '+s.name+' — الآية '+arNum(CUR.a)+' · رسم عثماني</p></div>';
   var words = v.split(/\s+/).filter(function(w){ return w; });
@@ -717,7 +731,7 @@ function buildVersePanels(){
   h += '<div class="panel" id="panel-v-links"><h3>الترابط — آيات تشترك في ألفاظها</h3><p class="hint">مرتبة بتكرار الألفاظ المميزة مع تنويع السور.</p>'+(rel.length ? rel.map(function(r){
     return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…<br><span class="hint">رابط لفظي: '+r.hit.join('، ')+'</span></div>';
   }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
-  h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3><div class="q">ما الذي لفت انتباهك في هذه الآية؟</div><div class="q">ما السؤال الذي أثارته لديك؟</div><p class="hint">تأملك محفوظ لهذه الآية بعينها.</p><textarea id="vReflectionBox" placeholder="اكتب تأملك هنا..."></textarea><br><button class="primary" onclick="saveVerseReflection()">حفظ في دفتر التدبر</button><div id="vSavedList"></div></div>';
+  h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3>' + buildTadabburTool() + '</div>';
   h += mindHTML();
   h += '<div class="panel" id="panel-v-irab"><h3>الإعراب</h3><div id="vIrabBody"><p class="hint">جارٍ التحميل…</p></div></div>';
   h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
@@ -730,6 +744,7 @@ function buildVersePanels(){
   renderVerseTafsir();
   renderVerseIrab();
   renderVerseHadith();
+  renderTadLists();
 }
 var VERIFIED_NUM = {
   '1:1': [{title:'حروف البسملة 19', tag:'حقيقة نصية قابلة للتحقق',
@@ -888,6 +903,212 @@ function renderAsbabInto(el, s, a){
 function renderVerseHadith(){
   renderAsbabInto(document.getElementById('vHadithBody'), CUR.s, CUR.a);
 }
+var TAD_SEL = {}, TAD_WORDS = {};
+var PROMPTS = [
+  {id:'word', t:'كلمة استوقفتني'},
+  {id:'expr', t:'تعبير لفت انتباهي'},
+  {id:'meaning', t:'معنى جديد فهمته'},
+  {id:'link', t:'علاقة بآية أخرى'},
+  {id:'unnoticed', t:'شيء لم أنتبه إليه'},
+  {id:'question', t:'سؤال نشأ في ذهني'}
+];
+var SCHOLAR_NAMES = ['الطبري','القرطبي','ابن كثير','البغوي','الشعراوي','ابن تيمية','الغزالي','الرازي','السعدي','الشنقيطي','ابن عاشور','الشافعي','مالك بن أنس','أحمد بن حنبل','أبو حنيفة','السيوطي','الواحدي'];
+try{ SCHOLARS.forEach(function(p){ if(SCHOLAR_NAMES.indexOf(p.name) < 0) SCHOLAR_NAMES.push(p.name); }); }catch(e){}
+function tadVerse(){ return {s:CUR.s, a:CUR.a, sn:surahName(CUR.s), text:ayaText(CUR.s, CUR.a) || ''}; }
+function togglePrompt(id, el){
+  TAD_SEL[id] = !TAD_SEL[id];
+  if(el) el.classList.toggle('on', !!TAD_SEL[id]);
+  renderTadChosen();
+}
+function renderTadChosen(){
+  var el = document.getElementById('tadChosen');
+  if(!el) return;
+  var names = [];
+  PROMPTS.forEach(function(p){ if(TAD_SEL[p.id]) names.push(p.t); });
+  el.textContent = names.length ? 'اخترت: ' + names.join('، ') : '';
+}
+function toggleWord(el){
+  var w = el.textContent;
+  if(TAD_WORDS[w]) delete TAD_WORDS[w]; else TAD_WORDS[w] = 1;
+  el.classList.toggle('on', !!TAD_WORDS[w]);
+}
+function tadQuestions(){
+  var V = tadVerse();
+  var ref = V.sn + ' ﴿' + V.a + '﴾';
+  var first3 = V.text.split(/\s+/).slice(0, 3).join(' ');
+  var q = [
+    'أين ترى معنى «' + first3 + '…» في حياتك؟',
+    'هل في سلوكك ما تجعلك هذه الآية (' + ref + ') تراجعه؟',
+    'كيف تغيّر هذه الآية طريقة تعاملك مع الناس؟',
+    'ما المبدأ في هذه الآية الذي يعينك على قرارك الحالي؟',
+    'ماذا تراجع في علاقتك بالله بعد ' + ref + '؟'
+  ];
+  var names = [];
+  PROMPTS.forEach(function(p){ if(TAD_SEL[p.id]) names.push(p.t); });
+  if(names.length) q.push('بناءً على اختيارك (' + names.join('، ') + '): صِغ سؤالك الخاص في مربع التأمل أدناه.');
+  try{
+    var L = linksFor(V.s, V.a);
+    if(L.rel.length) q.push('ما علاقتك الشخصية بما في ' + L.rel[0].sn + ' ﴿' + L.rel[0].a + '﴾ المرتبطة بهذه الآية؟');
+  }catch(e){}
+  return q;
+}
+function tadOpenHTML(){
+  try{
+    var d = getMindData(CUR.s, CUR.a);
+    if(!d || !d.openQuestions || !d.openQuestions.length) throw 0;
+    return d.openQuestions.map(function(q){ return '<div class="tadq">' + q + '</div>'; }).join('');
+  }catch(e){ return '<p class="hint">لا تتوفر حاليًا مادة موثقة كافية لبناء سؤال إضافي حول هذه النقطة.</p>'; }
+}
+function buildTadabburTool(){
+  if(!QDATA) return '<p class="hint">جارٍ التحميل…</p>';
+  var V = tadVerse();
+  if(!V.text) return '<p class="hint">الآية غير متوفرة.</p>';
+  var qs = tadQuestions();
+  var words = V.text.split(/\s+/).filter(function(w){ return w; });
+  var h = '';
+  h += '<p><b>التدبر لك، وليس للآلة.</b></p>';
+  h += '<div class="ayahead"><div class="an">سورة ' + V.sn + ' — الآية ' + arNum(V.a) + '</div><div class="at">' + V.text + '</div></div>';
+  h += '<div class="tadq"><b>توقف قليلًا...</b><br>بعد أن قرأت الآية، وفهمت لغتها وسياقها، واطلعت على أقوال العلماء والقراءات المختلفة، خذ لحظة لتتأمل بنفسك.<br><br><button class="btn" onclick="scrollToId(\'tadPrompts\')">ابدأ التدبر</button></div>';
+  h += '<div class="group-label" id="tadPrompts">ماذا لفت انتباهك؟ (اختر ما يناسبك)</div><div class="chips">' +
+    PROMPTS.map(function(p){ return '<button class="chip' + (TAD_SEL[p.id] ? ' on' : '') + '" onclick="togglePrompt(\'' + p.id + '\',this)">' + p.t + '</button>'; }).join('') + '</div><div id="tadChosen" class="hint"></div>';
+  h += '<div class="group-label">أسئلة تدبر شخصية</div>' + qs.map(function(q){ return '<div class="tadq">' + q + '</div>'; }).join('');
+  h += '<div class="group-label">السؤال الذي أجيب عنه</div><select class="qsel" id="tadQ">' +
+    qs.map(function(q, i){ return '<option value="' + i + '">' + q + '</option>'; }).join('') + '</select>';
+  h += '<div class="group-label">الكلمات التي اخترتها</div><div>' +
+    words.map(function(w){ return '<button class="wchip' + (TAD_WORDS[w] ? ' on' : '') + '" onclick="toggleWord(this)">' + w + '</button>'; }).join(' ') + '</div>';
+  h += '<div class="group-label">تأملي الشخصي</div><p class="hint">ما الذي تقوله لك هذه الآية بعد أن قرأتها وفهمت سياقها؟</p>' +
+    '<textarea id="tadBox" placeholder="اكتب تأملك هنا..."></textarea>' +
+    '<br><button class="primary" onclick="classifyTadabbur()">افحص تأملي</button> <span class="hint">تصنيف لغوي فقط — لا حكم ديني.</span><div id="tadClassify"></div>';
+  h += '<div class="group-label">تأملك السابق</div><div id="tadPrev"></div>';
+  h += '<div class="group-label">هل تغير فهمي؟ (اختياري)</div><textarea id="tadChange" style="min-height:60px" placeholder="اكتب ما تغير إن وجد..."></textarea>';
+  h += '<div class="group-label">خطوة عملية</div><p class="hint">بعد هذه الآية، ما الشيء الواحد الذي تريد أن تفعله أو تراجعه في حياتك؟</p><textarea id="tadStep" style="min-height:60px" placeholder="سأعمل على..."></textarea>';
+  h += '<br><button class="primary" onclick="saveTadabbur()">احفظ في دفتر التدبر</button><div id="tadSaved"></div>';
+  h += '<div class="group-label">تأملاتي في هذه الآية</div><div id="tadList"></div>';
+  h += '<div class="group-label">دفتر التدبر — كل التأملات</div><div class="searchrow"><input id="tadNbQ" placeholder="بحث: سورة / آية / تاريخ / كلمة..." oninput="renderNotebook()"></div><div id="tadNbList"></div>';
+  h += '<div class="group-label">ما الذي ما زال يشغلك؟</div><div id="tadOpen">' + tadOpenHTML() + '</div>';
+  h += '<p class="quiet">التدبر مساحة للتأمل الشخصي في ضوء النص وما توفر من مصادر، وليس بديلًا عن التفسير المتخصص أو الفتوى.</p>';
+  h += '<p style="text-align:center"><b>قد لا تكون نهاية التدبر إجابة... أحيانًا تكون سؤالًا أفضل.</b></p>';
+  return h;
+}
+function tadQuestionAt(){
+  try{
+    var sel = document.getElementById('tadQ');
+    if(sel && sel.options && sel.options[sel.selectedIndex]) return sel.options[sel.selectedIndex].text;
+  }catch(e){}
+  return '';
+}
+function saveTadabbur(){
+  var text = '';
+  try{ text = (document.getElementById('tadBox').value || '').trim(); }catch(e){}
+  if(!text) return;
+  var e = {
+    date:(function(){ try{ return new Date().toLocaleDateString('ar-KW'); }catch(x){ return ''; } })(),
+    text:text, q:tadQuestionAt(),
+    prompts:Object.keys(TAD_SEL).filter(function(k){ return TAD_SEL[k]; }),
+    words:Object.keys(TAD_WORDS),
+    step:'', change:'', s:CUR.s, a:CUR.a
+  };
+  try{ e.step = (document.getElementById('tadStep').value || '').trim(); }catch(x){}
+  try{ e.change = (document.getElementById('tadChange').value || '').trim(); }catch(x){}
+  try{
+    var list = loadVerseRefs();
+    list.unshift(e);
+    localStorage.setItem(verseKey(), JSON.stringify(list));
+  }catch(err){ return; }
+  TAD_SEL = {}; TAD_WORDS = {};
+  try{
+    document.getElementById('tadBox').value = '';
+    document.getElementById('tadStep').value = '';
+    document.getElementById('tadChange').value = '';
+    document.querySelectorAll('.chip.on, .wchip.on').forEach(function(c){ c.classList.remove('on'); });
+  }catch(x){}
+  var sv = document.getElementById('tadSaved');
+  if(sv) sv.innerHTML = '<p class="hint">✓ حُفظ في دفتر التدبر.</p>';
+  renderTadLists();
+}
+function classifyText(t){
+  var i, names = SCHOLAR_NAMES;
+  for(i = 0; i < names.length; i++) if(t.indexOf(names[i]) >= 0)
+    return {t:'قول منسوب', m:'ذكرت اسم عالم أو مصدر — تحقق من صحة النسبة من المصدر نفسه قبل اعتمادها، ولا تفترض صحتها.'};
+  if(/قطعًا|قطعا|إنما|لا شك|بالتأكيد|حتمًا|حتما|من المؤكد|الآية تعني|معنى الآية هو|لا خلاف/.test(t))
+    return {t:'تفسير يحتاج إلى مصدر', m:'هذه صياغة تفسيرية حاسمة. يمكنك مراجعة قسم التفسير والمصادر لمعرفة الأقوال الموثقة حول هذا المعنى.'};
+  if(/لذلك|إذن|وهذا يدل|استنتج|نستنتج|يدل على|فالنتيجة/.test(t))
+    return {t:'استنتاج', m:'هذا استنتاج شخصي مبني على فهمك — يُعرض كاحتمال يُناقَش لا كيقين.'};
+  return {t:'تأمل شخصي', m:'هذا تأمل شخصي جميل. يمكنك الاحتفاظ به في دفتر التدبر.'};
+}
+function classifyTadabbur(){
+  var box = document.getElementById('tadClassify');
+  if(!box) return;
+  var t = '';
+  try{ t = (document.getElementById('tadBox').value || '').trim(); }catch(e){}
+  if(!t){ box.innerHTML = '<p class="hint">اكتب تأملك أولًا ثم افحصه.</p>'; return; }
+  var c = classifyText(t);
+  box.innerHTML = '<div class="res"><b>' + c.t + '</b><br><span class="hint">' + c.m + '</span></div>';
+}
+function surahNameOf(s){ try{ return QDATA.surahs[s-1].name; }catch(e){ return ''; } }
+function gatherNotebook(){
+  var all = [];
+  try{
+    var raw = localStorage.getItem('tadabbur_annisa82');
+    (raw ? JSON.parse(raw) : []).forEach(function(e){ e.s = 4; e.a = 82; e.legacy = true; all.push(e); });
+  }catch(e){}
+  try{
+    var keys = Object.keys(localStorage);
+    for(var i = 0; i < keys.length; i++){
+      var k = keys[i];
+      if(k.indexOf('tadabbur_aya_') !== 0) continue;
+      var parts = k.split('_'), list = [];
+      try{ list = JSON.parse(localStorage.getItem(k)) || []; }catch(e2){}
+      list.forEach(function(e){ e.s = parseInt(parts[2], 10); e.a = parseInt(parts[3], 10); all.push(e); });
+    }
+  }catch(e){}
+  return all;
+}
+function renderNotebook(){
+  var box = document.getElementById('tadNbList');
+  if(!box) return;
+  var q = '';
+  try{ q = ((document.getElementById('tadNbQ') || {}).value || '').trim(); }catch(e){}
+  var all = gatherNotebook();
+  if(q) all = all.filter(function(e){
+    var hay = (surahNameOf(e.s) + ' ' + e.s + ' ' + e.a + ' ' + (e.date || '') + ' ' + (e.text || '') + ' ' + (e.step || '')).toLowerCase();
+    return hay.indexOf(q.toLowerCase()) >= 0;
+  });
+  box.innerHTML = all.length ? all.map(function(e){
+    return '<div class="nbitem"><b>' + surahNameOf(e.s) + ' ﴿' + e.a + '﴾</b> <span class="quiet">' + (e.date || '') + '</span><br>' +
+      esc(e.text || '') +
+      (e.q ? '<br><span class="quiet">أجاب عن: ' + esc(e.q) + '</span>' : '') +
+      (e.step ? '<br><span class="quiet">خطوته: ' + esc(e.step) + '</span>' : '') +
+      ' <button class="more" style="display:inline" onclick="openAya(' + e.s + ',' + e.a + ')">افتح الآية</button></div>';
+  }).join('') : '<p class="hint">لا تأملات بعد — ابدأ من أي آية.</p>';
+}
+function renderTadLists(){
+  try{
+    var list = loadVerseRefs();
+    var prev = document.getElementById('tadPrev');
+    if(prev) prev.innerHTML = list.length
+      ? '<div class="nbitem"><b>تأملك السابق</b> <span class="quiet">' + (list[0].date || '') + '</span><br>' + esc(list[0].text || '') + '<br><span class="quiet">ماذا كنت ترى في هذه الآية حينها؟</span></div><button class="more" style="display:inline" onclick="var b=document.getElementById(\'tadBox\');if(b){b.scrollIntoView({behavior:\'smooth\',block:\'center\'});b.focus();}">أكتب تأملًا جديدًا</button>'
+      : '<p class="hint">لا تأملات سابقة لهذه الآية بعد.</p>';
+  }catch(e){}
+  try{
+    var box = document.getElementById('tadList');
+    if(box) box.innerHTML = loadVerseRefs().map(function(e){
+      return '<div class="nbitem"><span class="quiet">' + (e.date || '') + '</span><br>' + esc(e.text || '') +
+        (e.q ? '<br><span class="quiet">أجاب عن: ' + esc(e.q) + '</span>' : '') +
+        (e.step ? '<br><span class="quiet">خطوته: ' + esc(e.step) + '</span>' : '') +
+        (e.change ? '<br><span class="quiet">تغيّر فهمه: ' + esc(e.change) + '</span>' : '') + '</div>';
+    }).join('') || '<p class="hint">—</p>';
+  }catch(e){}
+  try{ renderNotebook(); }catch(e){}
+  try{ renderTadChosen(); }catch(e){}
+}
+function fillTadabbur82(){
+  var el = document.getElementById('tadExtra82');
+  if(!el || !QDATA || el.getAttribute('data-done')) return;
+  el.setAttribute('data-done', '1');
+  el.innerHTML = buildTadabburTool();
+  renderTadLists();
+}
 function wordSearch(w){
   w = (w || '').trim();
   if(!w) return;
@@ -897,6 +1118,7 @@ function wordSearch(w){
 }
 function setVerse(s,a){
   CUR = {s:parseInt(s,10), a:parseInt(a,10)};
+  TAD_SEL = {}; TAD_WORDS = {};
   try{ location.hash = '#/'+CUR.s+'/'+CUR.a; }catch(e){}
   renderAyaHead();
   document.getElementById('study').scrollIntoView({behavior:'smooth'});
@@ -1097,7 +1319,7 @@ function shareAyaText(){
 function noteAya(){
   var is82 = (CUR.s === 4 && CUR.a === 82);
   if(is82) gotoStudy('tadabbur');
-  var box = document.getElementById(is82 ? 'reflectionBox' : 'vReflectionBox');
+  var box = document.getElementById('tadBox');
   if(box){ box.scrollIntoView({behavior:'smooth', block:'center'}); box.focus(); }
 }
 function journeyAya(){
