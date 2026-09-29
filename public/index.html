@@ -176,7 +176,7 @@ footer a{color:var(--gold);text-decoration:none;}
       <a href="#quran-sec">بحث عن سورة</a>
     </div></div>
     <a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a>
-    <a href="#about">حول المشروع</a>
+    <a href="#/about">حول المشروع</a>
   </div>
   <button class="iconbtn" onclick="document.getElementById('savedSec').scrollIntoView({behavior:'smooth'})" title="المحفوظات">🔖</button>
   <button class="iconbtn" onclick="cycleFont()" title="حجم الخط">⚙️</button>
@@ -266,7 +266,159 @@ footer a{color:var(--gold);text-decoration:none;}
   <footer id="about">
     <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
     <div>القرآن نور... والتدبر حياة</div>
-    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a></div>
+    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
+    <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
+  </footer>
+</div>
+
+<div class="wrap" id="aboutView" style="display:none">
+  <section class="sec">
+    <div class="eyebrow" style="color:var(--gold)">حول المشروع</div>
+    <h2 class="sec-t" style="font-size:2.2rem">أفلا يتدبرون القرآن</h2>
+    <p class="sub"><b>من القراءة إلى الفهم... ومن الفهم إلى التدبر</b></p>
+    <p class="sub">مشروع معرفي يساعدك على الاقتراب من الآية من أكثر من زاوية: النص، واللغة، والإعراب، والسياق، والتفسير، وأسباب النزول، والقراءات المختلفة، والبحث المعاصر، ثم يترك لك مساحة التفكير والتدبر.</p>
+    <p style="text-align:center"><button class="btn" onclick="goSec('quran-sec')">ابدأ رحلة التدبر</button> <button class="btn-ghost" onclick="scrollToId('about-method')">اكتشف منهج المشروع</button></p>
+    <div class="orn">— ✦ —</div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">لماذا هذا المشروع؟</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>قراءة القرآن ليست نهاية الرحلة.</p>
+      <p>قد نقرأ الآية، ونفهم كلماتها، ثم نمر عليها دون أن نتوقف طويلًا عند سياقها أو تركيبها أو اختلاف المفسرين في فهمها أو صلتها بآيات أخرى.</p>
+      <p>جاء هذا المشروع ليجمع هذه المسارات حول الآية نفسها، بحيث يستطيع القارئ أن ينتقل من القراءة إلى الفهم، ومن الفهم إلى الربط، ومن الربط إلى التفكير، ومن التفكير إلى التدبر.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">الآية هي نقطة البداية</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>الموقع لا يبدأ من اسم المفسر ثم يبحث عن الآيات، بل يبدأ من <b>الآية المختارة</b> ثم يبحث تلقائيًا في المصادر والمواد المرتبطة بها.</p>
+      <p style="text-align:center"><b>القرآن ← السورة ← الآية ← رحلة الآية</b></p>
+      <p style="text-align:center">لغة ← إعراب ← سياق ← تفسير ← أسباب النزول ← الآخرون ← ترابط ← آفاق ← عقل ← تدبر</p>
+    </div>
+  </section>
+
+  <section class="sec" id="about-method">
+    <h2 class="sec-t">رحلة الآية في عشر مراحل</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="res"><b>01 — لغة:</b> اكتشف الكلمات والجذور والمعاني والاستعمال القرآني.</div>
+    <div class="res"><b>02 — إعراب:</b> افهم تركيب الجملة والعلاقات النحوية وأثرها في المعنى.</div>
+    <div class="res"><b>03 — سياق:</b> اقرأ الآية ضمن ما قبلها وما بعدها والمقطع الذي تنتمي إليه.</div>
+    <div class="res"><b>04 — تفسير:</b> اطلع على أقوال المفسرين وقارن بينها مع الحفاظ على نسبة كل قول إلى مصدره.</div>
+    <div class="res"><b>05 — أسباب النزول:</b> تعرّف على الروايات المتعلقة بسبب النزول مع التمييز بين الثابت والمختلف فيه والضعيف.</div>
+    <div class="res"><b>06 — الآخرون:</b> اطلع على قراءات الباحثين والمفكرين المعاصرين عندما توجد مادة موثقة مرتبطة بالآية.</div>
+    <div class="res"><b>07 — ترابط:</b> اكتشف العلاقات بين الآيات والكلمات والسياقات.</div>
+    <div class="res"><b>08 — آفاق:</b> استكشف الصلات العلمية والتاريخية والمعاصرة مع التمييز بين الحقيقة والبحث والاستنتاج والاحتمال.</div>
+    <div class="res"><b>09 — العقل:</b> افحص الدليل، وميز بين النص والتفسير والاستنتاج، واسأل ما الذي نعرفه وما الذي ما زال يحتاج إلى بحث.</div>
+    <div class="res"><b>10 — تدبر:</b> بعد كل ذلك، خذ مساحة خاصة بك لتتأمل وتكتب وتراجع وتطبق.</div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">المصادر أولًا</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>الموقع لا يعتبر الذكاء الاصطناعي مصدرًا دينيًا. المصادر الأصلية هي الأساس، وقد تأتي المادة من: كتب التفسير، كتب أسباب النزول، كتب اللغة، كتب الإعراب، مصادر الحديث، المصادر الأكاديمية، المصادر التاريخية، المصادر العلمية، والمواد المنشورة للباحثين والمفكرين — مع ضرورة ذكر <b>المؤلف + المصدر + الرابط عند توفره</b>.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">التفاسير التراثية</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>يستفيد المشروع من تفاسير مثل: <b>الطبري، ابن كثير، القرطبي، والبغوي</b> عند توفر المادة، مع الحفاظ على نسبة الأقوال إلى أصحابها. وإذا كان النص معروضًا بتلخيص كُتب بوضوح: <b>«تلخيص للمادة المصدرية»</b> ولا يُعرض التلخيص على أنه النص الأصلي.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">القراءات الأخرى</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>«الآخرون» ليست قائمة بأشخاص نمنحهم سلطة تفسيرية مساوية للتفاسير التراثية، بل مساحة لفحص قراءات معاصرة وأبحاث ومحاضرات ومقالات وكتب وأفكار مرتبطة بالآية — وكل مادة يجب أن تكون مرتبطة بمصدر، وإلا بقيت <b>«بانتظار مصدر»</b> ولا تُخترع المادة.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">ماذا نفعل عندما لا نعرف؟</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p><b>عدم وجود معلومة في الموقع لا يعني عدم وجودها في المصادر، كما أن وجود معلومة في مصدر واحد لا يعني بالضرورة ثبوتها.</b></p>
+      <p><span class="tag fact">موثق</span> مصدر واضح يمكن الرجوع إليه.</p>
+      <p><span class="tag study">مختلف فيه</span> توجد روايات أو أقوال متعددة.</p>
+      <p><span class="tag reading">يحتاج إلى تحقق</span> المادة موجودة لكن التحقق لم يكتمل.</p>
+      <p><span class="tag infer">احتمال</span> طرح قابل للنقاش وليس حقيقة مثبتة.</p>
+      <p><span class="tag reflect">بانتظار مصدر</span> لا توجد مادة موثوقة حاليًا.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">ما دور الذكاء الاصطناعي؟</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p><b>يستخدم المشروع الذكاء الاصطناعي كأداة للبحث والتنظيم والمقارنة وتوليد الأسئلة، وليس كمصدر مستقل للتفسير أو الحكم الديني.</b></p>
+      <p><b>يساعد في:</b> تنظيم المعلومات، ربط الآية بالمصادر، مقارنة الأقوال، اكتشاف المواد المرتبطة بالآية، توليد أسئلة للتفكير، تنظيم تأملات المستخدم، تسهيل البحث.</p>
+      <p><b>لكنه لا:</b> يخترع آيات أو أحاديث أو أسباب نزول، ولا ينسب قولًا إلى عالم دون مصدر، ولا يقدم رأيه على أنه تفسير، ولا يحوّل الاحتمال إلى حقيقة، ولا يحسم الخلافات العلمية أو التفسيرية من تلقاء نفسه.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">النص القرآني</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>يُعرض النص القرآني من مصدر موثوق (Tanzil — رسم عثماني) دون تعديل لأجل التصميم، ولا يُعاد صياغته على أنه نص قرآني. وهناك فصل بصري واضح بين: <b>النص القرآني</b> و<b>الشرح</b> و<b>التفسير</b> و<b>الاستنتاج</b>.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">التدبر لك، وليس للآلة</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>بعد أن نضع بين يديك النص واللغة والسياق والتفسير والدليل، لا نريد أن نغلق الطريق بإجابة جاهزة. التدبر مساحة شخصية: قد تصل إلى فهم جديد، أو سؤال جديد، أو تكتشف جانبًا لم تنتبه إليه، أو تراجع أمرًا في حياتك. لذلك لا يقدم الموقع تدبرًا واحدًا باعتباره التدبر الصحيح، ولا يصادر مساحة القارئ في التفكير.</p>
+      <p style="text-align:center"><button class="btn" onclick="goSec('study');gotoStudy('tadabbur')">ابدأ تدبرك</button></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="philo"><b>نقرأ لكي نفهم.</b><br><b>نفهم لكي نربط.</b><br><b>نربط لكي نسأل.</b><br><b>نسأل لكي نتدبر.</b><br><b>ونتدبر لكي نراجع أنفسنا.</b></p>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">ما الذي لا نريده؟</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>ليس بديلًا عن كتب التفسير. ليس فتوى إلكترونية. ليس محركًا لإنتاج أقوال دينية من دون مصادر. ليس منصة لإثبات كل فكرة علمية بالقرآن. ليس مساحة لتفضيل عالم على آخر. ليس مكانًا لفرض قراءة واحدة عندما يكون هناك خلاف معتبر. وليس مجرد قارئ قرآن.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">ماذا نريد أن يكون؟</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>مساحة معرفية تساعد القارئ على أن يقترب من الآية من أكثر من باب، ويعرف مصدر ما يقرأ، ويميز بين النص والتفسير والاستنتاج، ثم يجد مساحة هادئة للتفكر والتدبر.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">الشفافية</h2>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <p>لكل معلومة: مصدرها، صاحب القول، نوع المادة، هل هي نص أم تلخيص، حقيقة أم استنتاج، موثقة أم تحتاج إلى تحقق. لا نخفي مستوى عدم اليقين.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-t">ابدأ من آية</h2>
+    <p class="sub">اختر آية واحدة فقط... ودعنا نرى كم بابًا يمكن أن تفتح.</p>
+    <p style="text-align:center"><button class="btn" onclick="goSec('quran-sec')">افتح القرآن</button></p>
+    <p style="text-align:center"><b>قد لا تكون نهاية التدبر إجابة... أحيانًا تكون سؤالًا أفضل.</b></p>
+  </section>
+
+  <footer>
+    <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
+    <div>القرآن نور... والتدبر حياة</div>
+    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a></div>
     <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
   </footer>
 </div>
@@ -1455,8 +1607,48 @@ function randomAya(){
   if(!pick) return;
   box.innerHTML = '<div class="daily"><div class="dt">'+pick.t+'</div><div style="color:var(--muted)">'+pick.sn+' ﴿'+arNum(pick.a)+'﴾</div><br><button class="btn" onclick="openSurahLink('+pick.s+','+pick.a+')">ابدأ رحلة التدبر</button></div>';
 }
+function currentRoute(){ try{ return location.hash || ''; }catch(e){ return ''; } }
+function showView(v){
+  var home = document.getElementById('home'), about = document.getElementById('aboutView');
+  if(!home || !about) return;
+  if(v === 'about'){ home.style.display = 'none'; about.style.display = ''; }
+  else { about.style.display = 'none'; home.style.display = ''; }
+}
+function goSec(id){ showView('home'); var el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+function routeFromHash(scroll){
+  var h = currentRoute();
+  if(h === '#/about'){ showView('about'); if(scroll !== false){ try{ window.scrollTo(0, 0); }catch(e){} } return; }
+  showView('home');
+  var m = h.match(/^#\/(\d+)\/(\d+)$/);
+  if(m && typeof QDATA !== 'undefined' && QDATA){
+    try{
+      var s = parseInt(m[1], 10), a = parseInt(m[2], 10);
+      if(QDATA.surahs[s-1] && QDATA.surahs[s-1].verses[a-1] && (CUR.s !== s || CUR.a !== a)){
+        CUR = {s:s, a:a}; renderAyaHead();
+      }
+    }catch(e){}
+  }
+}
+if(typeof window !== 'undefined' && window.addEventListener) window.addEventListener('hashchange', function(){ routeFromHash(true); });
+document.addEventListener('click', function(e){
+  var t = null;
+  try{ t = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null; }catch(x){}
+  if(!t) return;
+  var href = t.getAttribute('href');
+  if(href === '#/about'){
+    e.preventDefault();
+    try{ history.replaceState(null, '', '#/about'); }catch(x){ try{ location.hash = '#/about'; }catch(y){} }
+    routeFromHash(true);
+    return;
+  }
+  if(href.charAt(1) === '/') return;
+  var el = document.getElementById(href.slice(1));
+  if(!el) return;
+  showView('home');
+});
 buildCuratedPanels();
 loadQuran();
+routeFromHash(false);
 </script>
 </body>
 </html>
