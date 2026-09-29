@@ -178,8 +178,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a>
     <a href="#about">حول المشروع</a>
   </div>
-  <button class="iconbtn" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" title="حول المشروع">👤</button>
-  <button class="iconbtn" onclick="gotoStudy('tadabbur')" title="المحفوظات">🔖</button>
+  <button class="iconbtn" onclick="document.getElementById('savedSec').scrollIntoView({behavior:'smooth'})" title="المحفوظات">🔖</button>
   <button class="iconbtn" onclick="cycleFont()" title="حجم الخط">⚙️</button>
   <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" title="المظهر">🌙</button>
 </div></nav>
@@ -222,6 +221,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <h2 class="sec-t">القرآن الكريم</h2>
     <p class="sub">اختر سورة لعرض آياتها بالرسم العثماني.</p>
     <div class="orn">— ✦ —</div>
+    <div class="qbox" id="savedSec" style="margin-bottom:14px;"><h3>🔖 المحفوظات</h3><div class="sgrid" id="savedBlock" style="max-height:160px;"><p class="hint">لا محفوظات بعد.</p></div></div>
     <div class="qgrid2">
       <div class="qbox">
         <h3>📖 جميع السور</h3>
@@ -309,7 +309,7 @@ const sections = [
     <p><b>الطبري:</b> يربط التدبر باتساق معاني القرآن وائتلاف أحكامه وتصديق بعضه بعضًا.</p>
     <p><b>ابن كثير:</b> يفسر «الاختلاف» بالاضطراب والتضاد والتعارض المنفيّين عن القرآن.</p>
     <p><b>القرطبي:</b> يوسّع معنى التدبر إلى التفكر في المعاني والعواقب، ويميز بين اختلاف التناقض واختلاف ألفاظ القراءات.</p>
-    <span class="tag fact">نقل موثق عن المصادر الثلاثة</span>
+    <span class="tag fact">تلخيص موثق للمصادر الثلاثة — تلخيص للمادة المصدرية (النصوص الكاملة بالأسفل)</span>
     <hr class="divider">
     <p><b>الاتفاق:</b> التدبر + سلامة القرآن من التناقض. <b>الاختلاف:</b> زاوية العرض فقط، لا التعارض.</p>
     <div id="contempTafsir82"></div>
@@ -485,7 +485,7 @@ function renderAyaHead(){
   if(!QDATA){ el.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; loadQuran(renderAyaHead); return; }
   if(!ayaText(CUR.s, CUR.a)){ el.innerHTML = '<p class="hint">الآية غير متوفرة.</p>'; return; }
   var is82 = (CUR.s === 4 && CUR.a === 82);
-  el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'<div class="acts"><span onclick="listenAya()">🔊 استماع</span><span onclick="saveAya(this)">🔖 حفظ</span><span onclick="shareAyaText()">↗ مشاركة</span><span onclick="noteAya()">✍️ ملاحظة</span><span onclick="journeyAya()">🧭 رحلة التدبر</span></div></div>';
+  el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'<div class="acts"><span onclick="listenAya(this)">🔊 استماع</span><span onclick="saveAya(this)">🔖 حفظ</span><span onclick="shareAyaText()">↗ مشاركة</span><span onclick="noteAya()">✍️ ملاحظة</span><span onclick="journeyAya()">🧭 رحلة التدبر</span></div><div class="acts"><span onclick="prevAya()">‹ السابق</span><span onclick="nextAya()">التالي ›</span><span onclick="firstAya()">⇤ أول السورة</span><span onclick="backToSurahs()">السور</span></div></div>';
   if(is82){ if(!CURATED) buildCuratedPanels(); fillMindDynamic(); fillTadabbur82(); }
   else { CURATED = false; buildVersePanels(); }
 }
@@ -729,7 +729,7 @@ function buildVersePanels(){
   var __L = linksFor(CUR.s, CUR.a);
   var keys = __L.keys, rel = __L.rel, rare = __L.rare;
   h += '<div class="panel" id="panel-v-links"><h3>الترابط — آيات تشترك في ألفاظها</h3><p class="hint">مرتبة بتكرار الألفاظ المميزة مع تنويع السور.</p>'+(rel.length ? rel.map(function(r){
-    return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…<br><span class="hint">رابط لفظي: '+r.hit.join('، ')+'</span></div>';
+    return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…<br><span class="hint">رابط لفظي: '+r.hit.join('، ')+' · '+(r.s===CUR.s?'من نفس السورة':'سورة أخرى')+'</span></div>';
   }).join('') : '<p class="hint">لا ترابط لفظي ظاهر.</p>')+'</div>';
   h += '<div class="panel" id="panel-v-tadabbur"><h3>تدبر هذه الآية</h3>' + buildTadabburTool() + '</div>';
   h += mindHTML();
@@ -796,20 +796,32 @@ var TAFSIRS = [
 ];
 function srcLink(id){ return 'https://qul.tarteel.ai/resources/tafsir/' + id; }
 var IRAB = {};
+function fetchJSON(url, ms, cb){
+  var done = false;
+  var fin = function(d){ if(done) return; done = true; cb(d); };
+  try{
+    if(typeof AbortController !== 'undefined'){
+      var c = new AbortController();
+      var timer = setTimeout(function(){ try{ c.abort(); }catch(e){} }, ms || 15000);
+      fetch(url, {signal:c.signal}).then(function(r){ return r.json(); }).then(function(d){ clearTimeout(timer); fin(d); }).catch(function(){ clearTimeout(timer); fin(null); });
+      return;
+    }
+  }catch(e){}
+  fetch(url).then(function(r){ return r.json(); }).then(function(d){ fin(d); }).catch(function(){ fin(null); });
+}
 function getIrab(s, cb){
   if(IRAB[s]){ cb(IRAB[s]); return; }
-  fetch('data/irab/' + s + '.json').then(function(r){ return r.json(); }).then(function(d){
-    IRAB[s] = d.verses; cb(d.verses);
-  }).catch(function(){ cb(null); });
+  fetchJSON('data/irab/' + s + '.json', 15000, function(d){
+    if(d && d.verses){ IRAB[s] = d.verses; cb(d.verses); } else cb(null);
+  });
 }
 var CDNC = {};
 function cdnAyah(slug, s, a, cb){
   var k = slug + '/' + s + '/' + a;
   if(CDNC[k] !== undefined){ cb(CDNC[k]); return; }
-  fetch('https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/' + slug + '/' + s + '/' + a + '.json')
-    .then(function(r){ return r.json(); }).then(function(d){
-      CDNC[k] = (d && d.text) ? d.text : ''; cb(CDNC[k]);
-    }).catch(function(){ CDNC[k] = ''; cb(''); });
+  fetchJSON('https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/' + slug + '/' + s + '/' + a + '.json', 12000, function(d){
+    CDNC[k] = (d && d.text) ? d.text : ''; cb(CDNC[k]);
+  });
 }
 function tafsirCard(t, text){
   return '<div class="res"><b>' + t.n + '</b> <span class="tag fact">تفسير تراثي</span><br><span class="ttxt">' + esc(text) + '</span><br><span class="hint">المصدر: QUL Tarteel — <a href="' + srcLink(t.qul) + '" target="_blank" rel="noopener">' + t.n + '</a></span></div>';
@@ -825,7 +837,7 @@ function renderVerseTafsir(){
       texts[i] = text;
       if(++done < TAFSIRS.length) return;
       box.innerHTML = TAFSIRS.map(function(t2, j){
-        return texts[j] ? tafsirCard(t2, texts[j]) : '<div class="res"><b>' + t2.n + '</b><br><p class="hint">تعذر التحميل — تحقق من الاتصال.</p></div>';
+        return texts[j] ? tafsirCard(t2, texts[j]) : '<div class="res"><b>' + t2.n + '</b><br><p class="hint">تعذر التحميل — تحقق من الاتصال.</p><button class="btn-ghost" onclick="renderVerseTafsir()">إعادة المحاولة</button></div>';
       }).join('');
       updateMindComparisons();
     });
@@ -859,14 +871,27 @@ function fillDarwish82(){
             : '<p class="hint">تعذر التحميل — تحقق من الاتصال.</p>');
   });
 }
+function irabCards(text){
+  var parts = String(text).split(/﴿/);
+  var out = [];
+  for(var i = 1; i < parts.length; i++){
+    var seg = parts[i].split(/﴾/);
+    if(seg.length < 2 || !seg[0].trim() || !seg[1].trim()) continue;
+    out.push({w:seg[0].trim(), d:seg[1].trim()});
+  }
+  if(!out.length) return '<p class="ttxt">' + esc(text) + '</p>';
+  return out.map(function(o){
+    return '<div class="res"><b>' + esc(o.w) + '</b><br><span class="ttxt">' + esc(o.d) + '</span></div>';
+  }).join('');
+}
 function renderVerseIrab(){
   var box = document.getElementById('vIrabBody');
   if(!box) return;
   var s = CUR.s, a = CUR.a;
   getIrab(s, function(verses){
     var my = verses ? verses[a - 1] : '';
-    var h = my ? '<p class="ttxt">' + esc(my) + '</p><p class="hint">المصدر: إعراب الميسّر — <a href="' + srcLink(504) + '" target="_blank" rel="noopener">QUL Tarteel</a></p>'
-                : '<p class="hint">تعذر التحميل — تحقق من الاتصال.</p>';
+    var h = my ? irabCards(my) + '<p class="hint">المصدر: إعراب الميسّر — <a href="' + srcLink(504) + '" target="_blank" rel="noopener">QUL Tarteel</a></p>'
+                : '<p class="hint">تعذر التحميل — تحقق من الاتصال.</p><button class="btn-ghost" onclick="renderVerseIrab()">إعادة المحاولة</button>';
     h += '<div class="group-label">التفصيل — إعراب الدرويش</div><div id="vDarwish"><p class="hint">جارٍ التحميل…</p></div>';
     box.innerHTML = h;
     cdnAyah('i-rab-al-quran-li-al-darwish', s, a, function(text){
@@ -878,9 +903,9 @@ function renderVerseIrab(){
 var ASBAB = {};
 function getAsbab(s, cb){
   if(ASBAB[s]){ cb(ASBAB[s]); return; }
-  fetch('data/asbab/' + s + '.json').then(function(r){ return r.json(); }).then(function(d){
-    ASBAB[s] = d; cb(d);
-  }).catch(function(){ cb(null); });
+  fetchJSON('data/asbab/' + s + '.json', 15000, function(d){
+    if(d){ ASBAB[s] = d; cb(d); } else cb(null);
+  });
 }
 function asbabCards(list, tagLabel){
   return list.map(function(t){
@@ -1006,7 +1031,7 @@ function saveTadabbur(){
     text:text, q:tadQuestionAt(),
     prompts:Object.keys(TAD_SEL).filter(function(k){ return TAD_SEL[k]; }),
     words:Object.keys(TAD_WORDS),
-    step:'', change:'', s:CUR.s, a:CUR.a
+    step:'', change:'', s:CUR.s, a:CUR.a, t:ayaText(CUR.s, CUR.a) || ''
   };
   try{ e.step = (document.getElementById('tadStep').value || '').trim(); }catch(x){}
   try{ e.change = (document.getElementById('tadChange').value || '').trim(); }catch(x){}
@@ -1077,6 +1102,7 @@ function renderNotebook(){
   box.innerHTML = all.length ? all.map(function(e){
     return '<div class="nbitem"><b>' + surahNameOf(e.s) + ' ﴿' + e.a + '﴾</b> <span class="quiet">' + (e.date || '') + '</span><br>' +
       esc(e.text || '') +
+      ((e.t) ? '<br><span class="hint">الآية: ' + esc(e.t.slice(0, 90)) + '…</span>' : '') +
       (e.q ? '<br><span class="quiet">أجاب عن: ' + esc(e.q) + '</span>' : '') +
       (e.step ? '<br><span class="quiet">خطوته: ' + esc(e.step) + '</span>' : '') +
       ' <button class="more" style="display:inline" onclick="openAya(' + e.s + ',' + e.a + ')">افتح الآية</button></div>';
@@ -1094,6 +1120,7 @@ function renderTadLists(){
     var box = document.getElementById('tadList');
     if(box) box.innerHTML = loadVerseRefs().map(function(e){
       return '<div class="nbitem"><span class="quiet">' + (e.date || '') + '</span><br>' + esc(e.text || '') +
+        ((e.t) ? '<br><span class="hint">الآية: ' + esc(e.t.slice(0, 90)) + '…</span>' : '') +
         (e.q ? '<br><span class="quiet">أجاب عن: ' + esc(e.q) + '</span>' : '') +
         (e.step ? '<br><span class="quiet">خطوته: ' + esc(e.step) + '</span>' : '') +
         (e.change ? '<br><span class="quiet">تغيّر فهمه: ' + esc(e.change) + '</span>' : '') + '</div>';
@@ -1116,12 +1143,19 @@ function wordSearch(w){
   quranSearch();
   document.getElementById('search').scrollIntoView({behavior:'smooth'});
 }
-function setVerse(s,a){
+function selectedVerse(){
+  return {surahNumber:CUR.s, surahName:surahName(CUR.s), verseNumber:CUR.a,
+    verseId:CUR.s+':'+CUR.a, verseText:ayaText(CUR.s, CUR.a) || ''};
+}
+function setVerse(s,a,scroll){
   CUR = {s:parseInt(s,10), a:parseInt(a,10)};
   TAD_SEL = {}; TAD_WORDS = {};
   try{ location.hash = '#/'+CUR.s+'/'+CUR.a; }catch(e){}
   renderAyaHead();
-  document.getElementById('study').scrollIntoView({behavior:'smooth'});
+  if(scroll !== false){
+    var st = document.getElementById('study');
+    if(st) st.scrollIntoView({behavior:'smooth'});
+  }
 }
 function applyHash(){
   try{
@@ -1234,15 +1268,15 @@ function loadQuran(cb){
   if(cb)QWAIT.push(cb);
   if(QLOAD)return; QLOAD = true;
   var grid = document.getElementById('surahGrid');
-  fetch('data/quran-uthmani.json').then(function(r){ return r.json(); }).then(function(d){
+  fetchJSON('data/quran-uthmani.json', 20000, function(d){
+    if(!d || !d.surahs){ QLOAD = false; if(grid) grid.innerHTML = '<p class="hint">تعذر تحميل ملف القرآن</p><button class="btn" onclick="QLOAD=false;loadQuran()">إعادة المحاولة</button>'; return; }
     QDATA = d;
     renderSurahGrid('');
+    renderSavedBlock();
     upgradeDaily();
     applyHash();
     renderAyaHead();
     QWAIT.forEach(function(f){ f(); }); QWAIT = [];
-  }).catch(function(){
-    if(grid) grid.innerHTML = '<p class="hint">تعذر تحميل ملف القرآن</p>';
   });
 }
 function renderSurahGrid(f){
@@ -1266,7 +1300,7 @@ function showSurah(n, hl){
   if(!s) return;
   var cards = document.querySelectorAll('.scard');
   cards.forEach(function(c){ c.classList.toggle('on', parseInt(c.getAttribute('data-n'),10) === n); });
-  var html = '<div class="qbox"><h3>سورة '+s.name+' — '+arNum(s.verses.length)+' آية</h3>';
+  var html = '<div class="qbox"><h3>سورة '+s.name+' — '+arNum(s.verses.length)+' آية <button class="more" style="display:inline" onclick="backToSurahs()">عودة لقائمة السور</button></h3>';
   html += s.verses.map(function(v, i){
     var cls = (hl === i + 1) ? 'v hl' : 'v';
     return '<p class="'+cls+'" id="v'+n+'-'+(i+1)+'" onclick="openAya('+n+','+(i+1)+')">'+v+' <span class="mark">﴿'+arNum(i + 1)+'﴾</span></p>';
@@ -1275,11 +1309,23 @@ function showSurah(n, hl){
 }
 function openSurahLink(n, a){
   loadQuran(function(){
+    if(a) setVerse(n, a, false);
     showSurah(n, a);
     var el = a ? document.getElementById('v'+n+'-'+a) : document.getElementById('surahView');
     if(el) el.scrollIntoView({behavior:'smooth', block: a ? 'center' : 'start'});
   });
 }
+function stepAya(d){
+  if(!QDATA) return;
+  var s = CUR.s, a = CUR.a + d, su = QDATA.surahs[s-1];
+  if(a < 1){ if(s > 1){ s--; a = QDATA.surahs[s-1].verses.length; } else return; }
+  if(a > su.verses.length){ if(s < 114){ s++; a = 1; } else return; }
+  openAya(s, a);
+}
+function prevAya(){ stepAya(-1); }
+function nextAya(){ stepAya(1); }
+function firstAya(){ if(QDATA) openAya(CUR.s, 1); }
+function backToSurahs(){ var el = document.getElementById('quran-sec'); if(el) el.scrollIntoView({behavior:'smooth'}); }
 function cycleFont(){
   var steps = ['', '112.5%', '125%'], cur = '';
   try{ cur = localStorage.getItem('tad-fs') || ''; }catch(e){}
@@ -1287,17 +1333,25 @@ function cycleFont(){
   document.documentElement.style.fontSize = nx;
   try{ localStorage.setItem('tad-fs', nx); }catch(e){}
 }
-function speakText(t){
-  try{
-    if(!('speechSynthesis' in window)) return;
-    speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(t);
-    u.lang = 'ar-SA';
-    speechSynthesis.speak(u);
-  }catch(e){}
+var AYA_AUDIO = null;
+function ayaAudioURL(s, a){
+  var p = function(n){ return (n < 10 ? '00' : (n < 100 ? '0' : '')) + n; };
+  return 'https://cdn.everyayah.com/data/Alafasy_128kbps/' + p(s) + p(a) + '.mp3';
 }
-function listenAya(){ speakText(ayaText(CUR.s, CUR.a)); }
-function listenDaily(){ speakText(document.getElementById('dailyText').textContent); }
+function playAyaAudio(text, btn, s, a){
+  var noAudio = function(){ if(btn){ btn.textContent = '⚠ لا يوجد صوت'; setTimeout(function(){ try{ btn.textContent = '🔊 استماع'; }catch(e){} }, 2500); } };
+  try{
+    if(typeof Audio === 'undefined'){ noAudio(); return; }
+    if(!AYA_AUDIO) AYA_AUDIO = new Audio();
+    try{ if(!AYA_AUDIO.paused) AYA_AUDIO.pause(); }catch(e){}
+    AYA_AUDIO.onerror = noAudio;
+    AYA_AUDIO.src = ayaAudioURL(s, a);
+    var pr = AYA_AUDIO.play();
+    if(pr && pr.catch) pr.catch(noAudio);
+  }catch(e){ noAudio(); }
+}
+function listenAya(btn){ var v = selectedVerse(); playAyaAudio(v.verseText, btn, v.surahNumber, v.verseNumber); }
+function listenDaily(btn){ playAyaAudio(document.getElementById('dailyText').textContent, btn, DAILY.s, DAILY.a); }
 function saveTextToNotebook(text, btn){
   try{
     var list = loadReflections();
@@ -1307,10 +1361,30 @@ function saveTextToNotebook(text, btn){
     if(btn){ var o = btn.textContent; btn.textContent = '✓ تم الحفظ'; setTimeout(function(){ btn.textContent = o; }, 1500); }
   }catch(e){}
 }
-function saveAya(btn){ saveTextToNotebook('سورة '+surahName(CUR.s)+' ﴿'+CUR.a+'﴾: '+ayaText(CUR.s, CUR.a), btn); }
+function loadSavedVerses(){ try{ var r = localStorage.getItem('tadabbur_saved_verses'); return r ? JSON.parse(r) : []; }catch(e){ return []; } }
+function renderSavedBlock(){
+  var box = document.getElementById('savedBlock');
+  if(!box) return;
+  if(!QDATA){ box.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; return; }
+  var list = loadSavedVerses();
+  box.innerHTML = list.length ? list.map(function(x){
+    return '<div class="scard" onclick="openAya(' + x.s + ',' + x.a + ')"><div class="nm">' + surahNameOf(x.s) + '</div><div class="c">﴿' + arNum(x.a) + '﴾</div></div>';
+  }).join('') : '<p class="hint">لا محفوظات بعد — اضغط 🔖 حفظ على أي آية.</p>';
+}
+function saveAya(btn){
+  var v = selectedVerse();
+  var list = loadSavedVerses(), at = -1;
+  for(var k = 0; k < list.length; k++) if(list[k].s === v.surahNumber && list[k].a === v.verseNumber) at = k;
+  if(at >= 0) list.splice(at, 1); else list.unshift({s:v.surahNumber, a:v.verseNumber});
+  try{ localStorage.setItem('tadabbur_saved_verses', JSON.stringify(list)); }catch(e){}
+  renderSavedBlock();
+  if(btn) btn.textContent = (at >= 0) ? '🔖 حفظ' : '✓ محفوظة';
+}
 function saveDaily(btn){ saveTextToNotebook('آية اليوم — سورة '+surahName(DAILY.s)+' ﴿'+DAILY.a+'﴾: '+document.getElementById('dailyText').textContent, btn); }
+function verseURL(s, a){ try{ return location.origin + location.pathname + '#/' + s + '/' + a; }catch(e){ return '#/' + s + '/' + a; } }
 function shareAyaText(){
-  var t = 'سورة '+surahName(CUR.s)+' ﴿'+CUR.a+'﴾: '+ayaText(CUR.s, CUR.a);
+  var v = selectedVerse();
+  var t = 'سورة ' + v.surahName + ' ﴿' + v.verseNumber + '﴾: ' + v.verseText + '\n' + verseURL(v.surahNumber, v.verseNumber);
   try{
     if(navigator.share){ navigator.share({text:t}); return; }
     if(navigator.clipboard){ navigator.clipboard.writeText(t); }
@@ -1340,7 +1414,7 @@ function upgradeDaily(){
   }catch(e){}
 }
 function shareAya(){
-  var t = document.getElementById('dailyText').textContent;
+  var t = document.getElementById('dailyText').textContent + '\n' + verseURL(DAILY.s, DAILY.a);
   try{
     if(navigator.share){ navigator.share({text:t}); return; }
     if(navigator.clipboard){ navigator.clipboard.writeText(t); }
@@ -1351,7 +1425,10 @@ function quranSearch(){
   var q = document.getElementById('searchInput').value.trim();
   if(!q){ box.innerHTML = '<p class="hint">اكتب كلمة للبحث.</p>'; return; }
   if(!QDATA){ box.innerHTML = '<p class="hint">جارٍ تحميل النص... جرّب مجددًا.</p>'; loadQuran(); return; }
-  var nq = norm(q), out = [];
+  var m = q.match(/^\s*(\d+)\s*[:\-/]\s*(\d+)\s*$/);
+  if(m){ openAya(parseInt(m[1], 10), parseInt(m[2], 10)); return; }
+  var nq = norm(q), out = [], hitSura = null;
+  QDATA.surahs.forEach(function(su){ if(norm(su.name) === nq) hitSura = su; });
   for(var s = 0; s < QDATA.surahs.length && out.length < 60; s++){
     var su = QDATA.surahs[s];
     for(var i = 0; i < su.verses.length && out.length < 60; i++){
@@ -1360,9 +1437,11 @@ function quranSearch(){
       }
     }
   }
-  box.innerHTML = out.length ? out.map(function(r){
+  var html = out.length ? '<p class="hint">النتائج: ' + arNum(out.length) + '</p>' + out.map(function(r){
     return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…</div>';
   }).join('') : '<p class="hint">لا نتائج — جرّب كلمة أخرى.</p>';
+  if(hitSura) html = '<div class="res" onclick="openSurahLink('+hitSura.n+')"><b>سورة '+hitSura.name+'</b> — '+arNum(hitSura.verses.length)+' آية (افتح السورة)</div>' + html;
+  box.innerHTML = html;
 }
 function randomAya(){
   var box = document.getElementById('randomBox');
