@@ -1,4 +1,4 @@
-var CACHE = 'tadabbur-annisa82-v5';
+var CACHE = 'tadabbur-annisa82-v6';
 var CORE = ['/', '/index.html'];
 self.addEventListener('install', function(e) {
   e.waitUntil(
