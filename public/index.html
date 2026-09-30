@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23081A16'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23C9A45C'%3E%D8%B9%3C/text%3E%3C/svg%3E">
 <title>أفلا يتدبرون القرآن — الرئيسية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +33,8 @@ h1,h2,h3{font-family:'Aref Ruqaa',serif;}
 /* nav */
 nav{position:sticky;top:0;z-index:50;background:rgba(6,19,16,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
 :root[data-theme="light"] nav{background:rgba(250,247,240,.94);}
-.nav-in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;}
+.nav-in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;row-gap:8px;}
+@media(max-width:560px){.brand small{display:none;}.brand b{font-size:.95rem;}.iconbtn{padding:6px 8px;}.links{flex:1 1 100%;}}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);white-space:nowrap;}
 .brand .bk{font-size:1.5rem;color:var(--gold);}
 .brand b{font-family:'Aref Ruqaa',serif;color:var(--gold);font-size:1.05rem;display:block;line-height:1.3;}
@@ -147,6 +149,11 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 16px 40px;t
 footer .fl{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:10px 0;}
 .ttxt{white-space:pre-line;}
 .asbab-text{max-height:320px;overflow:auto;}
+.claim-card{background:linear-gradient(160deg, rgba(201,164,92,.12), rgba(201,164,92,.02)), var(--card);border:1px solid var(--gold);border-radius:16px;padding:20px 22px;}
+.claim-card h4{font-family:'Aref Ruqaa',serif;color:var(--gold);margin:0 0 14px;font-size:1.3rem;}
+.claim-row{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.claim-key{flex:none;min-width:120px;color:var(--gold);font-weight:800;font-size:.85rem;padding-top:9px;}
+.claim-val{flex:1;}
 footer a{color:var(--gold);text-decoration:none;}
 @media (prefers-reduced-motion:no-preference){.sec{animation:fadeUp .7s ease both;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}}
@@ -839,13 +846,13 @@ function examineClaim(i){
   if(!box || !MIND_D || !MIND_D.claims[i]) return;
   var c = MIND_D.claims[i];
   var li = function(arr){ return arr.length ? arr.map(function(x){ return '<div class="q">' + x + '</div>'; }).join('') : '<p class="hint">—</p>'; };
-  box.innerHTML = '<div class="res"><b>الفكرة:</b> ' + c.label +
-    '<br><b>مصدرها:</b> ' + c.source +
-    '<br><b>نوع الدليل:</b> <span class="tag study">' + c.etype + '</span>' +
-    '<br><b>ما الذي يدعمها؟</b>' + li(c.sup) +
-    '<b>ما الذي يحتاج إلى تحقق؟</b>' + li(c.need) +
-    '<b>أين يبدأ الاستنتاج؟</b><div class="q">' + c.inf + '</div>' +
-    '<b>أسئلة مفتوحة:</b>' + li(c.open) + '</div>';
+  box.innerHTML = '<div class="claim-card"><h4>' + c.label + '</h4>' +
+    '<div class="claim-row"><div class="claim-key">مصدرها</div><div class="claim-val">' + c.source + '</div></div>' +
+    '<div class="claim-row"><div class="claim-key">نوع الدليل</div><div class="claim-val"><span class="tag study">' + c.etype + '</span></div></div>' +
+    '<div class="claim-row"><div class="claim-key">ما الذي يدعمها؟</div><div class="claim-val">' + li(c.sup) + '</div></div>' +
+    '<div class="claim-row"><div class="claim-key">ما الذي يحتاج إلى تحقق؟</div><div class="claim-val">' + li(c.need) + '</div></div>' +
+    '<div class="claim-row"><div class="claim-key">أين يبدأ الاستنتاج؟</div><div class="claim-val"><div class="q">' + c.inf + '</div></div></div>' +
+    '<div class="claim-row"><div class="claim-key">أسئلة مفتوحة</div><div class="claim-val">' + li(c.open) + '</div></div></div>';
 }
 function updateMindComparisons(){
   var el = document.getElementById('mindCompareBody');
@@ -1149,8 +1156,8 @@ function buildTadabburTool(){
   h += '<div class="group-label" id="tadPrompts">ماذا لفت انتباهك؟ (اختر ما يناسبك)</div><div class="chips">' +
     PROMPTS.map(function(p){ return '<button class="chip' + (TAD_SEL[p.id] ? ' on' : '') + '" onclick="togglePrompt(\'' + p.id + '\',this)">' + p.t + '</button>'; }).join('') + '</div><div id="tadChosen" class="hint"></div>';
   h += '<div class="group-label">أسئلة تدبر شخصية</div>' + qs.map(function(q){ return '<div class="tadq">' + q + '</div>'; }).join('');
-  h += '<div class="group-label">السؤال الذي أجيب عنه</div><select class="qsel" id="tadQ">' +
-    qs.map(function(q, i){ return '<option value="' + i + '">' + q + '</option>'; }).join('') + '</select>';
+  h += '<div class="claim-card"><h4>السؤال الذي أجيب عنه</h4><select class="qsel" id="tadQ" style="margin-bottom:0">' +
+    qs.map(function(q, i){ return '<option value="' + i + '">' + q + '</option>'; }).join('') + '</select></div>';
   h += '<div class="group-label">الكلمات التي اخترتها</div><div>' +
     words.map(function(w){ return '<button class="wchip' + (TAD_WORDS[w] ? ' on' : '') + '" onclick="toggleWord(this)">' + w + '</button>'; }).join(' ') + '</div>';
   h += '<div class="group-label">تأملي الشخصي</div><p class="hint">ما الذي تقوله لك هذه الآية بعد أن قرأتها وفهمت سياقها؟</p>' +
@@ -1317,7 +1324,21 @@ function applyHash(){
     if(QDATA && QDATA.surahs[s-1] && QDATA.surahs[s-1].verses[a-1]) CUR = {s:s, a:a};
   }catch(e){}
 }
-function openAya(s,a){ setVerse(s,a); }
+function isValidVerse(s, a){
+  try{
+    s = parseInt(s, 10); a = parseInt(a, 10);
+    return !!(QDATA && QDATA.surahs[s-1] && QDATA.surahs[s-1].verses[a-1]);
+  }catch(e){ return false; }
+}
+function openAya(s,a){
+  s = parseInt(s, 10); a = parseInt(a, 10);
+  if(QDATA && !isValidVerse(s, a)){
+    var v = document.getElementById('surahView');
+    if(v) v.innerHTML = '<div class="qbox"><p class="hint">رقم آية غير صحيح لهذه السورة.</p></div>';
+    return;
+  }
+  setVerse(s,a);
+}
 document.querySelectorAll('.drop>button').forEach(function(b){
   b.addEventListener('click', function(e){
     e.stopPropagation();
@@ -1452,9 +1473,9 @@ function showSurah(n, hl){
   if(!s) return;
   var cards = document.querySelectorAll('.scard');
   cards.forEach(function(c){ c.classList.toggle('on', parseInt(c.getAttribute('data-n'),10) === n); });
-  var html = '<div class="qbox"><h3>سورة '+s.name+' — '+arNum(s.verses.length)+' آية <button class="more" style="display:inline" onclick="backToSurahs()">عودة لقائمة السور</button></h3>';
+  var html = '<div class="qbox"><h3>سورة '+s.name+' — '+arNum(s.verses.length)+' آية <button class="more" style="display:inline" onclick="backToSurahs()">عودة لقائمة السور</button> '+(n>1?'<button class="more" style="display:inline" onclick="openSurahLink('+(n-1)+')">‹ السورة السابقة</button> ':'')+(n<114?'<button class="more" style="display:inline" onclick="openSurahLink('+(n+1)+')">السورة التالية ›</button>':'')+'</h3>';
   html += s.verses.map(function(v, i){
-    var cls = (hl === i + 1) ? 'v hl' : 'v';
+    var cls = (hl === i + 1 || (n === CUR.s && (i + 1) === CUR.a)) ? 'v hl' : 'v';
     return '<p class="'+cls+'" id="v'+n+'-'+(i+1)+'" onclick="openAya('+n+','+(i+1)+')">'+v+' <span class="mark">﴿'+arNum(i + 1)+'﴾</span></p>';
   }).join('') + '</div>';
   document.getElementById('surahView').innerHTML = html;
@@ -1488,7 +1509,7 @@ function cycleFont(){
 var AYA_AUDIO = null;
 function ayaAudioURL(s, a){
   var p = function(n){ return (n < 10 ? '00' : (n < 100 ? '0' : '')) + n; };
-  return 'https://cdn.everyayah.com/data/Alafasy_128kbps/' + p(s) + p(a) + '.mp3';
+  return 'https://everyayah.com/data/Alafasy_128kbps/' + p(s) + p(a) + '.mp3';
 }
 function playAyaAudio(text, btn, s, a){
   var noAudio = function(){ if(btn){ btn.textContent = '⚠ لا يوجد صوت'; setTimeout(function(){ try{ btn.textContent = '🔊 استماع'; }catch(e){} }, 2500); } };
