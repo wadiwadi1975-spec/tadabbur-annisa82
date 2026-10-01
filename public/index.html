@@ -183,6 +183,7 @@ footer a{color:var(--gold);text-decoration:none;}
       <a href="#quran-sec">بحث عن سورة</a>
     </div></div>
     <a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a>
+    <a href="#encSec">الآخرون</a>
     <a href="#/about">حول المشروع</a>
   </div>
   <button class="iconbtn" onclick="document.getElementById('savedSec').scrollIntoView({behavior:'smooth'})" title="المحفوظات">🔖</button>
@@ -257,6 +258,21 @@ footer a{color:var(--gold);text-decoration:none;}
     <div id="randomBox" style="max-width:720px;margin:0 auto;"></div>
   </section>
 
+  <section class="sec" id="encSec">
+    <h2 class="sec-t">الآخرون</h2>
+    <p class="sub">قراءات وتفاسير ودراسات أخرى حول القرآن</p>
+    <p class="sub" style="font-size:.88rem">موسوعة القراءات والتفاسير والدراسات القرآنية — نعرض المادة وصاحبها ومصدرها ومنهجها، ثم نترك لك مساحة التدبر والمقارنة.</p>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <div id="encStats"><p class="hint">جارٍ تحميل إحصاءات الموسوعة…</p></div>
+      <div class="searchrow"><input id="encInput" placeholder="ابحث: اسم مؤلف / عنوان كتاب / مرجع آية (مثال: النساء 82) / كلمة مفتاحية..." onkeydown="if(event.key==='Enter')encSearchRun()"><button class="btn" style="padding:10px 22px;" onclick="encSearchRun()">🔍 بحث</button></div>
+      <div class="chips" id="encChips"></div>
+      <div id="encResults"><p class="hint">جارٍ تحميل فهرس الموسوعة…</p></div>
+      <div id="encDetail" style="display:none"></div>
+      <p class="quiet">لا يرتّب الموقع المفسرين ولا يصنّف «أفضل» أو «أصح»؛ كما لا يخترع كتابًا أو مؤلفًا أو رابطًا أو اقتباسًا. وما لم يُوثَّق يبقى «بانتظار مصدر» أو «المصدر غير موثق حاليًا».</p>
+    </div>
+  </section>
+
   <section class="sec">
     <p class="philo">لا نخبرك <b>ماذا تفكر</b>...<br>بل نضع بين يديك النص، واللغة، والسياق، والدليل...<br>ثم نترك لعقلك <b>مساحة التدبر</b>.</p>
   </section>
@@ -273,7 +289,7 @@ footer a{color:var(--gold);text-decoration:none;}
   <footer id="about">
     <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
     <div>القرآن نور... والتدبر حياة</div>
-    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
+    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#encSec">الآخرون</a><a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
     <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
   </footer>
 </div>
@@ -480,7 +496,8 @@ const sections = [
     <p>توجد أحاديث صحيحة مرتبطة بموضوع «الاختلاف في القرآن» عمومًا (منها ما أخرجه مسلم)، لكنها ليست سبب نزول للآية بعينها.</p>
     <div id="asbab82"></div>
   `},
-  {id:"others", label:"الآخرون", title:"قراءات معاصرة", html:`
+  {id:"others", label:"الآخرون", title:"الآخرون", html:`
+    <p class="sub" style="text-align:start;margin-bottom:10px">قراءات وتفاسير ودراسات أخرى حول القرآن — موسوعة القراءات والتفاسير والدراسات القرآنية.</p>
     <p class="hint">تفسير كل شخص لهذه الآية بعينها (لا منهجه العام) هو المطلوب هنا. المؤكّد حاليًا: <b>الشعراوي</b> فقط. البقية تُركت فارغة من "ماذا فسّر" — بانتظار مصادر تحدد أين قال كل واحد رأيه في هذه الآية تحديدًا.</p>
 
     <div id="scholarDir"></div>
@@ -542,7 +559,7 @@ function gotoStudy(id){
     if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
-  var map = {words:'panel-v-words', grammar:'panel-v-irab', context:'panel-v-context', tafsir:'panel-v-tafsir', links:'panel-v-links', horizons:'panel-v-horizons', mind:'panel-v-mind', tadabbur:'panel-v-tadabbur'};
+  var map = {words:'panel-v-words', grammar:'panel-v-irab', context:'panel-v-context', tafsir:'panel-v-tafsir', links:'panel-v-links', horizons:'panel-v-horizons', mind:'panel-v-mind', tadabbur:'panel-v-tadabbur', others:'panel-v-others', hadith:'panel-v-hadith'};
   var t = document.getElementById(map[id] || 'panel-v-text');
   document.querySelectorAll('#panels .panel').forEach(function(p){ p.classList.toggle('hl', p === t); });
   if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
@@ -807,7 +824,7 @@ function buildVersePanels(){
   h += '<div class="panel" id="panel-v-irab"><h3>الإعراب</h3><div id="vIrabBody"><p class="hint">جارٍ التحميل…</p></div></div>';
   h += '<div class="panel" id="panel-v-tafsir"><h3>التفسير</h3><div id="vTafsirBody"><p class="hint">جارٍ التحميل…</p></div><div id="contempTafsirV"></div></div>';
   h += '<div class="panel" id="panel-v-hadith"><h3>الحديث — سبب النزول</h3><div id="vHadithBody"><p class="hint">جارٍ التحميل…</p></div></div>';
-  h += '<div class="panel" id="panel-v-others"><h3>الآخرون — قراءات مرتبطة بهذه الآية</h3><div id="vOthersBody"><p class="hint">جاري البحث عن قراءات مرتبطة بهذه الآية...</p></div><div id="scholarDirV"></div></div>';
+  h += '<div class="panel" id="panel-v-others"><h3>الآخرون — قراءات وتفاسير ودراسات أخرى مرتبطة بهذه الآية</h3><div id="vOthersBody"><p class="hint">جاري البحث عن قراءات مرتبطة بهذه الآية...</p></div><div id="scholarDirV"></div></div>';
   h += '<div class="panel" id="panel-v-horizons"><h3>آفاق</h3>' + horizonsHTML() + '</div>';
   panelsEl.innerHTML = h;
   renderVerseRefs();
@@ -1415,8 +1432,9 @@ function renderOthersInto(el, s, a){
     if(res.needsReview.length){
       h += '<div class="group-label">مواد تحتاج إلى تحقق</div>' + res.needsReview.map(readingCard).join('');
     }
+    try{ h += encVerseHTML(s, a); }catch(e){}
     h += compareTable(res.verified);
-    if(!res.verified.length && !res.needsReview.length){
+    if(!res.verified.length && !res.needsReview.length && !encHasVerseMaterial(s, a)){
       h += '<p><b>لا توجد مادة موثقة لهذه الآية حاليًا.</b></p><p class="hint">نبحث عن قراءات ومصادر مرتبطة بهذه الآية، وعند التحقق من مصدر مناسب ستظهر هنا.</p><p><span class="tag reflect">بانتظار مصدر</span></p>';
     }
     h += OTHERS_DISCLAIMER;
@@ -1440,12 +1458,17 @@ function renderScholarDir(f, elId){
   if(!el) return;
   try{ expandBint(); }catch(e){}
   f = (typeof f === 'string') ? norm(f.trim()) : '';
-  var groups = [['مفكرون وباحثون معاصرون', 'g1'], ['لغويون وأصحاب المنهج البياني', 'g2']];
+  var groups = [];
+  if(ENCY){
+    groups = ENCY.groups.map(function(g){ return [g.label, g.id]; });
+  } else {
+    groups = [['مفكرون وباحثون معاصرون', 'g1'], ['لغويون وأصحاب المنهج البياني', 'g2']];
+  }
   var h = '<div class="group-label">دليل الباحثين والقراءات</div>';
   h += '<div class="searchrow"><input placeholder="بحث في القراءات الأخرى: اسم / عنوان / كلمة..." oninput="renderScholarDir(this.value,\'' + (elId || 'scholarDir') + '\')"></div>';
   h += '<p class="hint">أعمال منشورة للاستزادة والبحث — ليست مواد موثقة لآية بعينها.</p>';
   groups.forEach(function(g){
-    var list = SCHOLARS.filter(function(p){ return p.g === g[1]; });
+    var list = encDirEntriesFor(g[1]);
     if(f) list = list.filter(function(p){
       if(norm(p.name).indexOf(f) >= 0) return true;
       return (p.works || []).some(function(w){ return norm(w.t).indexOf(f) >= 0; });
@@ -1453,19 +1476,538 @@ function renderScholarDir(f, elId){
     if(!list.length) return;
     h += '<div class="group-label">' + g[0] + '</div>';
     h += list.map(function(p){
-      var n = READINGS.filter(function(r){ return itemStatus(r) === 'verified' && r.authorId === p.id; }).length;
-      var b = '<details><summary>' + p.name + ' <span class="tag reading">' + p.category + '</span> <span class="tag ' + (n ? 'fact' : 'reflect') + '">' + (n ? 'توجد مواد موثقة' : 'بانتظار مصدر') + '</span></summary>';
+      var b = '<details><summary>' + p.name + ' <span class="tag reading">' + p.category + '</span> <span class="tag ' + (p.n ? 'fact' : 'reflect') + '">' + (p.n ? 'توجد مواد موثقة' : 'بانتظار مصدر') + '</span></summary>';
       if(p.works && p.works.length){
-        b += '<p class="hint">أعمال منشورة للبحث فيها:</p><p>' + p.works.map(function(w){ return '<span class="tag study">' + w.t + ' (' + w.k + ')</span>'; }).join(' ') + '</p>';
+        b += '<p class="hint">أعمال منشورة للبحث فيها:</p><p>' + p.works.map(function(w){ return '<span class="tag study">' + esc(w.t) + ' (' + esc(w.k) + ')</span>'; }).join(' ') + '</p>';
       } else {
         b += '<p class="hint">لا قائمة أعمال موثقة بعد.</p>';
       }
       if(p.spot82 && CUR.s === 4 && CUR.a === 82) b += p.spot82;
-      b += '<p class="hint">المواد المرتبطة به تظهر تلقائيًا في تبويب «تفسير» عند توفر مادة موثقة. ' + (n ? 'المواد الموثقة: ' + arNum(n) : 'لا مواد موثقة بعد.') + '</p></details>';
+      b += '<p class="hint">المواد المرتبطة به تظهر تلقائيًا في تبويب «الآخرون» عند توفر مادة موثقة. ' + (p.n ? 'المواد الموثقة: ' + arNum(p.n) : 'لا مواد موثقة بعد.') + '</p>';
+      if(p.id) b += '<p><button class="btn-ghost" style="padding:6px 16px;font-size:.85rem;" onclick="encShowAuthor(\'' + p.id + '\')">صفحة المؤلف في الموسوعة</button></p>';
+      b += '</details>';
       return b;
     }).join('');
   });
   el.innerHTML = h;
+}
+var ENCY = null, ENC_LOAD = false, ENC_WAIT = [];
+var ENC_VSECTIONS = [
+  {id:'tafsir', label:'تفاسير أخرى', cats:['tafsir']},
+  {id:'studies', label:'دراسات قرآنية', cats:['study','book','usul','manahij']},
+  {id:'lang', label:'دراسات لغوية وبلاغية', cats:['lang']},
+  {id:'topic', label:'دراسات موضوعية', cats:['context','links','ijaz']},
+  {id:'readings', label:'قراءات معاصرة', cats:['reading']},
+  {id:'academic', label:'أبحاث أكاديمية', cats:['research']},
+  {id:'tadabbur', label:'تدبر ووقفات', cats:['tadabbur']}
+];
+function encCatLabel(c){
+  if(ENCY && ENCY.categories){
+    for(var i = 0; i < ENCY.categories.length; i++) if(ENCY.categories[i].id === c) return ENCY.categories[i].label;
+  }
+  var m = {tafsir:'التفاسير', book:'الكتب', research:'الأبحاث', study:'الدراسات', reading:'القراءات المعاصرة', lang:'اللغة والبلاغة', context:'السياق', links:'الترابط والمناسبات', ijaz:'الإعجاز', tadabbur:'التدبر', usul:'أصول التفسير', manahij:'مناهج المفسرين'};
+  return m[c] || 'مادة';
+}
+function encGroupLabel(gid){
+  if(ENCY && ENCY.groups){
+    for(var i = 0; i < ENCY.groups.length; i++) if(ENCY.groups[i].id === gid) return ENCY.groups[i].label;
+  }
+  return gid;
+}
+function encWorkOf(ref){
+  if(!ENCY || !ref) return null;
+  if(ref.workId && ENCY._work[ref.workId]) return ENCY._work[ref.workId];
+  if(ref.researchId && ENCY._research[ref.researchId]) return ENCY._research[ref.researchId];
+  return null;
+}
+function encAuthorOf(id){ return (ENCY && ENCY._author[id]) || null; }
+function encRefsFor(s, a){
+  if(!ENCY) return [];
+  return ENCY.verseReferences.filter(function(r){
+    return r.surahNumber === s && a >= r.verseStart && a <= r.verseEnd;
+  });
+}
+function encRefsInSurah(s){
+  if(!ENCY) return [];
+  return ENCY.verseReferences.filter(function(r){ return r.surahNumber === s; });
+}
+function encHasVerseMaterial(s, a){
+  return encRefsFor(s, a).length > 0;
+}
+function encVerifiedCount(authorId){
+  var n = 0;
+  if(ENCY){
+    ENCY.verseReferences.forEach(function(r){ if(r.authorId === authorId && r.verificationStatus === 'verified') n++; });
+  }
+  try{
+    READINGS.forEach(function(r){ if(itemStatus(r) === 'verified' && r.authorId === authorId) n++; });
+  }catch(e){}
+  return n;
+}
+function encDirEntriesFor(gid){
+  if(ENCY && ENCY._author){
+    return ENCY.authors.filter(function(a){ return a.group === gid; }).map(encDirEntry);
+  }
+  return SCHOLARS.filter(function(p){ return p.g === gid; }).map(function(p){
+    return {id:p.id, name:p.name, category:p.category, works:p.works || [], spot82:p.spot82 || null, n:encVerifiedCount(p.id)};
+  });
+}
+function encDirEntry(a){
+  var sp = scholarById(a.id);
+  var works = [];
+  var mine = (ENCY && ENCY._authorWorks[a.id]) || [];
+  mine.forEach(function(w){ works.push({t:w.title, k:(w.coverage === 'full-quran' ? encCatLabel(w.category) + ' كامل' : encCatLabel(w.category))}); });
+  if(sp && sp.works && sp.works.length) works = works.concat(sp.works);
+  var seen = {}, out = [];
+  works.forEach(function(w){ var k = norm(w.t); if(!seen[k]){ seen[k] = 1; out.push(w); } });
+  return {
+    id:a.id, name:a.name,
+    category: sp ? sp.category : (a.specialties && a.specialties.length ? a.specialties[0] : encGroupLabel(a.group)),
+    works:out, spot82:(sp ? sp.spot82 : null) || null, n:encVerifiedCount(a.id)
+  };
+}
+function encCard(ref){
+  var au = encAuthorOf(ref.authorId);
+  var w = encWorkOf(ref);
+  var verified = ref.verificationStatus === 'verified';
+  var h = '<div class="res">';
+  h += '<b>' + esc(au ? au.name : ref.authorId) + '</b>';
+  h += ' <span class="tag ' + (verified ? 'fact' : 'reading') + '">' + (verified ? '✓ موثق المصدر' : 'يحتاج إلى تحقق') + '</span>';
+  if(w) h += ' <span class="tag study">' + encCatLabel(w.category) + '</span>';
+  h += '<br>';
+  if(w) h += '<b>' + esc(w.title) + '</b><br>';
+  if(au && au.fullName && au.fullName !== (au.name)) h += '<span class="hint">الاسم الكامل: ' + esc(au.fullName) + '</span><br>';
+  if(ref.quoteLocation) h += '<span class="hint">موقع الاقتباس: ' + esc(ref.quoteLocation) + '</span><br>';
+  h += '<span class="hint">المرجع القرآني: سورة ' + surahNameOf(ref.surahNumber) + ' ﴿' + (ref.verseEnd > ref.verseStart ? arNum(ref.verseStart) + '–' + arNum(ref.verseEnd) : arNum(ref.verseStart)) + '﴾</span>';
+  h += ' <button class="btn-ghost" style="padding:3px 12px;font-size:.78rem;" onclick="openAya(' + ref.surahNumber + ',' + ref.verseStart + ')">افتح الآية</button><br>';
+  h += '<span class="hint">المصدر: ' + (ref.sourceName ? esc(ref.sourceName) : 'المصدر غير موثق حاليًا') + '</span>';
+  if(ref.sourceUrl) h += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;padding:5px 14px;font-size:.82rem;" href="' + ref.sourceUrl + '" target="_blank" rel="noopener">فتح المصدر ↗</a>';
+  else h += ' <span class="tag reflect">رابط غير متوفر</span>';
+  if(w) h += '<br><button class="btn-ghost" style="padding:5px 14px;font-size:.8rem;margin-top:6px;" onclick="encShowWork(\'' + w.id + '\')">صفحة الكتاب</button>';
+  return h + '</div>';
+}
+function encCoverageHTML(){
+  if(!ENCY) return '';
+  var cov = ENCY.works.filter(function(w){ return w.coverage === 'full-quran'; });
+  if(!cov.length) return '';
+  return '<details><summary>تفاسير كاملة تغطي هذه الآية (' + arNum(cov.length) + ') — ببليوغرافيا فقط</summary>' +
+    '<p class="hint">هذه التفاسير تشمل القرآن كله، لكن لا يُعرض هنا نص منسوب إليها لهذه الآية؛ البيانات أدناه ببليوغرافية فقط.</p><p>' +
+    cov.map(function(w){ return '<button class="chip" onclick="encShowWork(\'' + w.id + '\')">' + esc(w.title) + ' — ' + esc(w.authorName) + '</button>'; }).join(' ') + '</p></details>';
+}
+function encVerseCompare(s, a){
+  var ids = [];
+  try{
+    searchOtherReadings(s, a).verified.forEach(function(r){ ids.push(r.id); });
+  }catch(e){}
+  encRefsFor(s, a).forEach(function(r){ ids.push(r.id); });
+  return encCompare(ids);
+}
+function encMaterialById(id){
+  if(ENCY){
+    for(var i = 0; i < ENCY.verseReferences.length; i++) if(ENCY.verseReferences[i].id === id) return {kind:'ref', ref:ENCY.verseReferences[i]};
+  }
+  for(var j = 0; j < READINGS.length; j++) if(READINGS[j].id === id) return {kind:'reading', reading:READINGS[j]};
+  return null;
+}
+function encCompare(ids){
+  if(!ids || ids.length < 2) return '';
+  var rows = [];
+  ids.forEach(function(id){
+    var m = encMaterialById(id);
+    if(!m) return;
+    if(m.kind === 'ref'){
+      var ref = m.ref, au = encAuthorOf(ref.authorId), w = encWorkOf(ref);
+      rows.push({name:au ? au.name : ref.authorId, title:w ? w.title : '—', type:w ? encCatLabel(w.category) : 'مادة',
+        summary:ref.quoteLocation || 'لا يتوفر نص مسموح بعرضه لهذه المادة حاليًا — ارجع إلى المصدر.',
+        source:ref.sourceName || 'المصدر غير موثق حاليًا', url:ref.sourceUrl});
+    } else {
+      var r = m.reading, ra = scholarById(r.authorId);
+      rows.push({name:ra ? ra.name : r.authorId, title:r.title || '—', type:typeLabel(r.sourceType),
+        summary:r.summary || r.title || '—', source:r.sourceTitle || 'المصدر غير موثق حاليًا', url:r.sourceUrl});
+    }
+  });
+  if(rows.length < 2) return '';
+  var h = '<div class="group-label">قارن المواد (' + arNum(rows.length) + ')</div>';
+  h += rows.map(function(r){
+    return '<div class="res"><b>' + esc(r.name) + '</b> · ' + esc(r.title) + ' <span class="tag study">' + esc(r.type) + '</span><br>' +
+      '<span class="hint">الفكرة الأساسية: ' + esc(r.summary) + '</span><br>' +
+      '<span class="hint">المنهج: يُستنتج من تصنيف المادة ونوعها — ولا يُعرض كتفسير حاسم.</span><br>' +
+      '<span class="hint">المصدر: ' + esc(r.source) + '</span>' +
+      (r.url ? ' <a class="btn-ghost" style="display:inline-block;padding:3px 12px;font-size:.78rem;" href="' + r.url + '" target="_blank" rel="noopener">فتح المصدر ↗</a>' : '') + '</div>';
+  }).join('');
+  h += '<p class="quiet">«موضع الاتفاق» و«موضع الاختلاف» لا يُحسمان هنا بلا نصوص موثقة مطابقة؛ تعرض المادة ومصدرها ثم تُترك المقارنة لك. ' + OTHERS_DISCLAIMER.replace(/<\/?p[^>]*>/g, '') + '</p>';
+  return h;
+}
+function encVerseHTML(s, a){
+  if(!ENCY) return '';
+  var refs = encRefsFor(s, a);
+  var h = '';
+  ENC_VSECTIONS.forEach(function(sec){
+    var list = refs.filter(function(r){
+      var w = encWorkOf(r);
+      var c = w ? w.category : 'research';
+      return sec.cats.indexOf(c) >= 0;
+    });
+    h += '<div class="group-label">' + sec.label + '</div>';
+    h += list.length ? list.map(encCard).join('') : '<p class="hint">لم نجد في المصادر المفحوصة حاليًا مادة موثقة من هذا النوع لهذه الآية.</p>';
+  });
+  h += encCoverageHTML();
+  var total = refs.length;
+  try{ total += searchOtherReadings(s, a).verified.length; }catch(e){}
+  if(total >= 2) h += '<div style="text-align:center"><button class="btn-ghost" onclick="encShowVerseCompare(this,\'' + s + ':' + a + '\')">قارن المواد المرتبطة بهذه الآية (' + arNum(total) + ')</button><div class="encCmp"></div></div>';
+  return h;
+}
+function encShowVerseCompare(btn, key){
+  var box = btn && btn.parentNode ? btn.parentNode.querySelector('.encCmp') : null;
+  if(!box) return;
+  var parts = String(key).split(':');
+  var out = encVerseCompare(parseInt(parts[0], 10), parseInt(parts[1], 10));
+  box.innerHTML = out;
+}
+function encStats(){
+  if(!ENCY) return null;
+  var works = ENCY.works, refs = ENCY.verseReferences;
+  var tafsir = 0, studies = 0, readingW = 0, awaiting = 0, verifiedSources = 0, needsReview = 0, verseKeys = 0;
+  var studyCats = ['study','lang','context','links','ijaz','usul','manahij','tadabbur','book'];
+  works.forEach(function(w){
+    if(w.category === 'tafsir') tafsir++;
+    else if(w.category === 'reading') readingW++;
+    else if(studyCats.indexOf(w.category) >= 0) studies++;
+    if(w.sourceUrl) verifiedSources++; else awaiting++;
+    if(w.verificationStatus === 'needs-review') needsReview++;
+  });
+  var seenV = {};
+  refs.forEach(function(r){
+    if(r.verificationStatus === 'verified') verifiedSources++;
+    if(r.verificationStatus === 'needs-review') needsReview++;
+    for(var v = r.verseStart; v <= r.verseEnd; v++) seenV[r.surahNumber + ':' + v] = 1;
+  });
+  (ENCY.research || []).forEach(function(rs){ if(rs.sourceUrl) verifiedSources++; if(rs.verificationStatus === 'needs-review') needsReview++; });
+  verseKeys = Object.keys(seenV).length;
+  return {
+    authors: ENCY.authors.length, works: works.length, tafsir: tafsir,
+    research: (ENCY.research || []).length, studies: studies, readings: readingW,
+    refs: refs.length, verifiedSources: verifiedSources, needsReview: needsReview,
+    awaitingSource: awaiting, versesWithMaterial: verseKeys
+  };
+}
+function encStatsHTML(){
+  var st = encStats();
+  if(!st) return '<p class="hint">جارٍ تحميل إحصاءات الموسوعة…</p>';
+  var rows = [
+    ['عدد المؤلفين', st.authors], ['عدد الكتب', st.works], ['عدد التفاسير', st.tafsir],
+    ['عدد الأبحاث', st.research], ['عدد الدراسات', st.studies], ['عدد القراءات المعاصرة', st.readings],
+    ['المواد المرتبطة بالآيات', st.refs], ['المصادر الموثقة', st.verifiedSources],
+    ['مواد تحتاج مراجعة', st.needsReview], ['مواد تنتظر مصدرًا', st.awaitingSource],
+    ['آيات تحتوي مواد', st.versesWithMaterial]
+  ];
+  return '<div class="group-label">إحصاءات الموسوعة</div><div class="chips">' +
+    rows.map(function(r){ return '<span class="tag study">' + r[0] + ': ' + arNum(r[1]) + '</span>'; }).join('') + '</div>';
+}
+function encFilterIds(){
+  return (ENCY ? ENCY.categories : [{id:'all', label:'الكل'}]).map(function(c){ return c.id; });
+}
+function encRenderChips(){
+  var el = document.getElementById('encChips');
+  if(!el) return;
+  el.innerHTML = encFilterIds().map(function(id){
+    var lbl = encCatLabel(id);
+    return '<button class="chip' + (ENC_FILTER === id ? ' on' : '') + '" onclick="encFilter(\'' + id + '\')">' + lbl + '</button>';
+  }).join('');
+}
+function encFilterList(f){
+  if(!ENCY) return {authors:[], works:[], research:[], refs:[]};
+  if(f === 'all' || !f) return {authors:ENCY.authors, works:ENCY.works, research:ENCY.research, refs:ENCY.verseReferences};
+  if(f === 'research') return {authors:[], works:[], research:ENCY.research, refs:[]};
+  return {
+    authors: ENCY.authors.filter(function(a){ return a.fields && a.fields.indexOf(f) >= 0; }),
+    works: ENCY.works.filter(function(w){ return w.category === f; }),
+    research: [],
+    refs: ENCY.verseReferences.filter(function(r){ var w = encWorkOf(r); return w && w.category === f; })
+  };
+}
+function encHomeBack(){
+  var d = document.getElementById('encDetail'), r = document.getElementById('encResults');
+  if(d){ d.style.display = 'none'; d.innerHTML = ''; }
+  if(r) r.style.display = '';
+}
+function encShowDetail(html){
+  var d = document.getElementById('encDetail'), r = document.getElementById('encResults');
+  if(!d) return;
+  d.innerHTML = '<p><button class="btn-ghost" onclick="encHomeBack()">‹ عودة إلى نتائج الموسوعة</button></p>' + html;
+  d.style.display = '';
+  if(r) r.style.display = 'none';
+  try{ d.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+}
+function encWorkCard(w){
+  var h = '<div class="res"><b>' + esc(w.title) + '</b> <span class="tag study">' + encCatLabel(w.category) + '</span>';
+  if(w.coverage === 'full-quran') h += ' <span class="tag reading">يغطي القرآن كاملًا</span>';
+  h += '<br><span class="hint">المؤلف: ' + esc(w.authorName) + '</span>';
+  h += ' <button class="btn-ghost" style="padding:3px 12px;font-size:.78rem;" onclick="encShowAuthor(\'' + w.authorId + '\')">صفحة المؤلف</button>';
+  h += '<br><span class="hint">المصدر: ' + (w.sourceName ? esc(w.sourceName) + (w.sourceUrl ? '' : ' — رابط غير متوفر') : 'المصدر غير موثق حاليًا') + '</span>';
+  h += ' <button class="btn-ghost" style="padding:3px 12px;font-size:.78rem;" onclick="encShowWork(\'' + w.id + '\')">صفحة الكتاب</button></div>';
+  return h;
+}
+function encShowAuthor(id){
+  if(!ENCY) return;
+  var a = encAuthorOf(id);
+  if(!a){ encShowDetail('<p class="hint">هذا المؤلف غير موجود في قاعدة البيانات حاليًا.</p>'); return; }
+  var works = (ENCY._authorWorks[a.id]) || [];
+  var refs = ENCY.verseReferences.filter(function(r){ return r.authorId === a.id; });
+  var h = '<div class="group-label">صفحة المؤلف</div>';
+  h += '<div class="res"><b>' + esc(a.name) + '</b> <span class="tag reading">' + encGroupLabel(a.group) + '</span>';
+  h += ' <span class="tag ' + (a.era === 'تراثي' ? 'study' : 'reading') + '">' + esc(a.era) + '</span><br>';
+  if(a.fullName) h += '<span class="hint">الاسم الكامل: ' + esc(a.fullName) + '</span><br>';
+  if(a.deathYear) h += '<span class="hint">سنة الوفاة (هـ): ' + arNum(a.deathYear) + '</span><br>';
+  if(a.specialties && a.specialties.length) h += '<span class="hint">التخصص: ' + esc(a.specialties.join('، ')) + '</span><br>';
+  h += '<span class="hint">التصنيفات: ' + (a.fields || []).map(function(f){ return encCatLabel(f); }).join('، ') + '</span><br>';
+  h += '<span class="hint">النبذة: ' + (a.biography ? esc(a.biography) : 'لم تُوثَّق نبذة تفصيلية بعد — «المصدر غير موثق حاليًا».') + '</span>';
+  h += '</div>';
+  h += '<div class="group-label">أعماله في قاعدة البيانات</div>';
+  h += works.length ? works.map(encWorkCard).join('') : '<p class="hint">لا قائمة أعمال موثقة بعد. <span class="tag reflect">بانتظار مصدر</span></p>';
+  h += '<div class="group-label">المواد المرتبطة بالآيات</div>';
+  h += refs.length ? refs.map(encCard).join('') : '<p class="hint">لم نجد في المصادر المفحوصة حاليًا مادة موثقة من هذا المؤلف مرتبطة بآية بعينها.</p>';
+  encShowDetail(h);
+}
+function encShowWork(id){
+  if(!ENCY) return;
+  var w = ENCY._work[id] || ENCY._research[id];
+  if(!w){ encShowDetail('<p class="hint">هذا العمل غير موجود في قاعدة البيانات حاليًا.</p>'); return; }
+  var au = encAuthorOf(w.authorId);
+  var refs = ENCY.verseReferences.filter(function(r){ return r.workId === w.id || r.researchId === w.id; });
+  var h = '<div class="group-label">صفحة الكتاب / البحث</div>';
+  h += '<div class="res"><b>' + esc(w.title) + '</b> <span class="tag study">' + encCatLabel(w.category) + '</span><br>';
+  h += '<span class="hint">المؤلف: ' + esc(w.authorName || (au ? au.name : '—')) + '</span>';
+  h += ' <button class="btn-ghost" style="padding:3px 12px;font-size:.78rem;" onclick="encShowAuthor(\'' + w.authorId + '\')">صفحة المؤلف</button><br>';
+  h += '<span class="hint">النوع: ' + encCatLabel(w.category) + (w.coverage === 'full-quran' ? ' — تفسير كامل للقرآن' : '') + '</span><br>';
+  h += '<span class="hint">العصر: ' + esc(w.era || (au ? au.era : '—')) + '</span><br>';
+  h += '<span class="hint">الناشر: ' + (w.publisher ? esc(w.publisher) : 'لم تُوثَّق هذه البيانات بعد.') + '</span><br>';
+  h += '<span class="hint">سنة النشر: ' + (w.publicationYear ? arNum(w.publicationYear) : 'لم تُوثَّق هذه البيانات بعد.') + '</span><br>';
+  h += '<span class="hint">المجلدات: ' + (w.volumes ? arNum(w.volumes) : 'لم تُوثَّق هذه البيانات بعد.') + '</span><br>';
+  if(w.coverage === 'full-quran') h += '<span class="hint">التغطية: تفسير كامل يشمل القرآن كه، ولا يُعرض هنا نص مرتبط بآية بعينها.</span><br>';
+  h += '<span class="hint">الوصف: ' + (w.description ? esc(w.description) : 'لا وصف موثق مُسجَّل بعد.') + '</span><br>';
+  h += '<span class="hint">المصدر: ' + (w.sourceName ? esc(w.sourceName) : 'المصدر غير موثق حاليًا') + '</span><br>';
+  h += '<span class="hint">حالة التحقق: ' + (w.verificationStatus === 'verified' ? 'موثق' : (w.verificationStatus === 'needs-review' ? 'يحتاج مراجعة' : 'بيانات ببليوغرافية — رابط المصدر غير موثق حاليًا')) + '</span>';
+  if(w.sourceUrl) h += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;padding:6px 16px;font-size:.85rem;" href="' + w.sourceUrl + '" target="_blank" rel="noopener">الرابط الأصلي ↗</a>';
+  h += '</div>';
+  h += '<div class="group-label">المواد المرتبطة بالآيات</div>';
+  h += refs.length ? refs.map(encCard).join('') : '<p class="hint">لا توجد في قاعدة البيانات آيات موثقة مرتبطة بهذا العمل حاليًا.</p>';
+  encShowDetail(h);
+}
+function encVerVerified(){
+  var st = encStats();
+  return ENCY ? encStatsHTML() : '<p class="hint">جارٍ تحميل فهرس الموسوعة…</p>';
+}
+function encRenderResults(list, heading){
+  var el = document.getElementById('encResults');
+  if(!el) return;
+  if(!ENCY){ el.innerHTML = '<p class="hint">جارٍ تحميل فهرس الموسوعة…</p>'; return; }
+  encHomeBack();
+  var h = '';
+  if(heading) h += '<div class="group-label">' + heading + '</div>';
+  if(list.authors.length){
+    h += '<div class="group-label">مؤلفون (' + arNum(list.authors.length) + ')</div>';
+    h += list.authors.map(function(a){
+      return '<div class="res" onclick="encShowAuthor(\'' + a.id + '\')"><b>' + esc(a.name) + '</b> <span class="tag reading">' + encGroupLabel(a.group) + '</span> <span class="tag ' + (encVerifiedCount(a.id) ? 'fact' : 'reflect') + '">' + (encVerifiedCount(a.id) ? 'توجد مواد موثقة' : 'بانتظار مصدر') + '</span><br><span class="hint">' + esc(a.fullName || a.name) + ' — ' + esc(a.era) + '</span></div>';
+    }).join('');
+  }
+  if(list.works.length){
+    h += '<div class="group-label">كتب وأعمال (' + arNum(list.works.length) + ')</div>';
+    h += list.works.map(encWorkCard).join('');
+  }
+  if(list.research && list.research.length){
+    h += '<div class="group-label">أبحاث (' + arNum(list.research.length) + ')</div>';
+    h += list.research.map(function(r){
+      return '<div class="res"><b>' + esc(r.title) + '</b><br><span class="hint">المؤلف: ' + esc(r.authorName || '—') + '</span></div>';
+    }).join('');
+  }
+  if(list.refs.length){
+    h += '<div class="group-label">مواد مرتبطة بالآيات (' + arNum(list.refs.length) + ')</div>';
+    h += list.refs.map(encCard).join('');
+  }
+  if(!list.authors.length && !list.works.length && !(list.research && list.research.length) && !list.refs.length){
+    h += '<p class="hint">لا توجد نتائج مطابقة في قاعدة البيانات حاليًا — جرّب كلمة أو مرجعًا آخر.</p>';
+  }
+  el.innerHTML = h;
+}
+function encBrowse(){
+  if(!ENCY) return;
+  var list = encFilterList(ENC_FILTER);
+  var head = 'تصفح الموسوعة — ' + encCatLabel(ENC_FILTER);
+  if(ENC_FILTER === 'all'){
+    var el = document.getElementById('encResults');
+    if(!el) return;
+    var groups = ENCY.groups.map(function(g){
+      var n = ENCY.authors.filter(function(a){ return a.group === g.id; }).length;
+      return '<button class="chip" onclick="encBrowseGroup(\'' + g.id + '\')">' + g.label + ' (' + arNum(n) + ')</button>';
+    }).join('');
+    var h = '<div class="group-label">تصفح الموسوعة حسب المجموعة</div><div class="chips">' + groups + '</div>';
+    h += '<div class="group-label">مؤلفون (' + arNum(ENCY.authors.length) + ')</div>';
+    h += ENCY.authors.map(function(a){
+      return '<button class="chip" onclick="encShowAuthor(\'' + a.id + '\')">' + esc(a.name) + '</button>';
+    }).join(' ');
+    h += '<div class="group-label">أحدث الكتب المضافة</div>' + ENCY.works.slice(0, 8).map(encWorkCard).join('');
+    encHomeBack();
+    el.innerHTML = h;
+    return;
+  }
+  encRenderResults(list, head);
+}
+function encBrowseGroup(gid){
+  if(!ENCY) return;
+  var el = document.getElementById('encResults');
+  if(!el) return;
+  encHomeBack();
+  var authors = ENCY.authors.filter(function(a){ return a.group === gid; });
+  var works = ENCY.works.filter(function(w){ var au = encAuthorOf(w.authorId); return au && au.group === gid; });
+  el.innerHTML = '<div class="group-label">' + encGroupLabel(gid) + '</div>' +
+    '<div class="group-label">مؤلفون (' + arNum(authors.length) + ')</div>' +
+    authors.map(function(a){ return '<button class="chip" onclick="encShowAuthor(\'' + a.id + '\')">' + esc(a.name) + '</button>'; }).join(' ') +
+    '<div class="group-label">كتب (' + arNum(works.length) + ')</div>' + works.map(encWorkCard).join('');
+}
+function encParseQuery(q){
+  var m = String(q).match(/^\s*(\d+)\s*[:\/\-]\s*(\d+)\s*$/);
+  if(m) return {type:'verse', s:parseInt(m[1], 10), a:parseInt(m[2], 10)};
+  if(typeof QDATA !== 'undefined' && QDATA){
+    var nq = norm(q);
+    for(var i = 0; i < QDATA.surahs.length; i++){
+      var su = QDATA.surahs[i], ns = norm(su.name);
+      if(nq === ns) return {type:'surah', s:su.n};
+      if(nq.indexOf(ns) === 0){
+        var rest = nq.slice(ns.length).trim();
+        if(!rest) return {type:'surah', s:su.n};
+        if(/^\d+$/.test(rest)) return {type:'verse', s:su.n, a:parseInt(rest, 10)};
+      }
+    }
+  }
+  return {type:'text', q:q};
+}
+function encVerseResultsHTML(s, a){
+  var sn = surahNameOf(s);
+  var refs = encRefsFor(s, a);
+  var reads = [];
+  try{ reads = searchOtherReadings(s, a).verified; }catch(e){}
+  var h = '<div class="group-label">المواد الموثقة المرتبطة بـ' + (sn ? ' سورة ' + sn : '') + ' ﴿' + arNum(a) + '﴾</div>';
+  if(!reads.length && !refs.length){
+    h += '<p><b>لا توجد مادة موثقة لهذه الآية حاليًا.</b></p><p class="hint">لم نجد في المصادر المفحوصة حاليًا مادة موثقة لهذه الآية، ولا تُعرض بيانات آية أخرى.</p><p><span class="tag reflect">بانتظار مصدر</span></p>';
+  } else {
+    h += reads.map(readingCard).join('');
+    h += refs.map(encCard).join('');
+    if(reads.length + refs.length >= 2) h += encCompare(reads.map(function(r){ return r.id; }).concat(refs.map(function(r){ return r.id; })));
+  }
+  h += encCoverageHTML();
+  h += '<p style="text-align:center"><button class="btn" onclick="openAya(' + s + ',' + a + ');goSec(\'study\')">افتح الآية في رحلة التدبر</button></p>';
+  return h;
+}
+function encSurahResultsHTML(s){
+  var sn = surahNameOf(s);
+  var refs = encRefsInSurah(s);
+  var h = '<div class="group-label">المواد المرتبطة بسورة ' + sn + '</div>';
+  h += refs.length ? refs.map(encCard).join('') : '<p class="hint">لا توجد مواد موثقة مرتبطة مباشرة بسورتك في قاعدة البيانات حاليًا.</p>';
+  var cov = ENCY ? ENCY.works.filter(function(w){ return w.coverage === 'full-quran'; }) : [];
+  if(cov.length){
+    h += '<div class="group-label">تفاسير كاملة تشمل السورة (' + arNum(cov.length) + ') — ببليوغرافيا فقط</div>';
+    h += '<p>' + cov.map(function(w){ return '<button class="chip" onclick="encShowWork(\'' + w.id + '\')">' + esc(w.title) + ' — ' + esc(w.authorName) + '</button>'; }).join(' ') + '</p>';
+  }
+  h += '<p style="text-align:center"><button class="btn" onclick="openSurahLink(' + s + ');goSec(\'study\')">افتح السورة</button></p>';
+  return h;
+}
+function encTextResults(q){
+  var nq = norm(q), list = {authors:[], works:[], research:[], refs:[]};
+  if(!ENCY) return list;
+  list.authors = ENCY.authors.filter(function(a){
+    if(norm(a.name).indexOf(nq) >= 0) return true;
+    if(a.fullName && norm(a.fullName).indexOf(nq) >= 0) return true;
+    if((a.specialties || []).some(function(sp){ return norm(sp).indexOf(nq) >= 0; })) return true;
+    return false;
+  });
+  list.works = ENCY.works.filter(function(w){
+    if(norm(w.title).indexOf(nq) >= 0) return true;
+    if(w.authorName && norm(w.authorName).indexOf(nq) >= 0) return true;
+    if(norm(encCatLabel(w.category)).indexOf(nq) >= 0) return true;
+    if(w.sourceName && norm(w.sourceName).indexOf(nq) >= 0) return true;
+    return (ENCY._authorWorks[w.authorId] || []).length > 0 && list.authors.some(function(a){ return a.id === w.authorId; });
+  });
+  list.refs = ENCY.verseReferences.filter(function(r){
+    if(r.quoteLocation && norm(r.quoteLocation).indexOf(nq) >= 0) return true;
+    if(r.sourceName && norm(r.sourceName).indexOf(nq) >= 0) return true;
+    var w = encWorkOf(r);
+    return !!(w && norm(w.title).indexOf(nq) >= 0);
+  });
+  return list;
+}
+function encSearchRun(){
+  if(!ENCY){
+    var pend = document.getElementById('encResults');
+    if(pend) pend.innerHTML = '<p class="hint">جارٍ تحميل فهرس الموسوعة…</p>';
+    loadEncyclopedia();
+    return;
+  }
+  var box = document.getElementById('encInput');
+  var q = box ? box.value.trim() : '';
+  if(!q){ encBrowse(); return; }
+  var p = encParseQuery(q);
+  var el = document.getElementById('encResults');
+  if(!el) return;
+  encHomeBack();
+  if(p.type === 'verse'){
+    if(!isValidVerse(p.s, p.a)){ el.innerHTML = '<p class="hint">المرجع القرآني غير صحيح — تحقق من رقم السورة والآية.</p>'; return; }
+    el.innerHTML = encVerseResultsHTML(p.s, p.a);
+    return;
+  }
+  if(p.type === 'surah'){
+    el.innerHTML = encSurahResultsHTML(p.s);
+    return;
+  }
+  var list = encTextResults(q);
+  var total = list.authors.length + list.works.length + list.refs.length;
+  encRenderResults(list, 'نتائج البحث عن: ' + esc(q) + ' (' + arNum(total) + ')');
+}
+var ENC_FILTER = 'all';
+function encFilter(f){
+  ENC_FILTER = f || 'all';
+  encRenderChips();
+  encBrowse();
+}
+function encRenderHome(){
+  var st = document.getElementById('encStats');
+  if(st) st.innerHTML = encVerVerified();
+  encRenderChips();
+  if(!ENCY){
+    var el = document.getElementById('encResults');
+    if(el) el.innerHTML = '<p class="hint">جارٍ تحميل فهرس الموسوعة…</p>';
+    return;
+  }
+  encBrowse();
+}
+function loadEncyclopedia(cb){
+  if(ENCY){ if(cb) cb(); return; }
+  if(cb) ENC_WAIT.push(cb);
+  if(ENC_LOAD) return;
+  ENC_LOAD = true;
+  fetchJSON('data/encyclopedia.json', 20000, function(d){
+    ENC_LOAD = false;
+    if(!d || !d.authors || !d.works){
+      var el = document.getElementById('encResults');
+      if(el) el.innerHTML = '<p class="hint">تعذر تحميل فهرس الموسوعة حاليًا.</p><button class="btn-ghost" onclick="loadEncyclopedia()">إعادة المحاولة</button>';
+      return;
+    }
+    encIndex(d);
+    ENCY = d;
+    ENC_WAIT.forEach(function(f){ try{ f(); }catch(e){} });
+    ENC_WAIT = [];
+    try{ encRenderHome(); }catch(e){}
+    try{ renderOthersInto(document.getElementById('vOthersBody'), CUR.s, CUR.a); }catch(e){}
+    try{ renderOthersInto(document.getElementById('verseOthers82'), 4, 82); }catch(e){}
+    try{ renderScholarDir('', 'scholarDir'); }catch(e){}
+    try{ renderScholarDir('', 'scholarDirV'); }catch(e){}
+  });
+}
+function encIndex(d){
+  d._author = {}; d._work = {}; d._research = {}; d._authorWorks = {};
+  d.authors.forEach(function(a){ d._author[a.id] = a; d._authorWorks[a.id] = []; });
+  (d.works || []).forEach(function(w){ d._work[w.id] = w; if(d._authorWorks[w.authorId]) d._authorWorks[w.authorId].push(w); });
+  (d.research || []).forEach(function(r){ d._research[r.id] = r; if(d._authorWorks[r.authorId]) d._authorWorks[r.authorId].push(r); });
 }
 var QDATA = null, QLOAD = false, QWAIT = [], SHOWALL = false;
 function arNum(n){ return String(n).replace(/\d/g, function(d){ return '٠١٢٣٤٥٦٧٨٩'[d]; }); }
@@ -1703,6 +2245,7 @@ document.addEventListener('click', function(e){
 });
 buildCuratedPanels();
 loadQuran();
+loadEncyclopedia();
 routeFromHash(false);
 </script>
 </body>

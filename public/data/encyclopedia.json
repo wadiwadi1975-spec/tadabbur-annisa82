@@ -1,0 +1,3968 @@
+{
+ "version": 1,
+ "note": "موسوعة القراءات والتفاسير والدراسات القرآنية — بيانات ببليوغرافية موثقة فقط، بلا اختلاق.",
+ "categories": [
+  {
+   "id": "all",
+   "label": "الكل"
+  },
+  {
+   "id": "tafsir",
+   "label": "التفاسير"
+  },
+  {
+   "id": "book",
+   "label": "الكتب"
+  },
+  {
+   "id": "research",
+   "label": "الأبحاث"
+  },
+  {
+   "id": "study",
+   "label": "الدراسات"
+  },
+  {
+   "id": "reading",
+   "label": "القراءات المعاصرة"
+  },
+  {
+   "id": "lang",
+   "label": "اللغة والبلاغة"
+  },
+  {
+   "id": "context",
+   "label": "السياق"
+  },
+  {
+   "id": "links",
+   "label": "الترابط والمناسبات"
+  },
+  {
+   "id": "ijaz",
+   "label": "الإعجاز"
+  },
+  {
+   "id": "tadabbur",
+   "label": "التدبر"
+  },
+  {
+   "id": "usul",
+   "label": "أصول التفسير"
+  },
+  {
+   "id": "manahij",
+   "label": "مناهج المفسرين"
+  }
+ ],
+ "groups": [
+  {
+   "id": "g-classic",
+   "label": "التفاسير التراثية والكلاسيكية"
+  },
+  {
+   "id": "g-modern",
+   "label": "التفاسير والقراءات الحديثة والمعاصرة"
+  },
+  {
+   "id": "g-study",
+   "label": "الدراسات القرآنية واللغوية والبلاغية"
+  },
+  {
+   "id": "g-usul",
+   "label": "أصول التفسير ومناهج المفسرين"
+  },
+  {
+   "id": "g-tadabbur",
+   "label": "الترابط والمناسبات والتدبر"
+  },
+  {
+   "id": "g-ijaz",
+   "label": "الإعجاز والدراسات العلمية"
+  },
+  {
+   "id": "g-contemp",
+   "label": "المعاصرون في المشروع"
+  },
+  {
+   "id": "g-legacy",
+   "label": "باحثون معاصرون — قائمة الموقع"
+  }
+ ],
+ "authors": [
+  {
+   "id": "tabari",
+   "name": "محمد بن جرير الطبري",
+   "fullName": "محمد بن جرير الطبري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 310,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر ومؤرخ"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnkathir",
+   "name": "إسماعيل بن عمر ابن كثير",
+   "fullName": "إسماعيل بن عمر بن كثير القرشي الدمشقي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 774,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر ومؤرخ"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qurtubi",
+   "name": "محمد بن أحمد القرطبي",
+   "fullName": "محمد بن أحمد بن أبي بكر الأنصاري القرطبي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 671,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر فقيه مالكي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "saadi",
+   "name": "عبد الرحمن بن ناصر السعدي",
+   "fullName": "عبد الرحمن بن ناصر بن عبد الله السعدي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "baghawi",
+   "name": "الحسين بن مسعود البغوي",
+   "fullName": "الحسين بن مسعود الفارقي البغوي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "zamakhshari",
+   "name": "محمود بن عمر الزمخشري",
+   "fullName": "محمود بن عمر بن محمد الخوارزمي الزمخشري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 538,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر ولغوي"
+   ],
+   "fields": [
+    "ijaz",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnAtiyya",
+   "name": "أبو محمد عبد الحق بن عطية الأندلسي",
+   "fullName": "عبد الحق بن عبد الرحمن بن عطية الأندلسي الغرناطي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر مالكي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "razi",
+   "name": "فخر الدين الرازي",
+   "fullName": "فخر الدين محمد بن عمر الرازي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 606,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "baydawi",
+   "name": "ناصر الدين البيضاوي",
+   "fullName": "عبد الله بن عمر البيضاوي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "nasafi",
+   "name": "أبو البركات النسفي",
+   "fullName": "عثمان بن محمد الزاهدي النسفي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنفي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuSuud",
+   "name": "أبو السعود العمادي",
+   "fullName": "محمد بن محمد بن مصطفى العمادي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنفي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuHayyan",
+   "name": "أبو حيان الأندلسي",
+   "fullName": "محمد بن يوسف بن علي الأندلسي الغرناطي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 745,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر ولغوي"
+   ],
+   "fields": [
+    "ijaz",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "mahalli",
+   "name": "جلال الدين المحلي",
+   "fullName": "جلال الدين عبد الرحمن بن أبي بكر المحلي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "suyuti",
+   "name": "جلال الدين السيوطي",
+   "fullName": "جلال الدين عبد الرحمن بن أبي بكر السيوطي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 911,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر ولغوي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnJawzi",
+   "name": "ابن الجوزي",
+   "fullName": "أبو الفرج عبد الرحمن بن علي بن الجوزي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 654,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنبلي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "wahidi",
+   "name": "الواحدي",
+   "fullName": "علي بن أحمد بن محمد الواحدي النيسابوري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "maawirdi",
+   "name": "الماوردي",
+   "fullName": "علي بن محمد بن حبيب الماوردي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "thalabi",
+   "name": "الثعلبي",
+   "fullName": "أحمد بن محمد بن إبراهيم الثعلبي النيسابوري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnAbiHatim",
+   "name": "ابن أبي حاتم الرازي",
+   "fullName": "عبد الرحمن بن محمد بن إدريس الرازي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 327,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر وراوي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "mujahid",
+   "name": "مقاتل بن سليمان",
+   "fullName": "مقاتل بن سليمان البلخي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abdulRazzaq",
+   "name": "عبد الرزاق الصنعاني",
+   "fullName": "عبد الرزاق بن همام بن نافع الصنعاني",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 211,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "sufyanThawri",
+   "name": "سفيان الثوري",
+   "fullName": "سفيان بن سعيد بن مسروق الثوري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 161,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر وفقه"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "testri",
+   "name": "سهل التستري",
+   "fullName": "سهل بن عبد الله التستري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "maturidi",
+   "name": "أبو منصور الماتريدي",
+   "fullName": "محمد بن محمد بن محمود الماتريدي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنفي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuLayth",
+   "name": "أبو الليث السمرقندي",
+   "fullName": "نصر بن محمد بن أحمد السمرقندي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنفي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qushayri",
+   "name": "القشيري",
+   "fullName": "أبو القاسم عبد الكريم بن هوازن القشيري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnJazzy",
+   "name": "ابن جزي الكلبي",
+   "fullName": "محمد بن يوسف ابن جزي الكلبي الغرناطي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر مالكي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "khazin",
+   "name": "علاء الدين الخازن",
+   "fullName": "علي بن محمد بن علي الخازن البلخي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ismailHaqq",
+   "name": "إسماعيل حقي",
+   "fullName": "إسماعيل بن يوسف الحق التركي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنفي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnAjiba",
+   "name": "ابن عجيبة",
+   "fullName": "أحمد بن محمد بن عجيبة الشاوي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "shawkani",
+   "name": "الشوكاني",
+   "fullName": "محمد بن علي بن محمد الشوكاني",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 1250,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر زيدي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "siddiqKhan",
+   "name": "صديق حسن خان",
+   "fullName": "محمد صديق بن حسن خان القنوجي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "alusi",
+   "name": "الألوسي",
+   "fullName": "محمود بن عبد الله الألوسي البغدادي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 1270,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر حنفي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qasimi",
+   "name": "جمال الدين القاسمي",
+   "fullName": "محمد بن عبد الرحمن القاسمي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "buqai",
+   "name": "برهان الدين البقاعي",
+   "fullName": "إبراهيم بن عمر البقاعي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر شافعي"
+   ],
+   "fields": [
+    "ijaz",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnAshur",
+   "name": "ابن عاشور",
+   "fullName": "محمد الطاهر بن محمد بن عاشور",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 1436,
+   "biography": null,
+   "group": "g-classic",
+   "specialties": [
+    "مفسر مالكي"
+   ],
+   "fields": [
+    "ijaz",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abduh",
+   "name": "محمد عبده",
+   "fullName": "محمد عبده الدومي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": 1325,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "rida",
+   "name": "محمد رشيد رضا",
+   "fullName": "محمد بن رشيد رضا",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": 1354,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "muraghi",
+   "name": "محمد مصطفى المراغي",
+   "fullName": "محمد مصطفى المراغي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuZahra",
+   "name": "محمد أبو زهرة",
+   "fullName": "محمد مصطفى أبو زهرة",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qutb",
+   "name": "سيد قطب",
+   "fullName": "سيد قطب إبراهيم قطب",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": 1385,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب ومفكر"
+   ],
+   "fields": [
+    "reading",
+    "tadabbur",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "higazi",
+   "name": "محمد محمود حجازي",
+   "fullName": "محمد محمود حجازي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "droza",
+   "name": "محمد عزة دروزة",
+   "fullName": "محمد عزة دروزة",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "khatib",
+   "name": "عبد الكريم يونس الخطيب",
+   "fullName": "عبد الكريم يونس الخطيب",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "sabbuni",
+   "name": "محمد علي الصابوني",
+   "fullName": "محمد علي الصابوني",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب ومفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "shahata",
+   "name": "عبد الله محمود شحاتة",
+   "fullName": "عبد الله محمود شحاتة",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "tantawiMS",
+   "name": "محمد سيد طنطاوي",
+   "fullName": "محمد سيد طنطاوي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "zaykhili",
+   "name": "وهبة الزحيلي",
+   "fullName": "وهبة بن مصطفى الزحيلي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر وفقيه"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "hurr",
+   "name": "محمد الأمين الهرري",
+   "fullName": "محمد الأمين الجكني الهرري",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qattanI",
+   "name": "إبراهيم القطان",
+   "fullName": "إبراهيم بن محمد القطان",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "makhluuf",
+   "name": "حسنين محمد مخلوف",
+   "fullName": "حسنين محمد مخلوف",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "muraghiAM",
+   "name": "أحمد مصطفى المراغي",
+   "fullName": "أحمد مصطفى المراغي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "wajdi",
+   "name": "فريد وجدي",
+   "fullName": "فريد وجدي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب وموسوعي"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "tantawiJ",
+   "name": "طنطاوي جوهري",
+   "fullName": "محمد سعيد طنطاوي جوهري",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "ijaz",
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "shaarawi",
+   "name": "محمد متولي الشعراوي",
+   "fullName": "محمد متولي الشعراوي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": 1430,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "ijaz",
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "adawi",
+   "name": "مصطفى العدوي",
+   "fullName": "مصطفى العدوي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب إسلامي"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "huttayba",
+   "name": "أحمد حطيبة",
+   "fullName": "أحمد حطيبة",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب إسلامي"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "hawwad",
+   "name": "أسعد حومد",
+   "fullName": "أسعد حومد",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب إسلامي"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "jazairi",
+   "name": "أبو بكر الجزائري",
+   "fullName": "أبو بكر بن عبد الله الجزائري",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "yasin",
+   "name": "حكمت بشير ياسين",
+   "fullName": "حكمت بشير ياسين",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب قرآني"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "rifai",
+   "name": "محمد نسيب الرفاعي",
+   "fullName": "محمد نسيب الرفاعي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "كاتب إسلامي"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "tafsirCenter",
+   "name": "مركز تفسير للدراسات القرآنية",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مؤسسة بحثية"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "azharCouncil",
+   "name": "مجمع البحوث الإسلامية بالأزهر",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مؤسسة بحثية"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "azharCommittee",
+   "name": "لجنة علماء الأزهر",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "لجنة علمية"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "kingFahd",
+   "name": "مجمع الملك فهد لطباعة المصحف الشريف",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-modern",
+   "specialties": [
+    "مؤسسة"
+   ],
+   "fields": [
+    "reading",
+    "tafsir"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "bint-shati",
+   "name": "عائشة عبد الرحمن (بنت الشاطئ)",
+   "fullName": "عائشة عبد الرحمن بنت الشاطئ",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوية وبيانية"
+   ],
+   "fields": [
+    "ijaz",
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "samarraie",
+   "name": "فاضل صالح السامرائي",
+   "fullName": "فاضل صالح الحسيني السامرائي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي وبياني"
+   ],
+   "fields": [
+    "ijaz",
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "farahi",
+   "name": "عبد الحميد الفراهي",
+   "fullName": "عبد الحميد بن محمد الفراهي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "ijaz",
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "khouli",
+   "name": "أمين الخولي",
+   "fullName": "أمين بن محمود الخولي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "أديب ولغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "khalafallah",
+   "name": "محمد أحمد خلف الله",
+   "fullName": "محمد أحمد خلف الله",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "dhahabi",
+   "name": "محمد حسين الذهبي",
+   "fullName": "محمد حسين الذهبي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abbass",
+   "name": "فضل حسن عباس",
+   "fullName": "فضل حسن عباس",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "lang",
+    "study",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qattanM",
+   "name": "مناع القطان",
+   "fullName": "مناع بن سليمان القطان",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "tayyar",
+   "name": "مساعد بن سليمان الطيار",
+   "fullName": "مساعد بن سليمان الطيار",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "zarqani",
+   "name": "محمد عبد العظيم الزرقاني",
+   "fullName": "محمد عبد العظيم بن شلبي الزرقاني",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "salihSubhi",
+   "name": "صبحي الصالح",
+   "fullName": "صبحي بن حماد الصالح",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "daraz",
+   "name": "عبد الله دراز",
+   "fullName": "عبد الله بن محمد بن عمر دراز",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "مفكر وباحث"
+   ],
+   "fields": [
+    "ijaz",
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "mahmoud-shakir",
+   "name": "محمود شاكر",
+   "fullName": "محمود شاكر",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "مترجم وباحث"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuMusa",
+   "name": "محمد أبو موسى",
+   "fullName": "محمد أبو موسى",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في النص القرآني"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "hassan",
+   "name": "تمام حسان",
+   "fullName": "تمام بن عبد القادر حسان",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "kharat",
+   "name": "أحمد الخراط",
+   "fullName": "أحمد الخراط",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "darweesh",
+   "name": "محيي الدين درويش",
+   "fullName": "محيي الدين درويش",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "assim",
+   "name": "عبد الخالق عضيمة",
+   "fullName": "عبد الخالق عضيمة",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث في علوم القرآن"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "raghib",
+   "name": "الراغب الأصفهاني",
+   "fullName": "الحسين بن محمد الأصفهاني الراغب",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 502,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي وقارئ"
+   ],
+   "fields": [
+    "ijaz",
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuUbayda",
+   "name": "أبو عبيدة معمر بن المثنى",
+   "fullName": "معمر بن المثنى بن أبي عبيدة التيمي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 208,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "farra",
+   "name": "الفراء",
+   "fullName": "يحيى بن زياد بن عبد الله الفراء",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 207,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "zajjaj",
+   "name": "الزجاج",
+   "fullName": "إبراهيم بن السري بن هاشم الزجاج",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 311,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnNahas",
+   "name": "ابن النحاس",
+   "fullName": null,
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abuUbayd",
+   "name": "أبو عبيد القاسم بن سلام",
+   "fullName": "القاسم بن سلام الجُمحي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي ومؤرخ"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnQutayba",
+   "name": "ابن قتيبة الدينوري",
+   "fullName": "عبد الله بن مسلم بن قتيبة الدينوري",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 276,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي وكاتب"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "sijistani",
+   "name": "السجستاني",
+   "fullName": "أبو بكر محمد بن عزيز السجستاني",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "لغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnHimam",
+   "name": "ابن الهائم",
+   "fullName": null,
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "iskafi",
+   "name": "الخطيب الإسكافي",
+   "fullName": "عبد الله بن أحمد الإسكافي",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "مفسر"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "matani",
+   "name": "عبد العظيم المطعني",
+   "fullName": "عبد العظيم بن عبد القادر المطعني",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "باحث قرآني"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "rafii",
+   "name": "مصطفى صادق الرافعي",
+   "fullName": "مصطفى صادق بن محمد الرافعي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-study",
+   "specialties": [
+    "أديب ولغوي"
+   ],
+   "fields": [
+    "lang",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "sharqawi",
+   "name": "أحمد محمد الشرقاوي",
+   "fullName": "أحمد محمد الشرقاوي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "saadMT",
+   "name": "محمود توفيق محمد سعد",
+   "fullName": "محمود توفيق محمد سعد",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "rumi",
+   "name": "فهد بن عبد الرحمن الرومي",
+   "fullName": "فهد بن عبد الرحمن الرومي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "zarsur",
+   "name": "عدنان محمد زرزور",
+   "fullName": "عدنان محمد زرزور",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "munai",
+   "name": "منيع بن عبد الحليم محمود",
+   "fullName": "منيع بن عبد الحليم محمود",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "saqr",
+   "name": "نبيل أحمد صقر",
+   "fullName": "نبيل أحمد صقر",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "husni",
+   "name": "مسعد بن مساعد الحسيني",
+   "fullName": "مسعد بن مساعد الحسيني",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "fadlAshur",
+   "name": "محمد الفاضل بن عاشور",
+   "fullName": "محمد الفاضل بن محمد الطاهر بن عاشور",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "yakhlef",
+   "name": "رمضان يخلف",
+   "fullName": "رمضان يخلف",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "shathli",
+   "name": "محسن عبد العظيم الشاذلي",
+   "fullName": "محسن عبد العظيم الشاذلي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "nimer",
+   "name": "عبد المنعم النمر",
+   "fullName": "عبد المنعم النمر",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "salihSheikh",
+   "name": "صالح بن عبد العزيز آل الشيخ",
+   "fullName": "صالح بن عبد العزيز آل الشيخ",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "qasimAR",
+   "name": "عبد الرحمن بن قاسم",
+   "fullName": "عبد الرحمن بن محمد بن قاسم",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "sabt",
+   "name": "خالد بن عثمان السبت",
+   "fullName": "خالد بن عثمان السبت",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnTaymiyya",
+   "name": "ابن تيمية",
+   "fullName": "أحمد بن عبد الحليم بن تيمية",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 728,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "فقيه ومفسر"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibnUthaymin",
+   "name": "ابن عثيمين",
+   "fullName": "محمد بن صالح بن عثيمين",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": 1421,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "فقيه"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "khudair",
+   "name": "عبد الكريم الخضير",
+   "fullName": "عبد الكريم بن هادي الخضير",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "حديث"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "imadAli",
+   "name": "عماد علي عبد السميع",
+   "fullName": "عماد علي عبد السميع",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "wasimF",
+   "name": "وسيم فتح الله",
+   "fullName": "وسيم فتح الله",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "mahrin",
+   "name": "مهران ماهر عثمان",
+   "fullName": "مهران ماهر عثمان",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "hazmi",
+   "name": "فهد بن عبد الله الحزمي",
+   "fullName": "فهد بن عبد الله الحزمي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-usul",
+   "specialties": [
+    "أصول تفسير"
+   ],
+   "fields": [
+    "manahij",
+    "usul"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "hamdMI",
+   "name": "محمد إبراهيم الحمد",
+   "fullName": "محمد إبراهيم الحمد",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "raba",
+   "name": "محمد عبد الله الربيعة",
+   "fullName": "محمد عبد الله الربيعة",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "bouzi",
+   "name": "محمد البوزي",
+   "fullName": "محمد البوزي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ubaidAS",
+   "name": "عبد العزيز بن صالح العبيد",
+   "fullName": "عبد العزيز بن صالح العبيد",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "tuwaijiri",
+   "name": "عبد الكريم بن حمود التويجري",
+   "fullName": "عبد الكريم بن حمود التويجري",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "muqbil",
+   "name": "عمر بن عبد الله المقبل",
+   "fullName": "عمر بن عبد الله المقبل",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "lahham",
+   "name": "خالد بن عبد الكريم اللاحم",
+   "fullName": "خالد بن عبد الكريم اللاحم",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "makkiM",
+   "name": "مجد بن أحمد مكي",
+   "fullName": "مجد بن أحمد مكي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "uwaidat",
+   "name": "عصام بن صالح العويد",
+   "fullName": "عصام بن صالح العويد",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "asmari",
+   "name": "بدر بن علي الأسمري",
+   "fullName": "بدر بن علي الأسمري",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "badabud",
+   "name": "منال محمد عبد الله بادابود",
+   "fullName": "منال محمد عبد الله بادابود",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "rawaaH",
+   "name": "رواء محمود حسين",
+   "fullName": "رواء محمود حسين",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ruwyshd",
+   "name": "أسماء بنت راشد الرويشد",
+   "fullName": "أسماء بنت راشد الرويشد",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "maghamsi",
+   "name": "صالح بن عواد المغامسي",
+   "fullName": "صالح بن عواد المغامسي",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "muhammadWahhab",
+   "name": "محمد بن عبد الوهاب",
+   "fullName": "محمد بن عبد الوهاب",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "ترابط ومناسبات"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "tadabburCenter",
+   "name": "مركز تدبر للاستشارات",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-tadabbur",
+   "specialties": [
+    "مؤسسة"
+   ],
+   "fields": [
+    "links",
+    "tadabbur"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ibrahimMI",
+   "name": "محمد إسماعيل إبراهيم",
+   "fullName": "محمد إسماعيل إبراهيم",
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-ijaz",
+   "specialties": [
+    "إعجاز"
+   ],
+   "fields": [
+    "ijaz"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "baqillani",
+   "name": "الباقلاني",
+   "fullName": "أبو بكر الباقلاني",
+   "kunyah": null,
+   "era": "تراثي",
+   "deathYear": 403,
+   "biography": null,
+   "group": "g-ijaz",
+   "specialties": [
+    "إعجاز وأصول"
+   ],
+   "fields": [
+    "ijaz"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "m-hedayah",
+   "name": "الدكتور محمد هداية",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-contemp",
+   "specialties": [
+    "باحث / قراءة معاصرة"
+   ],
+   "fields": [
+    "reading"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "h-sebai",
+   "name": "الدكتور حسن السباعي",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-contemp",
+   "specialties": [
+    "باحث / قراءة معاصرة"
+   ],
+   "fields": [
+    "reading"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "shahrour",
+   "name": "محمد شحرور",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "مفكر معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "abu-zayd",
+   "name": "نصر حامد أبو زيد",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "مفكر معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "arkoun",
+   "name": "محمد أركون",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "مفكر معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "jabri",
+   "name": "محمد عابد الجابري",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "باحث معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "fazlur",
+   "name": "فضل الرحمن",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "باحث معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "soroush",
+   "name": "عبد الكريم سروش",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "مفكر معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "talbi",
+   "name": "محمد الطالبي",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "مفكر معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  },
+  {
+   "id": "ozturk",
+   "name": "ياشار نوري أوزتورك",
+   "fullName": null,
+   "kunyah": null,
+   "era": "معاصر",
+   "deathYear": null,
+   "biography": null,
+   "group": "g-legacy",
+   "specialties": [
+    "باحث معاصر"
+   ],
+   "fields": [
+    "reading",
+    "study"
+   ],
+   "verifiedSources": [],
+   "verificationStatus": "basic"
+  }
+ ],
+ "works": [
+  {
+   "id": "w-tabari",
+   "title": "جامع البيان في تأويل القرآن",
+   "authorId": "tabari",
+   "authorName": "محمد بن جرير الطبري",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-ibnkathir",
+   "title": "تفسير القرآن العظيم",
+   "authorId": "ibnkathir",
+   "authorName": "إسماعيل بن عمر ابن كثير",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-qurtubi",
+   "title": "الجامع لأحكام القرآن",
+   "authorId": "qurtubi",
+   "authorName": "محمد بن أحمد القرطبي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-baghawi",
+   "title": "معالم التنزيل في تفسير القرآن",
+   "authorId": "baghawi",
+   "authorName": "الحسين بن مسعود البغوي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-kashshaf",
+   "title": "الكشف عن حقائق غوامض التنزيل",
+   "authorId": "zamakhshari",
+   "authorName": "محمود بن عمر الزمخشري",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-muharrar",
+   "title": "المحرر الوجيز في تفسير الكتاب العزيز",
+   "authorId": "ibnAtiyya",
+   "authorName": "أبو محمد عبد الحق بن عطية الأندلسي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-mafatih",
+   "title": "مفاتيح الغيب",
+   "authorId": "razi",
+   "authorName": "فخر الدين الرازي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-bahr",
+   "title": "البحر المحيط",
+   "authorId": "abuHayyan",
+   "authorName": "أبو حيان الأندلسي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-jalalayn",
+   "title": "تفسير الجلالين",
+   "authorId": "mahalli",
+   "authorName": "جلال الدين المحلي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-durr",
+   "title": "الدر المنثور في التفسير بالمأثور",
+   "authorId": "suyuti",
+   "authorName": "جلال الدين السيوطي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-zad",
+   "title": "زاد المسير في علم التفسير",
+   "authorId": "ibnJawzi",
+   "authorName": "ابن الجوزي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-wasit",
+   "title": "الوسيط في تفسير القرآن المجيد",
+   "authorId": "wahidi",
+   "authorName": "الواحدي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-nukat",
+   "title": "النكت والعيون في تفسير القرآن",
+   "authorId": "maawirdi",
+   "authorName": "الماوردي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-kashf",
+   "title": "الكشف والبيان في تفسير القرآن",
+   "authorId": "thalabi",
+   "authorName": "الثعلبي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-lubab",
+   "title": "لباب التأويل في معاني التنزيل",
+   "authorId": "khazin",
+   "authorName": "علاء الدين الخازن",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-ruh",
+   "title": "روح البيان في تفسير القرآن",
+   "authorId": "ismailHaqq",
+   "authorName": "إسماعيل حقي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-bahr-madid",
+   "title": "البحر المديد في تفسير القرآن المجيد",
+   "authorId": "ibnAjiba",
+   "authorName": "ابن عجيبة",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-fath",
+   "title": "فتح القدير",
+   "authorId": "shawkani",
+   "authorName": "الشوكاني",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-fath-bayan",
+   "title": "فتح البيان في مجال التفسير",
+   "authorId": "siddiqKhan",
+   "authorName": "صديق حسن خان",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-ruh-maani",
+   "title": "روح المعاني في تفسير القرآن العظيم",
+   "authorId": "alusi",
+   "authorName": "الألوسي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-tahrir",
+   "title": "التحرير والتنوير",
+   "authorId": "ibnAshur",
+   "authorName": "ابن عاشور",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-anwar",
+   "title": "أنوار التنزيل وأسرار التأويل",
+   "authorId": "baydawi",
+   "authorName": "ناصر الدين البيضاوي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-irshad",
+   "title": "إرشاد العقل السليم إلى ما يليق من فنون الكتاب الكريم",
+   "authorId": "abuSuud",
+   "authorName": "أبو السعود العمادي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-taysir",
+   "title": "تيسير الكريم الرحمن",
+   "authorId": "saadi",
+   "authorName": "عبد الرحمن بن ناصر السعدي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-kanz",
+   "title": "كنز المعاني في تفسير القرآن المجيد",
+   "authorId": "nasafi",
+   "authorName": "أبو البركات النسفي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-jawahir",
+   "title": "الجواهر في تفسير القرآن الكريم",
+   "authorId": "tantawiMS",
+   "authorName": "محمد سيد طنطاوي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-wasit-jawhari",
+   "title": "الوسيط في تفسير القرآن المجيد",
+   "authorId": "tantawiJ",
+   "authorName": "طنطاوي جوهري",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-taWL-mujahid",
+   "title": "تأويلات القرآن",
+   "authorId": "mujahid",
+   "authorName": "مقاتل بن سليمان",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-taWL-maturidi",
+   "title": "تأويلات القرآن",
+   "authorId": "maturidi",
+   "authorName": "أبو منصور الماتريدي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-tafsir-azzaq",
+   "title": "تفسير عبد الرزاق",
+   "authorId": "abdulRazzaq",
+   "authorName": "عبد الرزاق الصنعاني",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-tafsir-sufyan",
+   "title": "تفسير سفيان الثوري",
+   "authorId": "sufyanThawri",
+   "authorName": "سفيان الثوري",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-maani-farra",
+   "title": "معاني القرآن",
+   "authorId": "farra",
+   "authorName": "الفراء",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-safa",
+   "title": "صفاء التفاسير",
+   "authorId": "sabbuni",
+   "authorName": "محمد علي الصابوني",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-minan",
+   "title": "في ظل القرآن",
+   "authorId": "qutb",
+   "authorName": "سيد قطب",
+   "category": "study",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-manar",
+   "title": "تفسير القرآن الحكيم (تفسير المنار)",
+   "authorId": "rida",
+   "authorName": "محمد رشيد رضا",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-nizam",
+   "title": "نظام القرآن في مناسبات سوره",
+   "authorId": "buqai",
+   "authorName": "برهان الدين البقاعي",
+   "category": "links",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": "full-quran"
+  },
+  {
+   "id": "w-mufassirun",
+   "title": "التفسير والمفسرون",
+   "authorId": "dhahabi",
+   "authorName": "محمد حسين الذهبي",
+   "category": "manahij",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-madhal-quran",
+   "title": "المدخل إلى القرآن الكريم",
+   "authorId": "qattanM",
+   "authorName": "مناع القطان",
+   "category": "study",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-manahil",
+   "title": "مناهل العرفان في علوم القرآن",
+   "authorId": "zarqani",
+   "authorName": "محمد عبد العظيم الزرقاني",
+   "category": "study",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-mabahith",
+   "title": "مباحث في علوم القرآن",
+   "authorId": "salihSubhi",
+   "authorName": "صبحي الصالح",
+   "category": "study",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-irab-quran",
+   "title": "إعراب القرآن",
+   "authorId": "zajjaj",
+   "authorName": "الزجاج",
+   "category": "lang",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-mufradat",
+   "title": "المفردات في غريب القرآن",
+   "authorId": "raghib",
+   "authorName": "الراغب الأصفهاني",
+   "category": "lang",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-gharib",
+   "title": "غريب القرآن",
+   "authorId": "ibnQutayba",
+   "authorName": "ابن قتيبة الدينوري",
+   "category": "lang",
+   "subcategory": null,
+   "era": "تراثي",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-khawatir",
+   "title": "خواطر الشعراوي",
+   "authorId": "shaarawi",
+   "authorName": "محمد متولي الشعراوي",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  },
+  {
+   "id": "w-bint",
+   "title": "التفسير البياني للقرآن الكريم",
+   "authorId": "bint-shati",
+   "authorName": "عائشة عبد الرحمن (بنت الشاطئ)",
+   "category": "tafsir",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": "منارة المعرفة",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "legalAccess": null,
+   "verificationStatus": "verified",
+   "coverage": null
+  },
+  {
+   "id": "w-lmsat",
+   "title": "لمسات بيانية",
+   "authorId": "samarraie",
+   "authorName": "فاضل صالح السامرائي",
+   "category": "lang",
+   "subcategory": null,
+   "era": "معاصر",
+   "publisher": null,
+   "publicationYear": null,
+   "edition": null,
+   "volumes": null,
+   "language": "عربية",
+   "description": null,
+   "sourceName": null,
+   "sourceUrl": null,
+   "legalAccess": null,
+   "verificationStatus": "basic",
+   "coverage": null
+  }
+ ],
+ "research": [],
+ "verseReferences": [
+  {
+   "id": "vr-sha-4-82",
+   "workId": "w-khawatir",
+   "researchId": null,
+   "authorId": "shaarawi",
+   "surahNumber": 4,
+   "verseStart": 82,
+   "verseEnd": 82,
+   "volume": null,
+   "page": null,
+   "sourceName": "خواطر الشعراوي",
+   "sourceUrl": null,
+   "quoteLocation": "خواطر الشعراوي — سورة النساء، الآية 82",
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-sam-2-255",
+   "workId": "w-lmsat",
+   "researchId": null,
+   "authorId": "samarraie",
+   "surahNumber": 2,
+   "verseStart": 255,
+   "verseEnd": 255,
+   "volume": null,
+   "page": null,
+   "sourceName": "وقفة أسرار بلاغية — آية الكرسي (تدارس القرآن)",
+   "sourceUrl": "https://tadars.com/tdbr/eloquence/8715",
+   "quoteLocation": "لمسات بيانية — آية الكرسي",
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-93",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 93,
+   "verseStart": 1,
+   "verseEnd": 11,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-94",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 94,
+   "verseStart": 1,
+   "verseEnd": 8,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-99",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 99,
+   "verseStart": 1,
+   "verseEnd": 8,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-79",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 79,
+   "verseStart": 1,
+   "verseEnd": 46,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-100",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 100,
+   "verseStart": 1,
+   "verseEnd": 11,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-90",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 90,
+   "verseStart": 1,
+   "verseEnd": 20,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-102",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 102,
+   "verseStart": 1,
+   "verseEnd": 8,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-96",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 96,
+   "verseStart": 1,
+   "verseEnd": 19,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-68",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 68,
+   "verseStart": 1,
+   "verseEnd": 52,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-103",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 103,
+   "verseStart": 1,
+   "verseEnd": 3,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-92",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 92,
+   "verseStart": 1,
+   "verseEnd": 21,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-89",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 89,
+   "verseStart": 1,
+   "verseEnd": 30,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-104",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 104,
+   "verseStart": 1,
+   "verseEnd": 9,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  },
+  {
+   "id": "vr-bint-107",
+   "workId": "w-bint",
+   "researchId": null,
+   "authorId": "bint-shati",
+   "surahNumber": 107,
+   "verseStart": 1,
+   "verseEnd": 7,
+   "volume": null,
+   "page": null,
+   "sourceName": "التفسير البياني للقرآن الكريم — دار المعارف",
+   "sourceUrl": "https://almerja.com/more.php?idm=6793",
+   "quoteLocation": null,
+   "verificationStatus": "verified"
+  }
+ ]
+}
