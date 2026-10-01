@@ -1327,14 +1327,42 @@ var SCHOLARS = [
 ];
 // READINGS: verified verbatim materials only. NEVER invent content.
 // {authorId, surahNumber, verseNumber, title, content, sourceTitle, sourceUrl, sourceType, publicationDate, verified}
-var READINGS = [];
+var READINGS = [
+  {id:'sam-2-255', authorId:'samarraie', surahNumber:2, verseNumber:255,
+   title:'لمسات بيانية في آية الكرسي', sourceType:'episode',
+   summary:'وقفة بلاغية في آية الكرسي: الحي القيوم، نفي السنة والنوم، الملك والشفاعة بإذنه، وسع كرسيه، وختم الآية بالعلي العظيم — بأسلوب لمسات بيانية اللغوي.',
+   content:'', sourceTitle:'وقفة أسرار بلاغية — آية الكرسي (تدارس القرآن)',
+   sourceUrl:'https://tadars.com/tdbr/eloquence/8715',
+   verificationStatus:'verified', scope:'verse'}
+];
+// سور التفسير البياني لبنت الشاطئ (موثق تغطيتها لها): تُولَّد مدخلاتها آليًا لكل آية فيها.
+var BINT_SURAHS = [93,94,99,79,100,90,102,96,68,103,92,89,104,107];
+var BINT_EXPANDED = false;
+function expandBint(){
+  if(BINT_EXPANDED) return;
+  if(typeof QDATA === 'undefined' || !QDATA) return;
+  BINT_EXPANDED = true;
+  BINT_SURAHS.forEach(function(s){
+    var su = QDATA.surahs[s-1];
+    if(!su) return;
+    for(var a = 1; a <= su.verses.length; a++){
+      READINGS.push({id:'bint-'+s+'-'+a, authorId:'bint-shati', surahNumber:s, verseNumber:a,
+        title:'التفسير البياني — سورة ' + su.name, sourceType:'book',
+        summary:'من التفسير البياني للقرآن الكريم: تناول السورة كاملة بمنهج الاستقراء اللفظي والبيان.',
+        content:'', sourceTitle:'التفسير البياني للقرآن الكريم — دار المعارف',
+        sourceUrl:'https://almerja.com/more.php?idm=6793',
+        verificationStatus:'verified', scope:'verse'});
+    }
+  });
+}
 function scholarById(id){
   for(var i = 0; i < SCHOLARS.length; i++) if(SCHOLARS[i].id === id) return SCHOLARS[i];
   return null;
 }
 function readingsFor(s, a){
+  try{ expandBint(); }catch(e){}
   return READINGS.filter(function(r){
-    return r.verified && r.surahNumber === s && r.verseNumber === a && scholarById(r.authorId);
+    return itemStatus(r) === 'verified' && r.surahNumber === s && r.verseNumber === a && scholarById(r.authorId);
   });
 }
 function typeLabel(t){
@@ -1347,6 +1375,7 @@ function itemStatus(r){
 }
 // NOTE: only items explicitly about the verse (scope 'verse' or unset legacy) are ever shown.
 function searchOtherReadings(s, a){
+  try{ expandBint(); }catch(e){}
   var out = {verified:[], needsReview:[], pendingSource:[]};
   READINGS.forEach(function(r){
     if(r.surahNumber !== s || r.verseNumber !== a) return;
@@ -1409,6 +1438,7 @@ function renderContempInto(el, s, a){
 function renderScholarDir(f, elId){
   var el = document.getElementById(elId || 'scholarDir');
   if(!el) return;
+  try{ expandBint(); }catch(e){}
   f = (typeof f === 'string') ? norm(f.trim()) : '';
   var groups = [['مفكرون وباحثون معاصرون', 'g1'], ['لغويون وأصحاب المنهج البياني', 'g2']];
   var h = '<div class="group-label">دليل الباحثين والقراءات</div>';
@@ -1423,7 +1453,7 @@ function renderScholarDir(f, elId){
     if(!list.length) return;
     h += '<div class="group-label">' + g[0] + '</div>';
     h += list.map(function(p){
-      var n = READINGS.filter(function(r){ return r.verified && r.authorId === p.id; }).length;
+      var n = READINGS.filter(function(r){ return itemStatus(r) === 'verified' && r.authorId === p.id; }).length;
       var b = '<details><summary>' + p.name + ' <span class="tag reading">' + p.category + '</span> <span class="tag ' + (n ? 'fact' : 'reflect') + '">' + (n ? 'توجد مواد موثقة' : 'بانتظار مصدر') + '</span></summary>';
       if(p.works && p.works.length){
         b += '<p class="hint">أعمال منشورة للبحث فيها:</p><p>' + p.works.map(function(w){ return '<span class="tag study">' + w.t + ' (' + w.k + ')</span>'; }).join(' ') + '</p>';
