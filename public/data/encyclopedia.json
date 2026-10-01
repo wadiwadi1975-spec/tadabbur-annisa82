@@ -31,6 +31,10 @@
    "label": "اللغة والبلاغة"
   },
   {
+   "id": "gharib",
+   "label": "غريب القرآن"
+  },
+  {
    "id": "context",
    "label": "السياق"
   },
@@ -3907,7 +3911,7 @@
    "title": "المفردات في غريب القرآن",
    "authorId": "raghib",
    "authorName": "الراغب الأصفهاني",
-   "category": "lang",
+   "category": "gharib",
    "subcategory": null,
    "era": "تراثي",
    "publisher": "دار القلم، الدار الشامية - دمشق بيروت",
@@ -3935,7 +3939,7 @@
    "title": "غريب القرآن",
    "authorId": "ibnQutayba",
    "authorName": "ابن قتيبة الدينوري",
-   "category": "lang",
+   "category": "gharib",
    "subcategory": null,
    "era": "تراثي",
    "publisher": "دار الكتب العلمية (لعلها مصورة عن الطبعة المصرية)",

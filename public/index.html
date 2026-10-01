@@ -1498,7 +1498,7 @@ var ENCY = null, ENC_LOAD = false, ENC_WAIT = [];
 var ENC_VSECTIONS = [
   {id:'tafsir', label:'تفاسير أخرى', cats:['tafsir']},
   {id:'studies', label:'دراسات قرآنية', cats:['study','book','usul','manahij']},
-  {id:'lang', label:'دراسات لغوية وبلاغية', cats:['lang']},
+  {id:'lang', label:'دراسات لغوية وبلاغية', cats:['lang','gharib']},
   {id:'topic', label:'دراسات موضوعية', cats:['context','links','ijaz']},
   {id:'readings', label:'قراءات معاصرة', cats:['reading']},
   {id:'academic', label:'أبحاث أكاديمية', cats:['research']},
@@ -1508,7 +1508,7 @@ function encCatLabel(c){
   if(ENCY && ENCY.categories){
     for(var i = 0; i < ENCY.categories.length; i++) if(ENCY.categories[i].id === c) return ENCY.categories[i].label;
   }
-  var m = {tafsir:'التفاسير', book:'الكتب', research:'الأبحاث', study:'الدراسات', reading:'القراءات المعاصرة', lang:'اللغة والبلاغة', context:'السياق', links:'الترابط والمناسبات', ijaz:'الإعجاز', tadabbur:'التدبر', usul:'أصول التفسير', manahij:'مناهج المفسرين', library:'المتاحة للقراءة'};
+  var m = {tafsir:'التفاسير', book:'الكتب', research:'الأبحاث', study:'الدراسات', reading:'القراءات المعاصرة', lang:'اللغة والبلاغة', context:'السياق', links:'الترابط والمناسبات', ijaz:'الإعجاز', tadabbur:'التدبر', usul:'أصول التفسير', manahij:'مناهج المفسرين', gharib:'غريب القرآن', library:'المتاحة للقراءة'};
   return m[c] || 'مادة';
 }
 function encGroupLabel(gid){
@@ -1684,7 +1684,7 @@ function encStats(){
   if(!ENCY) return null;
   var works = ENCY.works, refs = ENCY.verseReferences;
   var tafsir = 0, studies = 0, readingW = 0, awaiting = 0, verifiedSources = 0, needsReview = 0, verseKeys = 0, availW = 0;
-  var studyCats = ['study','lang','context','links','ijaz','usul','manahij','tadabbur','book'];
+  var studyCats = ['study','lang','gharib','context','links','ijaz','usul','manahij','tadabbur','book'];
   works.forEach(function(w){
     if(w.category === 'tafsir') tafsir++;
     else if(w.category === 'reading') readingW++;
