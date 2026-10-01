@@ -1711,13 +1711,18 @@ function encRenderChips(){
   var el = document.getElementById('encChips');
   if(!el) return;
   el.innerHTML = encFilterIds().map(function(id){
-    var lbl = encCatLabel(id);
-    return '<button class="chip' + (ENC_FILTER === id ? ' on' : '') + '" onclick="encFilter(\'' + id + '\')">' + lbl + '</button>';
+    var list = encFilterList(id);
+    var n = list.authors.length + list.works.length + (list.research || []).length + list.refs.length;
+    return '<button class="chip' + (ENC_FILTER === id ? ' on' : '') + '" onclick="encFilter(\'' + id + '\')">' + encCatLabel(id) + ' (' + arNum(n) + ')</button>';
   }).join('');
 }
 function encFilterList(f){
   if(!ENCY) return {authors:[], works:[], research:[], refs:[]};
   if(f === 'all' || !f) return {authors:ENCY.authors, works:ENCY.works, research:ENCY.research, refs:ENCY.verseReferences};
+  if(f === 'book') return {
+    authors: ENCY.authors.filter(function(a){ return (ENCY._authorWorks[a.id] || []).length > 0; }),
+    works: ENCY.works, research: [], refs: ENCY.verseReferences
+  };
   if(f === 'research') return {authors:[], works:[], research:ENCY.research, refs:[]};
   return {
     authors: ENCY.authors.filter(function(a){ return a.fields && a.fields.indexOf(f) >= 0; }),
@@ -1842,11 +1847,11 @@ function encBrowse(){
       return '<button class="chip" onclick="encBrowseGroup(\'' + g.id + '\')">' + g.label + ' (' + arNum(n) + ')</button>';
     }).join('');
     var h = '<div class="group-label">تصفح الموسوعة حسب المجموعة</div><div class="chips">' + groups + '</div>';
-    h += '<div class="group-label">مؤلفون (' + arNum(ENCY.authors.length) + ')</div>';
+    h += '<div class="group-label">كل الكتب (' + arNum(ENCY.works.length) + ')</div>' + ENCY.works.map(encWorkCard).join('');
+    h += '<div class="group-label">كل المؤلفين (' + arNum(ENCY.authors.length) + ')</div>';
     h += ENCY.authors.map(function(a){
       return '<button class="chip" onclick="encShowAuthor(\'' + a.id + '\')">' + esc(a.name) + '</button>';
     }).join(' ');
-    h += '<div class="group-label">أحدث الكتب المضافة</div>' + ENCY.works.slice(0, 8).map(encWorkCard).join('');
     encHomeBack();
     el.innerHTML = h;
     return;
