@@ -1505,7 +1505,7 @@ function encCatLabel(c){
   if(ENCY && ENCY.categories){
     for(var i = 0; i < ENCY.categories.length; i++) if(ENCY.categories[i].id === c) return ENCY.categories[i].label;
   }
-  var m = {tafsir:'التفاسير', book:'الكتب', research:'الأبحاث', study:'الدراسات', reading:'القراءات المعاصرة', lang:'اللغة والبلاغة', context:'السياق', links:'الترابط والمناسبات', ijaz:'الإعجاز', tadabbur:'التدبر', usul:'أصول التفسير', manahij:'مناهج المفسرين'};
+  var m = {tafsir:'التفاسير', book:'الكتب', research:'الأبحاث', study:'الدراسات', reading:'القراءات المعاصرة', lang:'اللغة والبلاغة', context:'السياق', links:'الترابط والمناسبات', ijaz:'الإعجاز', tadabbur:'التدبر', usul:'أصول التفسير', manahij:'مناهج المفسرين', library:'المتاحة للقراءة'};
   return m[c] || 'مادة';
 }
 function encGroupLabel(gid){
@@ -1574,6 +1574,7 @@ function encCard(ref){
   h += '<b>' + esc(au ? au.name : ref.authorId) + '</b>';
   h += ' <span class="tag ' + (verified ? 'fact' : 'reading') + '">' + (verified ? '✓ موثق المصدر' : 'يحتاج إلى تحقق') + '</span>';
   if(w) h += ' <span class="tag study">' + encCatLabel(w.category) + '</span>';
+  if(w) h += ' ' + encAvailBadge(w);
   h += '<br>';
   if(w) h += '<b>' + esc(w.title) + '</b><br>';
   if(au && au.fullName && au.fullName !== (au.name)) h += '<span class="hint">الاسم الكامل: ' + esc(au.fullName) + '</span><br>';
@@ -1584,6 +1585,7 @@ function encCard(ref){
   if(ref.sourceUrl) h += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;padding:5px 14px;font-size:.82rem;" href="' + ref.sourceUrl + '" target="_blank" rel="noopener">فتح المصدر ↗</a>';
   else h += ' <span class="tag reflect">رابط غير متوفر</span>';
   if(w) h += '<br><button class="btn-ghost" style="padding:5px 14px;font-size:.8rem;margin-top:6px;" onclick="encShowWork(\'' + w.id + '\')">صفحة الكتاب</button>';
+  if(w && encIsAvailable(w)) h += ' ' + encAvailButtons(w, false);
   return h + '</div>';
 }
 function encCoverageHTML(){
@@ -1641,9 +1643,15 @@ function encCompare(ids){
 function encVerseHTML(s, a){
   if(!ENCY) return '';
   var refs = encRefsFor(s, a);
+  var avail = [], indexed = [];
+  refs.forEach(function(r){
+    var w = encWorkOf(r);
+    if((w && encIsAvailable(w)) || r.sourceUrl) avail.push(r); else indexed.push(r);
+  });
   var h = '';
+  if(avail.length) h += '<div class="group-label">مواد يمكن قراءتها الآن (' + arNum(avail.length) + ')</div>';
   ENC_VSECTIONS.forEach(function(sec){
-    var list = refs.filter(function(r){
+    var list = avail.filter(function(r){
       var w = encWorkOf(r);
       var c = w ? w.category : 'research';
       return sec.cats.indexOf(c) >= 0;
@@ -1651,6 +1659,11 @@ function encVerseHTML(s, a){
     h += '<div class="group-label">' + sec.label + '</div>';
     h += list.length ? list.map(encCard).join('') : '<p class="hint">لم نجد في المصادر المفحوصة حاليًا مادة موثقة من هذا النوع لهذه الآية.</p>';
   });
+  if(indexed.length){
+    h += '<div class="group-label">مراجع مرتبطة بالآية — بدون نسخة رقمية متاحة (' + arNum(indexed.length) + ')</div>';
+    h += '<p class="hint">ثبت ارتباط هذه المراجع بهذه الآية من مصدر موثق، لكن لا توجد حاليًا نسخة رقمية مفتوحة يمكن قراءتها مباشرة.</p>';
+    h += indexed.map(encCard).join('');
+  }
   h += encCoverageHTML();
   var total = refs.length;
   try{ total += searchOtherReadings(s, a).verified.length; }catch(e){}
@@ -1667,13 +1680,13 @@ function encShowVerseCompare(btn, key){
 function encStats(){
   if(!ENCY) return null;
   var works = ENCY.works, refs = ENCY.verseReferences;
-  var tafsir = 0, studies = 0, readingW = 0, awaiting = 0, verifiedSources = 0, needsReview = 0, verseKeys = 0;
+  var tafsir = 0, studies = 0, readingW = 0, awaiting = 0, verifiedSources = 0, needsReview = 0, verseKeys = 0, availW = 0;
   var studyCats = ['study','lang','context','links','ijaz','usul','manahij','tadabbur','book'];
   works.forEach(function(w){
     if(w.category === 'tafsir') tafsir++;
     else if(w.category === 'reading') readingW++;
     else if(studyCats.indexOf(w.category) >= 0) studies++;
-    if(w.sourceUrl) verifiedSources++; else awaiting++;
+    if(encIsAvailable(w)){ availW++; verifiedSources++; } else awaiting++;
     if(w.verificationStatus === 'needs-review') needsReview++;
   });
   var seenV = {};
@@ -1688,7 +1701,7 @@ function encStats(){
     authors: ENCY.authors.length, works: works.length, tafsir: tafsir,
     research: (ENCY.research || []).length, studies: studies, readings: readingW,
     refs: refs.length, verifiedSources: verifiedSources, needsReview: needsReview,
-    awaitingSource: awaiting, versesWithMaterial: verseKeys
+    awaitingSource: awaiting, versesWithMaterial: verseKeys, availableWorks: availW
   };
 }
 function encStatsHTML(){
@@ -1697,15 +1710,45 @@ function encStatsHTML(){
   var rows = [
     ['عدد المؤلفين', st.authors], ['عدد الكتب', st.works], ['عدد التفاسير', st.tafsir],
     ['عدد الأبحاث', st.research], ['عدد الدراسات', st.studies], ['عدد القراءات المعاصرة', st.readings],
-    ['المواد المرتبطة بالآيات', st.refs], ['المصادر الموثقة', st.verifiedSources],
-    ['مواد تحتاج مراجعة', st.needsReview], ['مواد تنتظر مصدرًا', st.awaitingSource],
-    ['آيات تحتوي مواد', st.versesWithMaterial]
+    ['متاحة للقراءة الآن', st.availableWorks], ['فهرس بلا نسخة رقمية', st.awaitingSource],
+    ['المواد المرتبطة بالآيات', st.refs], ['آيات تحتوي مواد', st.versesWithMaterial]
   ];
   return '<div class="group-label">إحصاءات الموسوعة</div><div class="chips">' +
-    rows.map(function(r){ return '<span class="tag study">' + r[0] + ': ' + arNum(r[1]) + '</span>'; }).join('') + '</div>';
+    rows.map(function(r){ return '<span class="tag study">' + r[0] + ': ' + arNum(r[1]) + '</span>'; }).join('') + '</div>' +
+    encAvailLegend() +
+    '<p><button class="btn-ghost" style="padding:6px 16px;font-size:.85rem;" onclick="encShowSources()">📚 مصادر المكتبة</button></p>';
+}
+function encShowSources(){
+  if(!ENCY) return;
+  var seen = {}, rows = [];
+  ENCY.works.forEach(function(w){
+    if(!w.sourceName && !w.sourceUrl) return;
+    var k = (w.sourceName || '') + '|' + (w.sourceUrl || '');
+    if(seen[k]) return;
+    seen[k] = 1;
+    rows.push({name:w.sourceName, url:w.sourceUrl, status:w.availabilityStatus, vs:w.verificationStatus, at:w.verifiedAt});
+  });
+  var kindLabel = {full_text:'نص كامل', pdf:'ملفات PDF', online_viewer:'قارئ على الويب', metadata_only:'بيانات ببليوغرافية', needs_source:'بانتظار مصدر'};
+  var h = '<div class="group-label">مصادر المكتبة</div>';
+  h += '<p class="hint">المصادر المُفحوصة فعليًا لإتاحة الكتب — المؤشرات أدناه تدل على التوفر التقني للمادة لا على تقييم جودة المحتوى.</p>';
+  h += encAvailLegend();
+  if(!rows.length){
+    h += '<p class="hint">لا توجد مصادر موثقة حاليًا.</p>';
+  } else {
+    h += rows.map(function(r){
+      var h2 = '<div class="res"><b>' + esc(r.name || 'مصدر غير مُسمّى') + '</b> <span class="tag study">' + (kindLabel[r.status] || '—') + '</span><br>';
+      h2 += '<span class="hint">حالة التحقق: ' + (r.vs === 'verified' ? 'تم فحص الرابط فعليًا' : 'بيانات ببليوغرافية بلا نسخة رقمية') + (r.at ? ' · آخر فحص: ' + arNum(r.at) : '') + '</span>';
+      if(r.url) h2 += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;padding:5px 14px;font-size:.82rem;" href="' + r.url + '" target="_blank" rel="noopener">فتح المصدر ↗</a>';
+      else h2 += '<br><span class="tag reflect">رابط غير متوفر</span>';
+      return h2 + '</div>';
+    }).join('');
+  }
+  encShowDetail(h);
 }
 function encFilterIds(){
-  return (ENCY ? ENCY.categories : [{id:'all', label:'الكل'}]).map(function(c){ return c.id; });
+  var ids = (ENCY ? ENCY.categories : [{id:'all', label:'الكل'}]).map(function(c){ return c.id; });
+  ids.push('library');
+  return ids;
 }
 function encRenderChips(){
   var el = document.getElementById('encChips');
@@ -1724,6 +1767,14 @@ function encFilterList(f){
     works: ENCY.works, research: [], refs: ENCY.verseReferences
   };
   if(f === 'research') return {authors:[], works:[], research:ENCY.research, refs:[]};
+  if(f === 'library') return {
+    authors: ENCY.authors.filter(function(a){
+      return (ENCY._authorWorks[a.id] || []).some(function(w){ return encIsAvailable(w); });
+    }),
+    works: ENCY.works.filter(function(w){ return encIsAvailable(w); }),
+    research: [],
+    refs: ENCY.verseReferences.filter(function(r){ var w = encWorkOf(r); return w && encIsAvailable(w); })
+  };
   return {
     authors: ENCY.authors.filter(function(a){ return a.fields && a.fields.indexOf(f) >= 0; }),
     works: ENCY.works.filter(function(w){ return w.category === f; }),
@@ -1744,12 +1795,78 @@ function encShowDetail(html){
   if(r) r.style.display = 'none';
   try{ d.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
 }
+function encIsAvailable(w){
+  var s = w && w.availabilityStatus;
+  return s === 'full_text' || s === 'pdf' || s === 'online_viewer';
+}
+function encAvailLabel(w){
+  var s = w && w.availabilityStatus;
+  if(s === 'full_text') return '🟢 نص كامل';
+  if(s === 'pdf') return '🟡 ملف PDF';
+  if(s === 'online_viewer') return '🔵 قارئ على الويب';
+  if(s === 'needs_source') return '🔴 بانتظار مصدر';
+  return '⚪ فهرس بلا نسخة';
+}
+function encAvailClass(w){
+  var s = w && w.availabilityStatus;
+  if(s === 'full_text' || s === 'pdf' || s === 'online_viewer') return 'fact';
+  return 'reflect';
+}
+function encAvailBadge(w){
+  return '<span class="tag ' + encAvailClass(w) + '" title="توفر رقمي — مؤشر تقني لا تقييم جودة المحتوى">' + encAvailLabel(w) + '</span>';
+}
+function encReadURL(w){
+  var s = w.availabilityStatus;
+  if(s === 'full_text') return w.textUrl || w.readerUrl || w.sourceUrl;
+  if(s === 'online_viewer') return w.readerUrl || w.sourceUrl;
+  if(s === 'pdf') return w.pdfUrl || w.sourceUrl;
+  return null;
+}
+function encReadLabel(w){
+  var s = w.availabilityStatus;
+  if(s === 'full_text') return 'اقرأ الكتاب';
+  if(s === 'online_viewer') return 'تصفح الكتاب';
+  if(s === 'pdf') return 'فتح النسخة الرقمية';
+  return '';
+}
+function encAvailButtons(w, pad){
+  if(!w) return '';
+  var style = 'display:inline-block;' + (pad ? 'margin-top:6px;' : '') + 'padding:6px 16px;font-size:.85rem;';
+  if(encIsAvailable(w)){
+    var u = encReadURL(w), h = '';
+    if(u) h += '<a class="btn-ghost" style="' + style + '" href="' + u + '" target="_blank" rel="noopener">' + esc(encReadLabel(w)) + ' ↗</a>';
+    if(w.sourceUrl && w.sourceUrl !== u) h += ' <a class="btn-ghost" style="' + style + '" href="' + w.sourceUrl + '" target="_blank" rel="noopener">صفحة المصدر ↗</a>';
+    return h;
+  }
+  return '<span class="tag reflect">بيانات الكتاب متوفرة — النسخة الرقمية غير متوفرة حاليًا</span>';
+}
+function encAvailLegend(){
+  return '<p class="hint">مؤشرات التوفر: 🟢 نص كامل · 🟡 ملف PDF · 🔵 قارئ على الويب · ⚪ فهرس (بيانات فقط) · 🔴 بانتظار مصدر — تدل على التوفر التقني لا على جودة المحتوى.</p>';
+}
+function encWorkSectionsHTML(list){
+  var avail = [], cat = [];
+  (list || []).forEach(function(w){ if(encIsAvailable(w)) avail.push(w); else cat.push(w); });
+  var h = '';
+  if(avail.length){
+    h += '<div class="group-label">مكتبة متاحة للقراءة (' + arNum(avail.length) + ')</div>' + avail.map(encWorkCard).join('');
+  }
+  if(cat.length){
+    h += '<div class="group-label">فهرس الكتب — بيانات ببليوغرافية بلا نسخة رقمية (' + arNum(cat.length) + ')</div>' + cat.map(encWorkCard).join('');
+  }
+  return h;
+}
 function encWorkCard(w){
   var h = '<div class="res"><b>' + esc(w.title) + '</b> <span class="tag study">' + encCatLabel(w.category) + '</span>';
   if(w.coverage === 'full-quran') h += ' <span class="tag reading">يغطي القرآن كاملًا</span>';
+  h += ' ' + encAvailBadge(w);
   h += '<br><span class="hint">المؤلف: ' + esc(w.authorName) + '</span>';
   h += ' <button class="btn-ghost" style="padding:3px 12px;font-size:.78rem;" onclick="encShowAuthor(\'' + w.authorId + '\')">صفحة المؤلف</button>';
-  h += '<br><span class="hint">المصدر: ' + (w.sourceName ? esc(w.sourceName) + (w.sourceUrl ? '' : ' — رابط غير متوفر') : 'المصدر غير موثق حاليًا') + '</span>';
+  if(encIsAvailable(w)){
+    h += '<br><span class="hint">المصدر: ' + esc(w.sourceName || '—') + '</span>';
+    h += '<br>' + encAvailButtons(w, true);
+  } else {
+    h += '<br>' + encAvailButtons(w, true);
+  }
   h += ' <button class="btn-ghost" style="padding:3px 12px;font-size:.78rem;" onclick="encShowWork(\'' + w.id + '\')">صفحة الكتاب</button></div>';
   return h;
 }
@@ -1791,9 +1908,12 @@ function encShowWork(id){
   h += '<span class="hint">المجلدات: ' + (w.volumes ? arNum(w.volumes) : 'لم تُوثَّق هذه البيانات بعد.') + '</span><br>';
   if(w.coverage === 'full-quran') h += '<span class="hint">التغطية: تفسير كامل يشمل القرآن كه، ولا يُعرض هنا نص مرتبط بآية بعينها.</span><br>';
   h += '<span class="hint">الوصف: ' + (w.description ? esc(w.description) : 'لا وصف موثق مُسجَّل بعد.') + '</span><br>';
-  h += '<span class="hint">المصدر: ' + (w.sourceName ? esc(w.sourceName) : 'المصدر غير موثق حاليًا') + '</span><br>';
-  h += '<span class="hint">حالة التحقق: ' + (w.verificationStatus === 'verified' ? 'موثق' : (w.verificationStatus === 'needs-review' ? 'يحتاج مراجعة' : 'بيانات ببليوغرافية — رابط المصدر غير موثق حاليًا')) + '</span>';
-  if(w.sourceUrl) h += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;padding:6px 16px;font-size:.85rem;" href="' + w.sourceUrl + '" target="_blank" rel="noopener">الرابط الأصلي ↗</a>';
+  h += '<span class="hint">حالة التوفر: ' + encAvailBadge(w) + ' — ' + (encIsAvailable(w) ? 'نسخة رقمية مفتوحة تم فحصها فعليًا' : 'لم يُعثر على نسخة رقمية مفتوحة مطابقة لهذا الكتاب') + '</span><br>';
+  h += '<span class="hint">المصدر: ' + (w.sourceName ? esc(w.sourceName) : 'لم يُعثر على مصدر رقمي مطابق بعد') + '</span><br>';
+  if(w.verifiedAt) h += '<span class="hint">آخر فحص: ' + arNum(w.verifiedAt) + (w.pdfCount ? ' — عدد ملفات PDF المتوفرة: ' + arNum(w.pdfCount) : '') + (w.parts ? ' — عدد الأجزاء: ' + arNum(w.parts) : '') + '</span><br>';
+  h += '<span class="hint">حالة التحقق: ' + (w.verificationStatus === 'verified' ? 'موثق — رابط مفتوح فُحص واستجاب بنجاح' : (w.verificationStatus === 'needs-source' || w.availabilityStatus === 'needs_source' ? 'بانتظار مصدر' : 'بيانات ببليوغرافية فقط — بلا نسخة رقمية موثقة')) + '</span>';
+  if(w.legacySourceUrl) h += '<br><span class="hint">المصدر الببليوغرافي: ' + esc(w.legacySourceName || 'رابط قديم محفوظ') + ' — ' + esc(w.legacySourceUrl) + '</span>';
+  h += '<br>' + encAvailButtons(w, true);
   h += '</div>';
   h += '<div class="group-label">المواد المرتبطة بالآيات</div>';
   h += refs.length ? refs.map(encCard).join('') : '<p class="hint">لا توجد في قاعدة البيانات آيات موثقة مرتبطة بهذا العمل حاليًا.</p>';
@@ -1817,13 +1937,14 @@ function encRenderResults(list, heading){
     }).join('');
   }
   if(list.works.length){
-    h += '<div class="group-label">كتب وأعمال (' + arNum(list.works.length) + ')</div>';
-    h += list.works.map(encWorkCard).join('');
+    h += encWorkSectionsHTML(list.works);
   }
   if(list.research && list.research.length){
     h += '<div class="group-label">أبحاث (' + arNum(list.research.length) + ')</div>';
     h += list.research.map(function(r){
-      return '<div class="res"><b>' + esc(r.title) + '</b><br><span class="hint">المؤلف: ' + esc(r.authorName || '—') + '</span></div>';
+      var fake = {availabilityStatus: r.availabilityStatus || (r.sourceUrl ? 'full_text' : 'metadata_only'), sourceUrl: r.sourceUrl || null, textUrl: r.sourceUrl || null, readerUrl: null, pdfUrl: null};
+      return '<div class="res"><b>' + esc(r.title) + '</b> ' + encAvailBadge(fake) + '<br><span class="hint">المؤلف: ' + esc(r.authorName || '—') + '</span>' +
+        '<br>' + (encIsAvailable(fake) ? encAvailButtons(fake, true) : '<span class="tag reflect">بيانات البحث متوفرة — النسخة الرقمية غير متوفرة حاليًا</span>') + '</div>';
     }).join('');
   }
   if(list.refs.length){
@@ -1847,7 +1968,8 @@ function encBrowse(){
       return '<button class="chip" onclick="encBrowseGroup(\'' + g.id + '\')">' + g.label + ' (' + arNum(n) + ')</button>';
     }).join('');
     var h = '<div class="group-label">تصفح الموسوعة حسب المجموعة</div><div class="chips">' + groups + '</div>';
-    h += '<div class="group-label">كل الكتب (' + arNum(ENCY.works.length) + ')</div>' + ENCY.works.map(encWorkCard).join('');
+    h += encAvailLegend();
+    h += encWorkSectionsHTML(ENCY.works);
     h += '<div class="group-label">كل المؤلفين (' + arNum(ENCY.authors.length) + ')</div>';
     h += ENCY.authors.map(function(a){
       return '<button class="chip" onclick="encShowAuthor(\'' + a.id + '\')">' + esc(a.name) + '</button>';
@@ -1868,7 +1990,7 @@ function encBrowseGroup(gid){
   el.innerHTML = '<div class="group-label">' + encGroupLabel(gid) + '</div>' +
     '<div class="group-label">مؤلفون (' + arNum(authors.length) + ')</div>' +
     authors.map(function(a){ return '<button class="chip" onclick="encShowAuthor(\'' + a.id + '\')">' + esc(a.name) + '</button>'; }).join(' ') +
-    '<div class="group-label">كتب (' + arNum(works.length) + ')</div>' + works.map(encWorkCard).join('');
+    encWorkSectionsHTML(works);
 }
 function encParseQuery(q){
   var m = String(q).match(/^\s*(\d+)\s*[:\/\-]\s*(\d+)\s*$/);
@@ -1892,13 +2014,26 @@ function encVerseResultsHTML(s, a){
   var refs = encRefsFor(s, a);
   var reads = [];
   try{ reads = searchOtherReadings(s, a).verified; }catch(e){}
+  var availR = [], idxR = [];
+  refs.forEach(function(r){
+    var w = encWorkOf(r);
+    if((w && encIsAvailable(w)) || r.sourceUrl) availR.push(r); else idxR.push(r);
+  });
   var h = '<div class="group-label">المواد الموثقة المرتبطة بـ' + (sn ? ' سورة ' + sn : '') + ' ﴿' + arNum(a) + '﴾</div>';
-  if(!reads.length && !refs.length){
+  if(!reads.length && !availR.length && !idxR.length){
     h += '<p><b>لا توجد مادة موثقة لهذه الآية حاليًا.</b></p><p class="hint">لم نجد في المصادر المفحوصة حاليًا مادة موثقة لهذه الآية، ولا تُعرض بيانات آية أخرى.</p><p><span class="tag reflect">بانتظار مصدر</span></p>';
   } else {
     h += reads.map(readingCard).join('');
-    h += refs.map(encCard).join('');
-    if(reads.length + refs.length >= 2) h += encCompare(reads.map(function(r){ return r.id; }).concat(refs.map(function(r){ return r.id; })));
+    if(availR.length){
+      h += '<div class="group-label">مواد يمكن قراءتها الآن (' + arNum(availR.length) + ')</div>';
+      h += availR.map(encCard).join('');
+    }
+    if(idxR.length){
+      h += '<div class="group-label">مراجع مرتبطة بالآية — بدون نسخة رقمية متاحة (' + arNum(idxR.length) + ')</div>';
+      h += '<p class="hint">ثبت ارتباط هذه المراجع بهذه الآية من مصدر موثق، لكن لا توجد حاليًا نسخة رقمية مفتوحة يمكن قراءتها مباشرة.</p>';
+      h += idxR.map(encCard).join('');
+    }
+    if(reads.length + availR.length + idxR.length >= 2) h += encCompare(reads.map(function(r){ return r.id; }).concat(refs.map(function(r){ return r.id; })));
   }
   h += encCoverageHTML();
   h += '<p style="text-align:center"><button class="btn" onclick="openAya(' + s + ',' + a + ');goSec(\'study\')">افتح الآية في رحلة التدبر</button></p>';
