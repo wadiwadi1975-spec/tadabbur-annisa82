@@ -158,6 +158,10 @@ footer .fl{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:10
 .claim-key{flex:none;min-width:120px;color:var(--gold);font-weight:800;font-size:.85rem;padding-top:9px;}
 .claim-val{flex:1;}
 footer a{color:var(--gold);text-decoration:none;}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0;}
+.statcard{border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center;background:rgba(127,127,127,.06);}
+.statcard b{display:block;font-size:1.5rem;color:var(--gold);font-weight:700;line-height:1.3;}
+.statcard span{display:block;font-size:.8rem;opacity:.75;margin-top:2px;}
 @media (prefers-reduced-motion:no-preference){.sec{animation:fadeUp .7s ease both;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}}
 </style>
@@ -187,6 +191,7 @@ footer a{color:var(--gold);text-decoration:none;}
     </div></div>
     <a href="#study" onclick="gotoStudy('tadabbur')">دفتر التدبر</a>
     <a href="#encSec">الآخرون</a>
+    <a href="#encSec" onclick="openGharib()">غريب القرآن</a>
     <a href="#/about">حول المشروع</a>
   </div>
   <button class="iconbtn" onclick="document.getElementById('savedSec').scrollIntoView({behavior:'smooth'})" title="المحفوظات">🔖</button>
@@ -1716,8 +1721,8 @@ function encStatsHTML(){
     ['متاحة للقراءة الآن', st.availableWorks], ['فهرس بلا نسخة رقمية', st.awaitingSource],
     ['المواد المرتبطة بالآيات', st.refs], ['آيات تحتوي مواد', st.versesWithMaterial]
   ];
-  return '<div class="group-label">إحصاءات الموسوعة</div><div class="chips">' +
-    rows.map(function(r){ return '<span class="tag study">' + r[0] + ': ' + arNum(r[1]) + '</span>'; }).join('') + '</div>' +
+  return '<div class="group-label">إحصاءات الموسوعة</div><div class="statgrid">' +
+    rows.map(function(r){ return '<div class="statcard"><b>' + arNum(r[1]) + '</b><span>' + r[0] + '</span></div>'; }).join('') + '</div>' +
     encAvailLegend() +
     '<p><button class="btn-ghost" style="padding:6px 16px;font-size:.85rem;" onclick="encShowSources()">📚 مصادر المكتبة</button></p>';
 }
@@ -2355,6 +2360,11 @@ function showView(v){
   else { about.style.display = 'none'; home.style.display = ''; }
 }
 function goSec(id){ showView('home'); var el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+function openGharib(){
+  try{ if(typeof encFilter === 'function') encFilter('gharib'); }catch(e){}
+  var el = document.getElementById('encSec');
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
 function routeFromHash(scroll){
   var h = currentRoute();
   if(h === '#/about'){ showView('about'); if(scroll !== false){ try{ window.scrollTo(0, 0); }catch(e){} } return; }
