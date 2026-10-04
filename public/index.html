@@ -635,12 +635,14 @@ function scheduleAlign(el){
     if(Math.abs(window.scrollY - expectY) > 300) return;
     var nav = document.querySelector('nav');
     var want = (nav ? nav.getBoundingClientRect().height : 0) + 10;
-    if(Math.abs(el.getBoundingClientRect().top - want) > 60){
-      try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+    var to = el.getBoundingClientRect().top + window.scrollY - want;
+    if(Math.abs(window.scrollY - to) > 20){
+      try{ window.scrollTo({top: to, behavior:'smooth'}); }catch(e){ try{ window.scrollTo(0, to); }catch(e2){} }
     }
   };
   setTimeout(fire, 700);
-  setTimeout(fire, 1800);
+  setTimeout(fire, 1600);
+  setTimeout(fire, 3000);
 }
 function gotoStudy(id, ev){
   if(ev && ev.preventDefault){ try{ ev.preventDefault(); }catch(e){} }
