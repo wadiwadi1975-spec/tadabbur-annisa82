@@ -621,6 +621,27 @@ function showTab(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('hl', p.id==='panel-'+id));
 }
 var PENDING_GOTO = null;
+var GOTO_ALIGN = 0;
+function scheduleAlign(el){
+  var expectY = 0;
+  try{
+    var nav0 = document.querySelector('nav');
+    var want0 = (nav0 ? nav0.getBoundingClientRect().height : 0) + 10;
+    expectY = el.getBoundingClientRect().top + window.scrollY - want0;
+  }catch(e){ return; }
+  var tok = ++GOTO_ALIGN;
+  var fire = function(){
+    if(tok !== GOTO_ALIGN || !el || !el.isConnected) return;
+    if(Math.abs(window.scrollY - expectY) > 300) return;
+    var nav = document.querySelector('nav');
+    var want = (nav ? nav.getBoundingClientRect().height : 0) + 10;
+    if(Math.abs(el.getBoundingClientRect().top - want) > 60){
+      try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+    }
+  };
+  setTimeout(fire, 700);
+  setTimeout(fire, 1800);
+}
 function gotoStudy(id, ev){
   if(ev && ev.preventDefault){ try{ ev.preventDefault(); }catch(e){} }
   try{ showView('home'); }catch(e){}
@@ -639,13 +660,14 @@ function gotoStudy(id, ev){
   if(target){
     PENDING_GOTO = null;
     try{ target.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+    scheduleAlign(target);
     return;
   }
   PENDING_GOTO = null;
   var cont = document.getElementById('panels');
   if(!cont || !cont.children || !cont.children.length) PENDING_GOTO = id;
   var st = document.getElementById('study');
-  if(st){ try{ st.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }
+  if(st){ try{ st.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} scheduleAlign(st); }
 }
 var CUR = {s:4, a:82};
 function ayaText(s,a){ try{ return QDATA.surahs[s-1].verses[a-1]; }catch(e){ return ''; } }
