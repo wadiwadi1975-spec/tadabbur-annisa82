@@ -128,6 +128,28 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .nbitem{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.88rem;}
 .nbitem b{color:var(--gold);}
 .quiet{color:var(--muted);font-size:.78rem;}
+/* listen */
+.rcit{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:6px;}
+.rcit button{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:start;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink);font-family:inherit;cursor:pointer;transition:.15s;}
+.rcit button:hover{border-color:var(--gold);}
+.rcit button.on{border-color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 2px var(--gold-soft);}
+.rcit b{color:var(--gold);font-size:.92rem;}
+.rcit span{color:var(--muted);font-size:.75rem;}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-height:430px;overflow:auto;padding-inline-end:4px;}
+.lcard{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.15s;}
+.lcard:hover{border-color:var(--gold);transform:translateY(-2px);}
+.lcard.on{border-color:var(--gold);background:var(--gold-soft);}
+.lcard .nm{font-weight:800;color:var(--ink);font-size:.95rem;}
+.lcard .mt{font-size:.72rem;color:var(--muted);}
+.lcard .pl{margin-inline-start:auto;color:var(--gold);font-size:1.05rem;}
+.player{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--bg2);border-top:2px solid var(--gold);box-shadow:0 -10px 34px rgba(0,0,0,.5);padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.player .pinfo{min-width:150px;}
+.player .pt{font-weight:800;color:var(--gold);font-size:.95rem;}
+.player .ps{color:var(--muted);font-size:.78rem;}
+.player .bar{flex:1 1 180px;height:7px;background:var(--line);border-radius:7px;overflow:hidden;cursor:pointer;min-width:140px;}
+.player .bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s linear;}
+.player .err{color:#e08b8b;}
+
 #surahView .v{cursor:pointer;border-radius:8px;padding:2px 6px;}
 #surahView .v:hover{background:var(--gold-soft);}
 .ayahead{background:var(--card);border:1px solid var(--gold);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px;}
@@ -180,6 +202,7 @@ footer a{color:var(--gold);text-decoration:none;}
       <a href="#quran-sec" onclick="openSurahLink(19)">مريم</a>
       <a href="#quran-sec" onclick="openSurahLink(4)">النساء</a>
     </div></div>
+    <a href="#listenSec">الاستماع</a>
     <div class="drop"><button>رحلة التدبر ▾</button><div class="menu">
       <a href="#study" onclick="gotoStudy('words',event)">كيف نقرأ؟ — اللغة</a>
       <a href="#study" onclick="gotoStudy('context',event)">كيف نفهم؟ — السياق</a>
@@ -190,7 +213,7 @@ footer a{color:var(--gold);text-decoration:none;}
       <a href="#search">بحث في القرآن</a>
       <a href="#quran-sec">بحث عن سورة</a>
     </div></div>
-    <a href="#study" onclick="gotoStudy('tadabbur',event)">دفتر التدبر</a>
+    <a href="#notebookSec">دفتر التدبر</a>
     <a href="#encSec">الآخرون</a>
     <a href="#encSec" onclick="openGharib()">غريب القرآن</a>
     <a href="#/about">حول المشروع</a>
@@ -234,6 +257,20 @@ footer a{color:var(--gold);text-decoration:none;}
     <div id="panels"></div>
   </section>
 
+  <section class="sec" id="notebookSec">
+    <div class="eyebrow" style="text-align:center">مساحتك الخاصة</div>
+    <h2 class="sec-t">دفتر التدبر</h2>
+    <p class="sub">تأملاتك الخاصة — مرتبطة بآياتها، محفوظة بزمنها، ولا يراها إلا أنت.</p>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <div class="searchrow" style="max-width:520px;margin:0 auto 10px;"><input id="dNbQ" placeholder="بحث: سورة / آية / تاريخ / كلمة..." oninput="renderNotebook()"></div>
+      <div id="dNbStats" style="text-align:center"></div>
+      <div id="dNbList"></div>
+      <p class="hint" style="text-align:center;margin-top:12px">دفترك محفوظ على هذا الجهاز وحده (localStorage) — بلا حساب، وبلا رفع لأي خادم، فلا يراه سواك.</p>
+      <p style="text-align:center;margin-top:6px"><button class="btn" onclick="notebookStart()">ابدأ رحلة التدبر</button></p>
+    </div>
+  </section>
+
   <section class="sec" id="quran-sec">
     <h2 class="sec-t">القرآن الكريم</h2>
     <p class="sub">اختر سورة لعرض آياتها بالرسم العثماني.</p>
@@ -255,6 +292,21 @@ footer a{color:var(--gold);text-decoration:none;}
       </div>
     </div>
     <div id="surahView" style="margin-top:14px;"></div>
+  </section>
+
+  <section class="sec" id="listenSec">
+    <div class="eyebrow" style="text-align:center">الاستماع</div>
+    <h2 class="sec-t">أصوات أشهر القراء</h2>
+    <p class="sub">استمع إلى السور الكاملة بصوت نخبة من القراء، بمصادر موثوقة من مجمع القرآن الصوتي — <span dir="ltr">Islamic Network CDN</span>.</p>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <div class="group-label">🎙 اختر القارئ</div>
+      <div class="rcit" id="rcGrid"></div>
+      <div class="group-label" id="listenListTitle">سور القرآن</div>
+      <div class="searchrow" style="max-width:420px;margin:0 0 10px;"><input id="listenQ" placeholder="ابحث عن سورة..." oninput="renderListenList()"></div>
+      <div class="lgrid" id="listenList"><p class="hint">جارٍ تحميل قائمة السور…</p></div>
+      <p class="src">الصوت: <span dir="ltr">cdn.islamic.network</span> — ملفات السور كاملة بجودة 128kbps.</p>
+    </div>
   </section>
 
   <section class="sec" id="search">
@@ -298,9 +350,17 @@ footer a{color:var(--gold);text-decoration:none;}
   <footer id="about">
     <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
     <div>القرآن نور... والتدبر حياة</div>
-    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#encSec">الآخرون</a><a href="#study" onclick="gotoStudy('tadabbur',event)">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
+    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#listenSec">الاستماع</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#encSec">الآخرون</a><a href="#notebookSec">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
     <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
   </footer>
+</div>
+
+<div class="player" id="listenPlayer" style="display:none">
+  <button class="iconbtn" id="lpBtn" onclick="toggleListen()" title="تشغيل/إيقاف">▶</button>
+  <div class="pinfo"><div class="pt" id="lpTitle">—</div><div class="ps" id="lpSub">—</div></div>
+  <div class="bar" id="lpBar" onclick="seekListen(event)"><i id="lpFill"></i></div>
+  <div class="ps" id="lpTime" dir="ltr">0:00</div>
+  <button class="more" style="display:inline" onclick="stopListen()">إيقاف ✕</button>
 </div>
 
 <div class="wrap" id="aboutView" style="display:none">
@@ -1189,7 +1249,10 @@ function gatherNotebook(){
   var all = [];
   try{
     var raw = localStorage.getItem('tadabbur_annisa82');
-    (raw ? JSON.parse(raw) : []).forEach(function(e){ e.s = 4; e.a = 82; e.legacy = true; all.push(e); });
+    (raw ? JSON.parse(raw) : []).forEach(function(e, i){
+      var c = {}; for(var k in e) c[k] = e[k];
+      c.s = 4; c.a = 82; c.legacy = true; c._k = 'tadabbur_annisa82'; c._i = i; all.push(c);
+    });
   }catch(e){}
   try{
     var keys = Object.keys(localStorage);
@@ -1198,29 +1261,56 @@ function gatherNotebook(){
       if(k.indexOf('tadabbur_aya_') !== 0) continue;
       var parts = k.split('_'), list = [];
       try{ list = JSON.parse(localStorage.getItem(k)) || []; }catch(e2){}
-      list.forEach(function(e){ e.s = parseInt(parts[2], 10); e.a = parseInt(parts[3], 10); all.push(e); });
+      list.forEach(function(e, idx){
+        var c = {}; for(var kk in e) c[kk] = e[kk];
+        c.s = parseInt(parts[2], 10); c.a = parseInt(parts[3], 10); c._k = k; c._i = idx; all.push(c);
+      });
     }
   }catch(e){}
   return all;
 }
+function deleteNotebook(key, idx){
+  try{
+    var raw = localStorage.getItem(key);
+    var list = raw ? JSON.parse(raw) : [];
+    if(!list[idx]) return;
+    list.splice(idx, 1);
+    localStorage.setItem(key, JSON.stringify(list));
+  }catch(e){ return; }
+  renderTadLists();
+}
+function nbItemHTML(e){
+  return '<div class="nbitem"><b>' + surahNameOf(e.s) + ' ﴿' + e.a + '﴾</b> <span class="quiet">' + (e.date || '') + '</span><br>' +
+    esc(e.text || '') +
+    ((e.t) ? '<br><span class="hint">الآية: ' + esc(e.t.slice(0, 90)) + '…</span>' : '') +
+    (e.q ? '<br><span class="quiet">أجاب عن: ' + esc(e.q) + '</span>' : '') +
+    (e.step ? '<br><span class="quiet">خطوته: ' + esc(e.step) + '</span>' : '') +
+    (e.change ? '<br><span class="quiet">تغيّر فهمه: ' + esc(e.change) + '</span>' : '') +
+    ' <button class="more" style="display:inline" onclick="openAya(' + e.s + ',' + e.a + ')">افتح الآية</button>' +
+    (typeof e._k === 'string' ? ' <button class="more" style="display:inline" onclick="deleteNotebook(\'' + e._k + '\',' + e._i + ')">حذف</button>' : '') +
+    '</div>';
+}
 function renderNotebook(){
-  var box = document.getElementById('tadNbList');
-  if(!box) return;
-  var q = '';
-  try{ q = ((document.getElementById('tadNbQ') || {}).value || '').trim(); }catch(e){}
   var all = gatherNotebook();
-  if(q) all = all.filter(function(e){
-    var hay = (surahNameOf(e.s) + ' ' + e.s + ' ' + e.a + ' ' + (e.date || '') + ' ' + (e.text || '') + ' ' + (e.step || '')).toLowerCase();
-    return hay.indexOf(q.toLowerCase()) >= 0;
-  });
-  box.innerHTML = all.length ? all.map(function(e){
-    return '<div class="nbitem"><b>' + surahNameOf(e.s) + ' ﴿' + e.a + '﴾</b> <span class="quiet">' + (e.date || '') + '</span><br>' +
-      esc(e.text || '') +
-      ((e.t) ? '<br><span class="hint">الآية: ' + esc(e.t.slice(0, 90)) + '…</span>' : '') +
-      (e.q ? '<br><span class="quiet">أجاب عن: ' + esc(e.q) + '</span>' : '') +
-      (e.step ? '<br><span class="quiet">خطوته: ' + esc(e.step) + '</span>' : '') +
-      ' <button class="more" style="display:inline" onclick="openAya(' + e.s + ',' + e.a + ')">افتح الآية</button></div>';
-  }).join('') : '<p class="hint">لا تأملات بعد — ابدأ من أي آية.</p>';
+  var sinks = [['tadNbQ', 'tadNbList'], ['dNbQ', 'dNbList']];
+  for(var s = 0; s < sinks.length; s++){
+    var box = document.getElementById(sinks[s][1]);
+    if(!box) continue;
+    var q = '';
+    try{ q = ((((document.getElementById(sinks[s][0]) || {}).value) || '')).trim().toLowerCase(); }catch(e){}
+    var list = all;
+    if(q) list = all.filter(function(e){
+      var hay = (surahNameOf(e.s) + ' ' + e.s + ' ' + e.a + ' ' + (e.date || '') + ' ' + (e.text || '') + ' ' + (e.step || '')).toLowerCase();
+      return hay.indexOf(q) >= 0;
+    });
+    box.innerHTML = list.length ? list.map(nbItemHTML).join('')
+      : (q ? '<p class="hint">لا نتائج مطابقة في دفترك.</p>'
+           : '<p class="hint" style="text-align:center;padding:16px 0">لا تأملات بعد — ابدأ من أي آية، اقرأها ببطء، ثم احفظ تأملك هنا.</p>');
+  }
+  var st = document.getElementById('dNbStats');
+  if(st) st.innerHTML = all.length
+    ? '<p class="hint">لديك ' + arNum(all.length) + ' تأمّلًا محفوظًا في الدفتر.</p>'
+    : '';
 }
 function renderTadLists(){
   try{
@@ -2199,6 +2289,7 @@ function loadQuran(cb){
     renderSurahGrid('');
     renderSavedBlock();
     upgradeDaily();
+    try{ renderListenList(); renderNotebook(); }catch(e){}
     applyHash();
     renderAyaHead();
     QWAIT.forEach(function(f){ f(); }); QWAIT = [];
@@ -2277,6 +2368,149 @@ function playAyaAudio(text, btn, s, a){
 }
 function listenAya(btn){ var v = selectedVerse(); playAyaAudio(v.verseText, btn, v.surahNumber, v.verseNumber); }
 function listenDaily(btn){ playAyaAudio(document.getElementById('dailyText').textContent, btn, DAILY.s, DAILY.a); }
+/* ---- الاستماع: سور كاملة بصوت القراء ---- */
+var RECITERS = [
+  {slug:'ar.abdulbasitmurattal', name:'عبد الباسط عبد الصمد', style:'مرتل'},
+  {slug:'ar.abdulbasitmujawwad', name:'عبد الباسط عبد الصمد', style:'مجود'},
+  {slug:'ar.muhammadsiddiqalminshawimujawwad', name:'محمد صديق المنشاوي', style:'مجود'},
+  {slug:'ar.misharyrashidalafasy', name:'مشاري راشد العفاسي', style:'مرتل'},
+  {slug:'ar.ahmedalajmi', name:'أحمد بن علي العجمي', style:'مرتل'},
+  {slug:'ar.muhammadayyub', name:'محمد أيوب', style:'مرتل'},
+  {slug:'ar.mustafaismail', name:'مصطفى إسماعيل', style:'مجود'},
+  {slug:'ar.saudalshuraim', name:'سعود الشريم', style:'مرتل'},
+  {slug:'ar.aliabdurrahmanalhuthaify', name:'علي بن عبدالرحمن الحذيفي', style:'مرتل'},
+  {slug:'ar.abdullahalmatrood', name:'عبد الله المطرود', style:'مرتل'}
+];
+var STYPE = 'مددددممددمممدممممممممدمدممممممممدمممممممممممممدددمممممدمددددددددددمممممممممدمممممممممممممممممممممددممممممممممدمممم';
+var LISTEN_R = 0;
+try{ var _lr = parseInt(localStorage.getItem('tad_listen_r'), 10); if(!isNaN(_lr) && RECITERS[_lr]) LISTEN_R = _lr; }catch(e){}
+var LAUDIO = null;
+var LST = {n:0, playing:false, err:false};
+function renderReciters(){
+  var g = document.getElementById('rcGrid');
+  if(!g) return;
+  g.innerHTML = RECITERS.map(function(r, i){
+    return '<button type="button" class="' + (i === LISTEN_R ? 'on' : '') + '" onclick="setReciter(' + i + ')"><b>' + r.name + '</b><span>' + r.style + '</span></button>';
+  }).join('');
+}
+function setReciter(i){
+  if(!RECITERS[i]) return;
+  LISTEN_R = i;
+  try{ localStorage.setItem('tad_listen_r', String(i)); }catch(e){}
+  renderReciters();
+  var lt = document.getElementById('listenListTitle');
+  if(lt) lt.textContent = 'سور القرآن — ' + RECITERS[i].name;
+  if(LST.n){
+    if(LAUDIO && !LAUDIO.paused && LAUDIO.src) playSurah(LST.n);
+    else updatePlayer();
+  }
+}
+function renderListenList(){
+  var grid = document.getElementById('listenList');
+  if(!grid) return;
+  if(!QDATA){
+    grid.innerHTML = '<p class="hint">جارٍ تحميل قائمة السور…</p>';
+    loadQuran(renderListenList);
+    return;
+  }
+  var q = '';
+  try{ q = (document.getElementById('listenQ').value || '').trim(); }catch(e){}
+  q = norm(q);
+  var list = QDATA.surahs.filter(function(s){ return !q || norm(s.name).indexOf(q) >= 0 || String(s.n) === q; });
+  grid.innerHTML = list.length ? list.map(function(s){
+    var t = STYPE.charAt(s.n - 1) === 'م' ? 'مكية' : 'مدنية';
+    var on = (LST.n === s.n);
+    return '<div class="lcard' + (on ? ' on' : '') + '" onclick="playSurah(' + s.n + ')"><div><div class="nm">' + s.name + '</div><div class="mt">' + t + ' · ' + arNum(s.verses.length) + ' آية</div></div><span class="pl">' + (on && LST.playing ? '⏸' : '▶') + '</span></div>';
+  }).join('') : '<p class="hint">لا نتائج مطابقة.</p>';
+}
+function surahAudioURL(n){ return 'https://cdn.islamic.network/quran/audio-surah/128/' + RECITERS[LISTEN_R].slug + '/' + n + '.mp3'; }
+function fmtTime(t){ t = Math.max(0, Math.floor(t || 0)); var m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+function updatePlayer(){
+  var p = document.getElementById('listenPlayer');
+  if(!p) return;
+  if(!LST.n){ p.style.display = 'none'; return; }
+  p.style.display = 'flex';
+  var su = (QDATA && QDATA.surahs[LST.n - 1]) ? QDATA.surahs[LST.n - 1] : null;
+  var t = document.getElementById('lpTitle'), sb = document.getElementById('lpSub'), b = document.getElementById('lpBtn');
+  var fill = document.getElementById('lpFill'), tm = document.getElementById('lpTime');
+  if(t) t.textContent = su ? 'سورة ' + su.name : 'سورة رقم ' + LST.n;
+  if(sb){ sb.className = 'ps'; sb.textContent = RECITERS[LISTEN_R].name + ' — ' + RECITERS[LISTEN_R].style; }
+  if(b) b.textContent = LST.playing ? '⏸' : '▶';
+  var d = (LAUDIO && LAUDIO.duration && isFinite(LAUDIO.duration)) ? LAUDIO.duration : 0;
+  var ct = (LAUDIO && LAUDIO.currentTime) ? LAUDIO.currentTime : 0;
+  if(fill) fill.style.width = (d ? Math.min(100, (ct / d) * 100) : 0) + '%';
+  if(tm){
+    if(LST.playing && !d && LAUDIO && LAUDIO.readyState < 1) tm.textContent = 'جارٍ التحميل…';
+    else tm.textContent = fmtTime(ct) + (d ? ' / ' + fmtTime(d) : '');
+  }
+}
+function listenFail(){
+  LST.playing = false;
+  updatePlayer();
+  var sb = document.getElementById('lpSub');
+  if(sb){ sb.textContent = 'تعذّر تشغيل الصوت — تحقق من اتصالك بالإنترنت.'; sb.className = 'ps err'; }
+  renderListenList();
+}
+function playSurah(n){
+  n = parseInt(n, 10);
+  if(!n) return;
+  if(!QDATA){ loadQuran(function(){ playSurah(n); }); return; }
+  if(typeof Audio === 'undefined') return;
+  if(LST.n === n && LAUDIO){
+    if(LAUDIO.paused){
+      var pr = LAUDIO.play();
+      if(pr && pr.catch) pr.catch(listenFail);
+    } else {
+      LAUDIO.pause();
+    }
+    updatePlayer(); renderListenList();
+    return;
+  }
+  if(!LAUDIO){
+    LAUDIO = new Audio();
+    LAUDIO.addEventListener('timeupdate', updatePlayer);
+    LAUDIO.addEventListener('loadedmetadata', updatePlayer);
+    LAUDIO.addEventListener('play', function(){ LST.playing = true; updatePlayer(); renderListenList(); });
+    LAUDIO.addEventListener('pause', function(){ LST.playing = false; updatePlayer(); renderListenList(); });
+    LAUDIO.addEventListener('ended', function(){ LST.playing = false; updatePlayer(); renderListenList(); });
+    LAUDIO.addEventListener('error', listenFail);
+  }
+  LST.n = n;
+  LST.playing = false;
+  LST.err = false;
+  try{ LAUDIO.src = surahAudioURL(n); }catch(e){ listenFail(); return; }
+  var pr2 = LAUDIO.play();
+  if(pr2 && pr2.catch) pr2.catch(listenFail);
+  updatePlayer();
+  renderListenList();
+}
+function toggleListen(){
+  if(!LST.n || !LAUDIO) return;
+  if(LAUDIO.paused){
+    var pr = LAUDIO.play();
+    if(pr && pr.catch) pr.catch(listenFail);
+  } else {
+    LAUDIO.pause();
+  }
+}
+function stopListen(){
+  if(LAUDIO){ try{ LAUDIO.pause(); LAUDIO.currentTime = 0; }catch(e){} }
+  LST.n = 0; LST.playing = false;
+  updatePlayer();
+  renderListenList();
+}
+function seekListen(ev){
+  if(!LAUDIO || !LAUDIO.duration || !isFinite(LAUDIO.duration)) return;
+  var bar = document.getElementById('lpBar');
+  if(!bar) return;
+  var r = bar.getBoundingClientRect();
+  if(!r.width) return;
+  var x = (ev.clientX - r.left) / r.width;
+  if(x < 0 || x > 1) return;
+  try{ LAUDIO.currentTime = x * LAUDIO.duration; updatePlayer(); }catch(e){}
+}
+function notebookStart(){ openAya(4, 82); }
+
 function saveTextToNotebook(text, btn){
   try{
     var list = loadReflections();
@@ -2425,6 +2659,7 @@ document.addEventListener('click', function(e){
   showView('home');
 });
 buildCuratedPanels();
+try{ renderReciters(); renderListenList(); renderNotebook(); }catch(e){}
 loadQuran();
 loadEncyclopedia();
 routeFromHash(false);
