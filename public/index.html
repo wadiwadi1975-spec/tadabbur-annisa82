@@ -245,7 +245,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <a href="#encSec" onclick="openGharib()">غريب القرآن</a>
     <a href="#/about">حول المشروع</a>
   </div>
-  <button class="iconbtn" onclick="document.getElementById('savedSec').scrollIntoView({behavior:'smooth'})" title="المحفوظات">🔖</button>
+  <button class="iconbtn" onclick="goSec('savedSec')" title="المحفوظات">🔖</button>
   <button class="iconbtn" onclick="cycleFont()" title="حجم الخط">⚙️</button>
   <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" title="المظهر">🌙</button>
 </div></nav>
@@ -282,6 +282,19 @@ footer a{color:var(--gold);text-decoration:none;}
     <div class="orn">— ✦ —</div>
     <div id="ayaHead"></div>
     <div id="panels"></div>
+  </section>
+
+  <section class="sec">
+    <p class="philo">لا نخبرك <b>ماذا تفكر</b>...<br>بل نضع بين يديك النص، واللغة، والسياق، والدليل...<br>ثم نترك لعقلك <b>مساحة التدبر</b>.</p>
+  </section>
+
+  <section class="sec" id="journey">
+    <h2 class="sec-t">رحلة الآية</h2>
+    <p class="sub">آية واحدة... قد تفتح لك عالمًا من المعاني.</p>
+    <div class="orn">— ✦ —</div>
+    <div class="jpath">
+      <span class="jstep">النص</span><span class="jsep">↓</span><span class="jstep">الكلمة</span><span class="jsep">↓</span><span class="jstep">اللغة</span><span class="jsep">↓</span><span class="jstep">السياق</span><span class="jsep">↓</span><span class="jstep">التفسير</span><span class="jsep">↓</span><span class="jstep">الدليل</span><span class="jsep">↓</span><span class="jstep">العقل</span><span class="jsep">↓</span><span class="jstep">التدبر</span>
+    </div>
   </section>
 
   <section class="sec" id="notebookSec">
@@ -370,19 +383,6 @@ footer a{color:var(--gold);text-decoration:none;}
     <div class="cmgrid" id="cmGrid"><p class="hint">جارٍ تحميل المقارنات…</p></div>
     <div id="cmDetail"></div>
     <p class="quiet" style="text-align:center;max-width:640px;margin:26px auto 0">هذا القسم جزء من التزام المشروع: لا ننسب للقرآن ولا للعلماء شيئًا إلا بذريعه، ولا نُعرض كتابًا على أنه متاح إلا بعد التأكد من فتح مصدره.</p>
-  </section>
-
-  <section class="sec">
-    <p class="philo">لا نخبرك <b>ماذا تفكر</b>...<br>بل نضع بين يديك النص، واللغة، والسياق، والدليل...<br>ثم نترك لعقلك <b>مساحة التدبر</b>.</p>
-  </section>
-
-  <section class="sec" id="journey">
-    <h2 class="sec-t">رحلة الآية</h2>
-    <p class="sub">آية واحدة... قد تفتح لك عالمًا من المعاني.</p>
-    <div class="orn">— ✦ —</div>
-    <div class="jpath">
-      <span class="jstep">النص</span><span class="jsep">↓</span><span class="jstep">الكلمة</span><span class="jsep">↓</span><span class="jstep">اللغة</span><span class="jsep">↓</span><span class="jstep">السياق</span><span class="jsep">↓</span><span class="jstep">التفسير</span><span class="jsep">↓</span><span class="jstep">الدليل</span><span class="jsep">↓</span><span class="jstep">العقل</span><span class="jsep">↓</span><span class="jstep">التدبر</span>
-    </div>
   </section>
 
   <footer id="about">
@@ -684,7 +684,14 @@ function scheduleAlign(el){
 }
 function gotoStudy(id, ev){
   if(ev && ev.preventDefault){ try{ ev.preventDefault(); }catch(e){} }
-  try{ showView('home'); }catch(e){}
+  try{
+    if(CUR_VIEW !== 'home'){
+      showView('home');
+      var hh = currentRoute();
+      if(!(hh && hh.indexOf('#/') === 0)){ try{ history.replaceState(null, '', '#study'); }catch(e){} }
+      syncNavActive();
+    } else { showView('home'); }
+  }catch(e){}
   try{ renderAyaHead(); }catch(e){}
   var target = null;
   try{
@@ -1407,7 +1414,7 @@ function wordSearch(w){
   if(!w) return;
   document.getElementById('searchInput').value = w;
   quranSearch();
-  document.getElementById('search').scrollIntoView({behavior:'smooth'});
+  openNav('search');
 }
 function selectedVerse(){
   return {surahNumber:CUR.s, surahName:surahName(CUR.s), verseNumber:CUR.a,
@@ -1444,6 +1451,7 @@ function openAya(s,a){
     if(v) v.innerHTML = '<div class="qbox"><p class="hint">رقم آية غير صحيح لهذه السورة.</p></div>';
     return;
   }
+  try{ if(CUR_VIEW !== 'home'){ showView('home'); syncNavActive(); } }catch(e){}
   setVerse(s,a);
 }
 document.querySelectorAll('.drop>button').forEach(function(b){
@@ -2224,7 +2232,7 @@ function encVerseResultsHTML(s, a){
     if(reads.length + availR.length + idxR.length >= 2) h += encCompare(reads.map(function(r){ return r.id; }).concat(refs.map(function(r){ return r.id; })));
   }
   h += encCoverageHTML();
-  h += '<p style="text-align:center"><button class="btn" onclick="openAya(' + s + ',' + a + ');goSec(\'study\')">افتح الآية في رحلة التدبر</button></p>';
+  h += '<p style="text-align:center"><button class="btn" onclick="openAya(' + s + ',' + a + ')">افتح الآية في رحلة التدبر</button></p>';
   return h;
 }
 function encSurahResultsHTML(s){
@@ -2237,7 +2245,7 @@ function encSurahResultsHTML(s){
     h += '<div class="group-label">تفاسير كاملة تشمل السورة (' + arNum(cov.length) + ') — ببليوغرافيا فقط</div>';
     h += '<p>' + cov.map(function(w){ return '<button class="chip" onclick="encShowWork(\'' + w.id + '\')">' + esc(w.title) + ' — ' + esc(w.authorName) + '</button>'; }).join(' ') + '</p>';
   }
-  h += '<p style="text-align:center"><button class="btn" onclick="openSurahLink(' + s + ');goSec(\'study\')">افتح السورة</button></p>';
+  h += '<p style="text-align:center"><button class="btn" onclick="openSurahLink(' + s + ')">افتح السورة</button></p>';
   return h;
 }
 function encTextResults(q){
@@ -2386,6 +2394,8 @@ function showSurah(n, hl){
   document.getElementById('surahView').innerHTML = html;
 }
 function openSurahLink(n, a){
+  try{ showView('quran'); syncNavActive(); }catch(e){}
+  if(!a){ try{ history.replaceState(null, '', '#quran-sec'); }catch(e){} }
   loadQuran(function(){
     if(a) setVerse(n, a, false);
     showSurah(n, a);
@@ -2403,7 +2413,7 @@ function stepAya(d){
 function prevAya(){ stepAya(-1); }
 function nextAya(){ stepAya(1); }
 function firstAya(){ if(QDATA) openAya(CUR.s, 1); }
-function backToSurahs(){ var el = document.getElementById('quran-sec'); if(el) el.scrollIntoView({behavior:'smooth'}); }
+function backToSurahs(){ goSec('quran-sec'); }
 function cycleFont(){
   var steps = ['', '112.5%', '125%'], cur = '';
   try{ cur = localStorage.getItem('tad-fs') || ''; }catch(e){}
@@ -2725,54 +2735,160 @@ function randomAya(){
   box.innerHTML = '<div class="daily"><div class="dt">'+pick.t+'</div><div style="color:var(--muted)">'+pick.sn+' ﴿'+arNum(pick.a)+'﴾</div><br><button class="btn" onclick="openSurahLink('+pick.s+','+pick.a+')">ابدأ رحلة التدبر</button></div>';
 }
 function currentRoute(){ try{ return location.hash || ''; }catch(e){ return ''; } }
+var CUR_VIEW = 'home';
+function sectionInHome(el){
+  var cur = el, g = 0;
+  while(cur && g++ < 40){
+    var p = cur.parentElement;
+    if(!p) return null;
+    if(p.id === 'home') return cur;
+    if(p.id === 'aboutView') return null;
+    cur = p;
+  }
+  return null;
+}
+function viewName(el){
+  if(!el) return null;
+  try{ if(el.id === 'home') return 'home'; }catch(e){}
+  try{ if(el.id === 'aboutView') return 'about'; }catch(e){}
+  try{ if(el.closest && el.closest('#aboutView')) return 'about'; }catch(e){}
+  var sec = sectionInHome(el);
+  if(!sec) return null;
+  var id = sec.id || '';
+  if(id === 'notebookSec') return 'notebook';
+  if(id === 'quran-sec') return 'quran';
+  if(id === 'listenSec') return 'listen';
+  if(id === 'search') return 'search';
+  if(id === 'encSec') return 'enc';
+  if(id === 'compareSec') return 'compare';
+  return 'home';
+}
 function showView(v){
   var home = document.getElementById('home'), about = document.getElementById('aboutView');
   if(!home || !about) return;
-  if(v === 'about'){ home.style.display = 'none'; about.style.display = ''; }
-  else { about.style.display = 'none'; home.style.display = ''; }
+  if(v === 'about'){ home.style.display = 'none'; about.style.display = ''; CUR_VIEW = 'about'; return; }
+  if(v !== 'home' && v !== 'quran' && v !== 'listen' && v !== 'notebook' && v !== 'search' && v !== 'enc' && v !== 'compare') v = 'home';
+  about.style.display = 'none';
+  home.style.display = '';
+  var kids = home.children || [];
+  for(var i = 0; i < kids.length; i++){
+    var k = kids[i];
+    if(!k || !k.style) continue;
+    k.style.display = ((viewName(k) || 'home') === v) ? '' : 'none';
+  }
+  home.style.paddingTop = (v === 'home') ? '' : '10px';
+  CUR_VIEW = v;
 }
-function goSec(id){ showView('home'); var el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+function scrollToTopNow(){
+  try{ window.scrollTo({top:0, behavior:'instant'}); }catch(e){ try{ window.scrollTo(0, 0); }catch(e2){} }
+}
+function docTopOf(el){
+  var y = 0, cur = el, g = 0;
+  while(cur && g++ < 50){
+    y += cur.offsetTop || 0;
+    cur = cur.offsetParent;
+  }
+  return y;
+}
+function scrollToSection(el, smooth){
+  if(!el) return;
+  try{
+    var nav = document.querySelector('nav');
+    var navH = (nav && nav.getBoundingClientRect) ? Math.round(nav.getBoundingClientRect().height) : 0;
+    var to = Math.max(0, docTopOf(el) - (navH + 10));
+    if(smooth){ try{ window.scrollTo({top: to, behavior:'smooth'}); return; }catch(e){} }
+    try{ window.scrollTo({top: to, behavior:'instant'}); }catch(e){ try{ window.scrollTo(0, to); }catch(e2){} }
+  }catch(e){}
+}
+function syncNavActive(){
+  try{
+    var want = null;
+    if(CUR_VIEW === 'home') want = '#home';
+    else if(CUR_VIEW === 'about') want = '#/about';
+    else if(CUR_VIEW === 'listen') want = '#listenSec';
+    else if(CUR_VIEW === 'notebook') want = '#notebookSec';
+    else if(CUR_VIEW === 'enc') want = '#encSec';
+    else if(CUR_VIEW === 'compare') want = '#compareSec';
+    var links = document.querySelectorAll('.links > a');
+    for(var i = 0; i < links.length; i++){
+      var on = !!(want && links[i].getAttribute && links[i].getAttribute('href') === want);
+      if(on){ links[i].classList.add('on'); } else { links[i].classList.remove('on'); }
+    }
+  }catch(e){}
+}
+function openNav(id){
+  var el = document.getElementById(id);
+  if(!el) return false;
+  var href = '#' + id;
+  if(currentRoute() === href) routeFromHash(true);
+  else { try{ location.hash = href; }catch(e){ routeFromHash(true); } }
+  return true;
+}
+function goSec(id){
+  var el = document.getElementById(id);
+  if(!el) return;
+  var prev = CUR_VIEW;
+  showView(viewName(el) || 'home');
+  var h = currentRoute();
+  if(!(h && h.indexOf('#/') === 0)){ try{ history.replaceState(null, '', '#' + id); }catch(e){} }
+  scrollToSection(el, prev === CUR_VIEW);
+  syncNavActive();
+}
 function openGharib(){
   try{ if(typeof encFilter === 'function') encFilter('gharib'); }catch(e){}
-  var el = document.getElementById('encSec');
-  if(el) el.scrollIntoView({behavior:'smooth'});
+  goSec('encSec');
 }
-function routeFromHash(scroll){
+function routeFromHash(scroll, smooth){
   var h = currentRoute();
-  if(h === '#/about'){ showView('about'); if(scroll !== false){ try{ window.scrollTo(0, 0); }catch(e){} } return; }
-  showView('home');
+  if(h === '#/about'){ showView('about'); if(scroll !== false) scrollToTopNow(); syncNavActive(); return; }
   var m = h.match(/^#\/(\d+)\/(\d+)$/);
-  if(m && typeof QDATA !== 'undefined' && QDATA){
+  if(m){
     try{
       var s = parseInt(m[1], 10), a = parseInt(m[2], 10);
-      if(QDATA.surahs[s-1] && QDATA.surahs[s-1].verses[a-1] && (CUR.s !== s || CUR.a !== a)){
+      if(typeof QDATA !== 'undefined' && QDATA && QDATA.surahs[s-1] && QDATA.surahs[s-1].verses[a-1] && (CUR.s !== s || CUR.a !== a)){
         CUR = {s:s, a:a}; renderAyaHead();
       }
     }catch(e){}
+    if(CUR_VIEW === 'about') showView('home');
+    syncNavActive();
+    return;
   }
+  var id = (h && h.length > 1) ? h.slice(1) : '';
+  var el = id ? document.getElementById(id) : null;
+  var v = el ? (viewName(el) || 'home') : 'home';
+  var prev = CUR_VIEW;
+  showView(v);
+  if(scroll !== false){
+    if(el) scrollToSection(el, (smooth === undefined) ? (prev === v) : !!smooth);
+    else scrollToTopNow();
+  }
+  syncNavActive();
 }
 if(typeof window !== 'undefined' && window.addEventListener) window.addEventListener('hashchange', function(){ routeFromHash(true); });
 document.addEventListener('click', function(e){
   var t = null;
   try{ t = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null; }catch(x){}
   if(!t) return;
-  var href = t.getAttribute('href');
+  try{ if(t.hasAttribute && t.hasAttribute('onclick')) return; }catch(x){}
+  var href = '';
+  try{ href = t.getAttribute('href') || ''; }catch(x){ return; }
   if(href === '#/about'){
-    e.preventDefault();
+    if(e && e.preventDefault){ try{ e.preventDefault(); }catch(x){} }
     try{ history.replaceState(null, '', '#/about'); }catch(x){ try{ location.hash = '#/about'; }catch(y){} }
     routeFromHash(true);
     return;
   }
-  if(href.charAt(1) === '/') return;
-  var el = document.getElementById(href.slice(1));
-  if(!el) return;
-  showView('home');
+  if(href.length < 2 || href.charAt(1) === '/') return;
+  var id = href.slice(1);
+  if(!document.getElementById(id)) return;
+  if(e && e.preventDefault){ try{ e.preventDefault(); }catch(x){} }
+  openNav(id);
 });
 buildCuratedPanels();
 try{ renderReciters(); renderListenList(); renderNotebook(); renderCompare(); }catch(e){}
 loadQuran();
 loadEncyclopedia();
-routeFromHash(false);
+routeFromHash(true, false);
 </script>
 </body>
 </html>
