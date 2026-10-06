@@ -10,7 +10,7 @@
 <title>أفلا يتدبرون القرآن — الرئيسية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&family=Aref+Ruqaa:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=Tajawal:wght@400;500;700&family=Aref+Ruqaa:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 <script>try{if(localStorage.getItem('tad-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}try{var _fs=localStorage.getItem('tad-fs');if(_fs)document.documentElement.style.fontSize=_fs;}catch(e){}</script>
 <style>
 :root{
@@ -26,8 +26,8 @@
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;scroll-padding-top:76px;}
-body{margin:0;background-color:var(--bg);background-image:radial-gradient(1600px 900px at 50% -280px, rgba(214,178,105,.42) 0%, rgba(201,164,92,.16) 44%, transparent 78%),radial-gradient(1000px 720px at 104% 30%, rgba(201,164,92,.10), transparent 58%),radial-gradient(1100px 800px at -10% 95%, rgba(37,110,86,.16), transparent 62%),linear-gradient(180deg,#07150f 0%,#04100c 48%,#020807 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");background-size:auto,auto,auto,auto,240px 240px;color:var(--ink);font-family:'Tajawal',sans-serif;line-height:1.9;}
-h1,h2,h3{font-family:'Aref Ruqaa',serif;}
+body{margin:0;background-color:var(--bg);background-image:radial-gradient(1600px 900px at 50% -280px, rgba(214,178,105,.42) 0%, rgba(201,164,92,.16) 44%, transparent 78%),radial-gradient(1000px 720px at 104% 30%, rgba(201,164,92,.10), transparent 58%),radial-gradient(1100px 800px at -10% 95%, rgba(37,110,86,.16), transparent 62%),linear-gradient(180deg,#07150f 0%,#04100c 48%,#020807 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");background-size:auto,auto,auto,auto,240px 240px;color:var(--ink);font-family:'Cairo','Tajawal',sans-serif;line-height:1.9;}
+h1,h2,h3{font-family:'Cairo','Tajawal',sans-serif;font-weight:700;}
 .wrap{max-width:1100px;margin:0 auto;padding:0 16px 60px;}
 .sec{padding:36px 0 8px;}
 .sec-t{color:var(--gold);text-align:center;font-size:1.9rem;margin:0 0 4px;}
@@ -41,8 +41,8 @@ nav{position:sticky;top:0;z-index:50;background:rgba(6,19,16,.92);backdrop-filte
 @media(max-width:560px){.brand small{display:none;}.brand b{font-size:.95rem;}.iconbtn{padding:6px 8px;}.links{flex:1 1 100%;}}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);white-space:nowrap;}
 .brand .bk{font-size:1.5rem;color:var(--gold);}
-.brand b{font-family:'Aref Ruqaa',serif;color:var(--gold);font-size:1.05rem;display:block;line-height:1.3;}
-.brand small{display:block;font-size:.62rem;color:var(--muted);font-family:'Tajawal',sans-serif;}
+.brand b{font-family:'Cairo','Tajawal',sans-serif;font-weight:700;color:var(--gold);font-size:1.02rem;display:block;line-height:1.3;}
+.brand small{display:block;font-size:.62rem;color:var(--muted);font-family:'Cairo','Tajawal',sans-serif;}
 .links{display:flex;gap:4px;margin-inline-start:auto;align-items:center;flex-wrap:wrap;row-gap:4px;overflow:visible;}
 .links>a,.drop>button{color:var(--ink);text-decoration:none;font-size:.92rem;padding:8px 12px;border-radius:10px;white-space:nowrap;background:none;border:none;font-family:inherit;cursor:pointer;}
 .links>a:hover,.drop>button:hover{background:var(--gold-soft);color:var(--gold);}
@@ -111,8 +111,20 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 @media(max-width:820px){.qgrid2{grid-template-columns:1fr;}}
 .qbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;}
 .qbox h3{margin:0 0 10px;color:var(--gold);}
-.searchrow{display:flex;gap:8px;margin-bottom:12px;}
+.searchrow{display:flex;gap:8px;margin-bottom:12px;position:relative;}
 .searchrow input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;color:var(--ink);font-size:.95rem;}
+.suggest{position:absolute;top:calc(100% + 6px);right:0;left:0;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.5);z-index:70;max-height:62vh;overflow:auto;padding:6px;text-align:start;}
+.sug-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px 3px;color:var(--gold);font-size:.8rem;font-weight:800;border-top:1px solid var(--line);margin-top:4px;}
+.sug-h:first-child{border-top:none;margin-top:0;}
+.sug-all{background:none;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:2px 10px;font-size:.72rem;cursor:pointer;font-family:inherit;}
+.sug-all:hover{border-color:var(--gold);color:var(--gold);}
+.sug-i{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:start;background:none;border:none;color:var(--ink);padding:7px 10px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:.88rem;}
+.sug-i:hover{background:var(--gold-soft);}
+.sug-i .sm{font-size:.72rem;color:var(--muted);}
+.vl-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;align-items:end;}
+.vl-form label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:3px;}
+.vl-form input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;color:var(--ink);font-family:inherit;font-size:.88rem;}
+.vl-msg{color:var(--gold);font-size:.82rem;margin-top:6px;}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;max-height:330px;overflow:auto;padding-inline-end:4px;}
 .scard{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;}
 .scard:hover{border-color:var(--gold);}
@@ -372,7 +384,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <div class="orn">— ✦ —</div>
     <div class="qbox">
       <div id="encStats"><p class="hint">جارٍ تحميل إحصاءات الموسوعة…</p></div>
-      <div class="searchrow"><input id="encInput" placeholder="ابحث: اسم مؤلف / عنوان كتاب / مرجع آية (مثال: النساء 82) / كلمة مفتاحية..." onkeydown="if(event.key==='Enter')encSearchRun()"><button class="btn" style="padding:10px 22px;" onclick="encSearchRun()">🔍 بحث</button></div>
+      <div class="searchrow"><input id="encInput" placeholder="ابحث: اسم مؤلف / عنوان كتاب / مرجع آية (مثال: النساء 82) / كلمة مفتاحية..." oninput="encSuggest()" onkeydown="if(event.key==='Enter'){encSuggestHide();encSearchRun();}" onblur="setTimeout(encSuggestHide,220)"><button class="btn" style="padding:10px 22px;" onclick="encSuggestHide();encSearchRun()">🔍 بحث</button><div class="suggest" id="encSuggest" style="display:none"></div></div>
       <div class="chips" id="encChips"></div>
       <div id="encResults"><p class="hint">جارٍ تحميل فهرس الموسوعة…</p></div>
       <div id="encDetail" style="display:none"></div>
@@ -1635,6 +1647,7 @@ function renderOthersInto(el, s, a){
       h += '<div class="group-label">مواد تحتاج إلى تحقق</div>' + res.needsReview.map(readingCard).join('');
     }
     try{ h += encVerseHTML(s, a); }catch(e){}
+    try{ var vl = vlinksVerseHTML(s, a); if(vl) h += vl; }catch(e){}
     h += compareTable(res.verified);
     if(!res.verified.length && !res.needsReview.length && !encHasVerseMaterial(s, a)){
       h += '<p><b>لا توجد مادة موثقة لهذه الآية حاليًا.</b></p><p class="hint">نبحث عن قراءات ومصادر مرتبطة بهذه الآية، وعند التحقق من مصدر مناسب ستظهر هنا.</p><p><span class="tag reflect">بانتظار مصدر</span></p>';
@@ -1988,6 +2001,7 @@ function encHomeBack(){
   var d = document.getElementById('encDetail'), r = document.getElementById('encResults');
   if(d){ d.style.display = 'none'; d.innerHTML = ''; }
   if(r) r.style.display = '';
+  VL_WORK = null;
 }
 function encShowDetail(html){
   var d = document.getElementById('encDetail'), r = document.getElementById('encResults');
@@ -2097,6 +2111,7 @@ function encShowWork(id){
   if(!ENCY) return;
   var w = ENCY._work[id] || ENCY._research[id];
   if(!w){ encShowDetail('<p class="hint">هذا العمل غير موجود في قاعدة البيانات حاليًا.</p>'); return; }
+  VL_WORK = id;
   var au = encAuthorOf(w.authorId);
   var refs = ENCY.verseReferences.filter(function(r){ return r.workId === w.id || r.researchId === w.id; });
   var h = '<div class="group-label">صفحة الكتاب / البحث</div>';
@@ -2119,7 +2134,92 @@ function encShowWork(id){
   h += '</div>';
   h += '<div class="group-label">المواد المرتبطة بالآيات</div>';
   h += refs.length ? refs.map(encCard).join('') : '<p class="hint">لا توجد في قاعدة البيانات آيات موثقة مرتبطة بهذا العمل حاليًا.</p>';
+  try{ h += vlinkFormHTML(w.id); }catch(e){}
   encShowDetail(h);
+}
+var VL_KEY = 'tad_verse_links', VL_WORK = null;
+function vlinksLoad(){
+  try{
+    var r = localStorage.getItem(VL_KEY), l = r ? JSON.parse(r) : [];
+    return (l && l.length !== undefined) ? l : [];
+  }catch(e){ return []; }
+}
+function vlinksSave(l){ try{ localStorage.setItem(VL_KEY, JSON.stringify(l)); }catch(e){} }
+function vlinksFor(s, a){
+  return vlinksLoad().filter(function(x){ return x.surah === s && x.from <= a && x.to >= a; });
+}
+function vlinksOfWork(id){
+  return vlinksLoad().filter(function(x){ return x.workId === id; });
+}
+function vlinkCardHTML(x, withDelete){
+  var h = '<div class="res"><b>' + esc(x.title || 'كتاب') + '</b>' + (x.author ? ' — ' + esc(x.author) : '') + ' <span class="tag reading">رابط يدوي — على هذا الجهاز</span><br>';
+  h += '<span class="hint">الموضع: سورة ' + esc(surahNameOf(x.surah)) + ' ﴿' + arNum(x.from) + (x.to !== x.from ? ' - ' + arNum(x.to) : '') + '﴾' +
+    (x.volume ? ' · المجلد ' + esc(x.volume) : '') + (x.page ? ' · الصفحة ' + esc(x.page) : '') + (x.at ? ' · أُضيف في ' + esc(x.at) : '') + '</span>';
+  if(x.url) h += '<br><a class="btn-ghost" style="display:inline-block;margin-top:6px;" href="' + esc(x.url) + '" target="_blank" rel="noopener">فتح المصدر ↗</a>';
+  if(withDelete) h += ' <button class="more" style="display:inline" onclick="vlinkDel(\'' + x.id + '\')">حذف الربط</button>';
+  return h + '</div>';
+}
+function vlinksVerseHTML(s, a){
+  var list = vlinksFor(s, a);
+  if(!list.length) return '';
+  return '<div class="group-label">الكتب والبحوث المرتبطة بهذه الآية (' + arNum(list.length) + ')</div>' +
+    list.map(function(x){ return vlinkCardHTML(x, true); }).join('') +
+    '<p class="hint">هذه روابط أضفتها بنفسك وتحفظ في متصفحك فقط — وليس لها صفة مادة موثقة من قاعدة بيانات الموقع.</p>';
+}
+function vlinkMsg(t){
+  var el = document.getElementById('vlMsg');
+  if(el) el.innerHTML = t ? '<div class="vl-msg">' + t + '</div>' : '';
+}
+function vlinkFormHTML(workId){
+  var list = vlinksOfWork(workId);
+  var h = '<div class="group-label">ربط الكتاب بالآيات</div>';
+  h += '<div class="vl-form">' +
+    '<div><label>السورة (رقم)</label><input id="vlS" type="number" min="1" max="114" placeholder="مثال: 2"></div>' +
+    '<div><label>من آية</label><input id="vlFrom" type="number" min="1" placeholder="مثال: 255"></div>' +
+    '<div><label>إلى آية</label><input id="vlTo" type="number" min="1" placeholder="اختياري"></div>' +
+    '<div><label>المجلد</label><input id="vlVol" placeholder="اختياري"></div>' +
+    '<div><label>الصفحة</label><input id="vlPg" placeholder="اختياري"></div>' +
+    '<div><label>رابط المصدر</label><input id="vlUrl" placeholder="https://..."></div>' +
+    '</div>';
+  h += '<p style="margin-top:8px"><button class="btn" style="padding:8px 20px" onclick="vlinkAdd(\'' + workId + '\')">إضافة الربط</button></p><div id="vlMsg"></div>';
+  if(list.length){
+    h += '<div class="group-label">روابط مضافة لهذا الكتاب (' + arNum(list.length) + ')</div>' +
+      list.map(function(x){ return vlinkCardHTML(x, true); }).join('');
+  }
+  h += '<p class="hint">الروابط تُحفظ في متصفحك أنت (localStorage) وتظهر في تبويب «الآخرون» عند فتح الآية؛ وهي إضافة يدوية منك، وليست مادة موثقة من قاعدة بيانات الموقع.</p>';
+  return h;
+}
+function vlinkAdd(workId){
+  if(!ENCY) return;
+  var w = ENCY._work[workId] || ENCY._research[workId];
+  if(!w){ vlinkMsg('هذا العمل غير موجود حاليًا.'); return; }
+  var val = function(id){ var el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; };
+  var s = parseInt(val('vlS'), 10), from = parseInt(val('vlFrom'), 10), to = parseInt(val('vlTo'), 10);
+  if(!(s >= 1 && s <= 114)){ vlinkMsg('اكتب رقم سورة صحيحًا من ١ إلى ١١٤.'); return; }
+  if(!(from >= 1)){ vlinkMsg('اكتب رقم الآية الأولى.'); return; }
+  if(!(to >= 1)) to = from;
+  if(to < from){ vlinkMsg('نهاية المدى يجب أن تكون بعد بدايته.'); return; }
+  if(QDATA && QDATA.surahs && QDATA.surahs[s - 1]){
+    var n = QDATA.surahs[s - 1].verses.length;
+    if(from > n){ vlinkMsg('رقم الآية أكبر من عدد آيات هذه السورة (' + arNum(n) + ').'); return; }
+    if(to > n) to = n;
+  }
+  var url = val('vlUrl').replace(/["'<>]/g, '');
+  if(url && !/^https?:\/\//i.test(url)){ vlinkMsg('رابط المصدر يجب أن يبدأ بـ https:// أو http://'); return; }
+  var list = vlinksLoad();
+  list.unshift({id:'vl' + Date.now(), workId:workId, title:w.title, author:w.authorName || '',
+    surah:s, from:from, to:to, volume:val('vlVol'), page:val('vlPg'), url:url,
+    at:new Date().toLocaleDateString('ar-KW')});
+  vlinksSave(list);
+  try{ encShowWork(workId); }catch(e){}
+  try{ renderVerseOthers(); }catch(e){}
+  try{ renderOthersInto(document.getElementById('verseOthers82'), 4, 82); }catch(e){}
+}
+function vlinkDel(id){
+  vlinksSave(vlinksLoad().filter(function(x){ return x.id !== id; }));
+  try{ renderVerseOthers(); }catch(e){}
+  try{ renderOthersInto(document.getElementById('verseOthers82'), 4, 82); }catch(e){}
+  try{ if(VL_WORK) encShowWork(VL_WORK); }catch(e){}
 }
 function encVerVerified(){
   var st = encStats();
@@ -2237,6 +2337,7 @@ function encVerseResultsHTML(s, a){
     }
     if(reads.length + availR.length + idxR.length >= 2) h += encCompare(reads.map(function(r){ return r.id; }).concat(refs.map(function(r){ return r.id; })));
   }
+  try{ var vl2 = vlinksVerseHTML(s, a); if(vl2) h += vl2; }catch(e){}
   h += encCoverageHTML();
   h += '<p style="text-align:center"><button class="btn" onclick="openAya(' + s + ',' + a + ')">افتح الآية في رحلة التدبر</button></p>';
   return h;
@@ -2276,6 +2377,12 @@ function encTextResults(q){
     var w = encWorkOf(r);
     return !!(w && norm(w.title).indexOf(nq) >= 0);
   });
+  list.research = (ENCY.research || []).filter(function(r){
+    if(r.title && norm(r.title).indexOf(nq) >= 0) return true;
+    if(r.authorName && norm(r.authorName).indexOf(nq) >= 0) return true;
+    if(r.summary && norm(r.summary).indexOf(nq) >= 0) return true;
+    return !!(r.workId && ENCY._work[r.workId] && norm(ENCY._work[r.workId].title).indexOf(nq) >= 0);
+  });
   return list;
 }
 function encSearchRun(){
@@ -2301,11 +2408,143 @@ function encSearchRun(){
     el.innerHTML = encSurahResultsHTML(p.s);
     return;
   }
-  var list = encTextResults(q);
-  var total = list.authors.length + list.works.length + list.refs.length;
-  encRenderResults(list, 'نتائج البحث عن: ' + esc(q) + ' (' + arNum(total) + ')');
+  ENC_SQ = q; ENC_STYPE = 'all';
+  encRenderSearch();
 }
 var ENC_FILTER = 'all';
+var ENC_SQ = '', ENC_STYPE = 'all', ENC_BC = null;
+var STUDY_TOPICS = [
+  {id:'words', t:'لغة الآية — الكلمة والجذر والمعنى', k:'كلمة جذر لغة معنى'},
+  {id:'grammar', t:'إعراب الآية — البناء وأثره في المعنى', k:'نحو اعراب بلاغة بيان'},
+  {id:'context', t:'سياق الآية — ما قبلها وما بعدها', k:'سياق نزول مناسبة'},
+  {id:'tafsir', t:'أقوال المفسرين — قارن بنفسك', k:'تفسير مفسرون أقوال'},
+  {id:'links', t:'ترابط الآيات والسور', k:'ترابط مناسبات انساق روابط'},
+  {id:'horizons', t:'آفاق — علم وتاريخ وأرقام وقراءات معاصرة', k:'علم تاريخ أرقام قراءات'},
+  {id:'mind', t:'العقل — الدليل والافتراض والاستنتاج', k:'عقل دليل فكر استنتاج'},
+  {id:'tadabbur', t:'دفتر التدبر — اكتب تأملك', k:'تدبر تأمل دفتر'}
+];
+function encSearchBuckets(q){
+  var out = {all:0, tafsir:{count:0, list:{authors:[],works:[],research:[],refs:[]}, items:[]},
+             research:{count:0, list:{authors:[],works:[],research:[],refs:[]}, items:[]},
+             tadabbur:{count:0, items:[], works:[]}};
+  if(!ENCY || !q) return out;
+  var nq = norm(q), list = encTextResults(q);
+  out.all = list.authors.length + list.works.length + (list.research || []).length + list.refs.length;
+  var tw = list.works.filter(function(w){ return w.category === 'tafsir'; });
+  var trefs = list.refs.filter(function(r){ var w = encWorkOf(r); return w && w.category === 'tafsir'; });
+  var tauth = list.authors.filter(function(a){ return (ENCY._authorWorks[a.id] || []).some(function(w){ return w.category === 'tafsir'; }); });
+  out.tafsir.list = {authors:tauth, works:tw, research:[], refs:trefs};
+  out.tafsir.count = tauth.length + tw.length + trefs.length;
+  out.tafsir.items = tw.slice(0, 6).map(function(w){ return {t:w.title, s:w.authorName || '', go:"encShowWork('" + w.id + "')"}; });
+  var rw = list.works.filter(function(w){ return w.category === 'research'; });
+  out.research.list = {authors:[], works:rw, research:list.research || [], refs:[]};
+  out.research.count = rw.length + (list.research || []).length;
+  out.research.items = (list.research || []).slice(0, 6).map(function(r){ return {t:r.title, s:r.authorName || '', go:"encShowWork('" + r.id + "')"}; });
+  var dw = list.works.filter(function(w){ return w.category === 'tadabbur'; });
+  var items = dw.slice(0, 4).map(function(w){ return {t:w.title, s:w.authorName || '', go:"encShowWork('" + w.id + "')"}; });
+  STUDY_TOPICS.forEach(function(tp){
+    if(norm(tp.t + ' ' + tp.k).indexOf(nq) >= 0) items.push({t:tp.t, s:'موضوع في رحلة التدبر', go:"gotoStudy('" + tp.id + "')"});
+  });
+  try{
+    gatherNotebook().forEach(function(e){
+      if(!e.s || !e.a) return;
+      if(norm(surahNameOf(e.s) + ' ' + e.s + ' ' + e.a + ' ' + (e.text || '')).indexOf(nq) >= 0)
+        items.push({t:(e.text || '').slice(0, 70), s:surahNameOf(e.s) + ' ﴿' + e.a + '﴾ — من دفتر تدبرك', go:'openAya(' + e.s + ',' + e.a + ')'});
+    });
+  }catch(e){}
+  out.tadabbur.items = items;
+  out.tadabbur.count = items.length;
+  out.tadabbur.works = dw;
+  return out;
+}
+function encTypeBarHTML(){
+  var b = ENC_BC || {all:0, tafsir:{count:0}, research:{count:0}, tadabbur:{count:0}};
+  function mk(id, label, n){ return '<button class="chip' + (ENC_STYPE === id ? ' on' : '') + '" onclick="encSearchType(\'' + id + '\')">' + label + ' (' + arNum(n) + ')</button>'; }
+  return '<div class="chips" style="margin-top:4px">' + mk('all', 'الكل', b.all) + mk('tafsir', 'كتب التفسير', b.tafsir.count) +
+    mk('research', 'الأبحاث الأكاديمية', b.research.count) + mk('tadabbur', 'مواضيع التدبر', b.tadabbur.count) + '</div>';
+}
+function encSearchType(t){
+  ENC_STYPE = t || 'all';
+  var box = document.getElementById('encInput');
+  if(box) ENC_SQ = box.value.trim();
+  encSuggestHide();
+  encRenderSearch();
+}
+function encTadabburHTML(b, q){
+  var h = '<div class="group-label">مواضيع التدبر (' + arNum(b.count) + ') — نتائج عن: ' + esc(q) + '</div>';
+  if(!b.count) return h + '<p class="hint">لا توجد نتائج مطابقة في قاعدة البيانات حاليًا — جرّب كلمة أو مرجعًا آخر.</p>';
+  if(b.works && b.works.length){
+    h += '<div class="group-label">كتب في التدبر (' + arNum(b.works.length) + ')</div><p>' +
+      b.works.map(function(w){ return '<button class="chip" onclick="encShowWork(\'' + w.id + '\')">' + esc(w.title) + '</button>'; }).join(' ') + '</p>';
+  }
+  var topics = b.items.filter(function(it){ return it.go.indexOf('gotoStudy') === 0; });
+  if(topics.length){
+    h += '<div class="group-label">مواضيع رحلة التدبر (' + arNum(topics.length) + ')</div><p>' +
+      topics.map(function(it){ return '<button class="chip" onclick="' + it.go + '">' + esc(it.t) + '</button>'; }).join(' ') + '</p>';
+  }
+  var notes = b.items.filter(function(it){ return it.go.indexOf('openAya') === 0; });
+  if(notes.length){
+    h += '<div class="group-label">من دفتر تدبرك (' + arNum(notes.length) + ')</div><p>' +
+      notes.map(function(it){ return '<button class="chip" onclick="' + it.go + '">' + esc(it.t.slice(0, 46)) + '</button>'; }).join(' ') + '</p>';
+  }
+  var works = b.items.filter(function(it){ return it.go.indexOf('encShowWork') === 0; });
+  if(works.length && !(b.works && b.works.length)){
+    h += '<div class="group-label">أبحاث وكتب مرتبطة (' + arNum(works.length) + ')</div><p>' +
+      works.map(function(it){ return '<button class="chip" onclick="' + it.go + '">' + esc(it.t) + '</button>'; }).join(' ') + '</p>';
+  }
+  return h;
+}
+function encRenderSearch(){
+  var el = document.getElementById('encResults');
+  if(!el || !ENCY || !ENC_SQ) return;
+  ENC_BC = encSearchBuckets(ENC_SQ);
+  var bar = encTypeBarHTML();
+  if(ENC_STYPE === 'tadabbur'){
+    el.innerHTML = bar + encTadabburHTML(ENC_BC.tadabbur, ENC_SQ);
+    return;
+  }
+  var list, heading;
+  if(ENC_STYPE === 'tafsir'){
+    list = ENC_BC.tafsir.list;
+    heading = 'كتب التفسير — نتائج عن: ' + esc(ENC_SQ) + ' (' + arNum(ENC_BC.tafsir.count) + ')';
+  } else if(ENC_STYPE === 'research'){
+    list = ENC_BC.research.list;
+    heading = 'الأبحاث الأكاديمية — نتائج عن: ' + esc(ENC_SQ) + ' (' + arNum(ENC_BC.research.count) + ')';
+  } else {
+    list = encTextResults(ENC_SQ);
+    heading = 'نتائج البحث عن: ' + esc(ENC_SQ) + ' (' + arNum(ENC_BC.all) + ')';
+  }
+  encRenderResults(list, heading);
+  el.innerHTML = bar + el.innerHTML;
+}
+function encSuggestHide(){
+  var el = document.getElementById('encSuggest');
+  if(el){ el.style.display = 'none'; }
+}
+function encSuggest(){
+  var el = document.getElementById('encSuggest'), box = document.getElementById('encInput');
+  if(!el || !box) return;
+  var q = box.value.trim();
+  if(!q || !ENCY){ encSuggestHide(); return; }
+  var b = encSearchBuckets(q);
+  function group(id, label, items, count){
+    if(!items.length) return '';
+    var h = '<div class="sug-h"><span>' + label + ' (' + arNum(count) + ')</span>' +
+      '<button class="sug-all" onmousedown="event.preventDefault()" onclick="encSearchType(\'' + id + '\')">عرض كل النتائج</button></div>';
+    h += items.map(function(it){
+      return '<button class="sug-i" onmousedown="event.preventDefault()" onclick="encSuggestHide();' + it.go + '">' +
+        '<span>' + esc(it.t) + '</span>' + (it.s ? '<span class="sm">' + esc(it.s) + '</span>' : '') + '</button>';
+    }).join('');
+    return h;
+  }
+  var h = '';
+  h += group('tafsir', 'كتب التفسير', b.tafsir.items, b.tafsir.count);
+  h += group('research', 'الأبحاث الأكاديمية', b.research.items, b.research.count);
+  h += group('tadabbur', 'مواضيع التدبر', b.tadabbur.items, b.tadabbur.count);
+  if(!h){ encSuggestHide(); return; }
+  el.innerHTML = h;
+  el.style.display = 'block';
+}
 function encFilter(f){
   ENC_FILTER = f || 'all';
   encRenderChips();
