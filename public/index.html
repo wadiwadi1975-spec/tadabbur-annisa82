@@ -274,7 +274,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <div class="ayah"><span class="o">❖</span> أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ <span class="o">❖</span></div>
     <div class="motto">اقرأ ... افهم ... اربط ... تدبر</div>
     <p class="lead">منصة تفتح لك أبواب القرآن من خلال اللغة والسياق والتفسير والدليل والعقل، لتصل من القراءة إلى التدبر.</p>
-    <a class="btn" href="#study">📖 ابدأ رحلة التدبر</a>
+    <a class="btn" href="#study" onclick="jrnFocus()">📖 ابدأ رحلة التدبر</a>
     <a class="btn-ghost" href="#quran-sec">استكشف القرآن</a>
   </section>
 
@@ -298,6 +298,12 @@ footer a{color:var(--gold);text-decoration:none;}
     <h2 class="sec-t">رحلة تدبر الآية</h2>
     <p class="sub">آية واحدة... قد تفتح لك عالمًا من المعاني.</p>
     <div class="orn">— ✦ —</div>
+    <div class="qbox" style="max-width:660px;margin:0 auto 16px">
+      <div class="group-label" style="margin-top:0">نافذة بداية الرحلة — اكتب الآية التي تريد التدبر فيها</div>
+      <div class="searchrow" style="margin-bottom:4px"><input id="jrnInput" placeholder="مثال: الكهف 10 · النساء 82 · 2:255" onkeydown="if(event.key==='Enter')jrnStart()"><button class="btn" style="padding:10px 20px" onclick="jrnStart()">ابدأ الرحلة</button></div>
+      <div id="jrnMsg"></div>
+      <p class="hint" style="margin-top:4px">تُفتح الآية هنا، ثم خطوات الرحلة تحتها: النص، الكلمة، اللغة، السياق، التفسير، الدليل، العقل، التدبر.</p>
+    </div>
     <div id="ayaHead"></div>
     <div id="panels"></div>
   </section>
@@ -1471,6 +1477,44 @@ function openAya(s,a){
   }
   try{ if(CUR_VIEW !== 'home'){ showView('home'); syncNavActive(); } }catch(e){}
   setVerse(s,a);
+}
+function jrnMsg(t){
+  var el = document.getElementById('jrnMsg');
+  if(el) el.innerHTML = t ? '<div class="vl-msg">' + t + '</div>' : '';
+}
+function jrnFocus(){
+  try{ if(CUR_VIEW !== 'home'){ showView('home'); syncNavActive(); } }catch(e){}
+  var st = document.getElementById('study');
+  if(st){ try{ st.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }
+  setTimeout(function(){ var i = document.getElementById('jrnInput'); if(i){ try{ i.focus(); }catch(e){} } }, 500);
+}
+function jrnStart(){
+  var box = document.getElementById('jrnInput');
+  var q = box ? String(box.value || '').trim() : '';
+  if(!q){ jrnMsg('اكتب مرجع الآية أولًا — مثل: «الكهف 10» أو «2:255».'); if(box){ try{ box.focus(); }catch(e){} } return; }
+  if(!QDATA){ jrnMsg('جارٍ تحميل النصّ... انتظر لحظة ثم أعد الضغط.'); try{ loadQuran(); }catch(e){} return; }
+  q = q.replace(/[٠-٩]/g, function(d){ return String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)); })
+       .replace(/[۰-۹]/g, function(d){ return String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)); });
+  var s = 0, a = 1, m = q.match(/^(\d+)\s*[:\-/]\s*(\d+)$/);
+  if(m){ s = parseInt(m[1], 10); a = parseInt(m[2], 10); }
+  else{
+    m = q.match(/^(?:سورة\s+)?(.*?)(?:\s+آية\s+|\s+الآية\s+|\s+)(\d+)$/);
+    var name = q;
+    if(m){ name = m[1]; a = parseInt(m[2], 10); }
+    name = name.replace(/^سورة\s+/, '').trim();
+    var nq = norm(name).replace(/^ال/, '');
+    for(var i = 0; i < QDATA.surahs.length; i++){
+      if(norm(QDATA.surahs[i].name).replace(/^ال/, '') === nq){ s = QDATA.surahs[i].n; break; }
+    }
+  }
+  if(!s){ jrnMsg('لم أتعرّف على السورة — اكتب اسمها مثل «الكهف»، أو مع رقم الآية «الكهف 10»، أو على صيغة «2:255».'); return; }
+  if(!isValidVerse(s, a)){
+    var cnt = QDATA.surahs[s-1] ? QDATA.surahs[s-1].verses.length : 0;
+    jrnMsg(cnt ? ('رقم الآية خارج حدود السورة — عدد آياتها ' + arNum(cnt) + '.') : 'رقم آية غير صحيح لهذه السورة.');
+    return;
+  }
+  jrnMsg('');
+  openAya(s, a);
 }
 document.querySelectorAll('.drop>button').forEach(function(b){
   b.addEventListener('click', function(e){
@@ -2826,7 +2870,7 @@ function seekListen(ev){
   if(x < 0 || x > 1) return;
   try{ LAUDIO.currentTime = x * LAUDIO.duration; updatePlayer(); }catch(e){}
 }
-function notebookStart(){ openAya(4, 82); }
+function notebookStart(){ jrnFocus(); }
 var CM_CATS = [{"t": "مقارنات السور","d": "المقارنة الموضوعية واللفظية بين مجموعات السور المتشابهة في مطالعها وفواصلها وأنساقها.","books": [{"t": "جواهر الدرر في علم مقارنات السور","a": "د. أمحمد محمد صافي المستغانمي","m": "دار ابن كثير — الطبعة الأولى، 2018، نحو 488 صفحة","n": "أسّس لعلم مقارنات السور ومفهوم «الأسر القرآنية»؛ النسخة معروضة للتصفح صفحةً صفحة.","s": "مكتبة القرآن على الإنترنت","u": "https://www.quranonlinelibrary.com/kutub-library/Jawahir-ad-Durar-fi-Ilm-Muqaranat-as-Suwar"}]},{"t": "مناسبات السور","d": "علاقة كل سورة بما قبلها وبعدها، ومناسبة ترتيب السور، والروابط الموضوعية واللفظية بينها.","books": [{"t": "البرهان في تناسب سور القرآن","a": "أحمد بن إبراهيم ابن الزبير الغرناطي (ت 708هـ)","m": "تحقيق: محمد شعباني","n": "أقدم مصنف مفرد في مناسبة تعقيب السور بالسور؛ نصه كامل للقراءة.","s": "المكتبة الشاملة","u": "https://shamela.ws/book/1388"},{"t": "مناسبات الآيات والسور","a": "أ. د. أحمد حسن فرحات","m": "مجلة الجامعة الإسلامية بالمدينة المنورة","n": "بحث معاصر يناقش مناهج العلماء وموقفهم من المناسبة، متاح نصه للقراءة والتحميل.","s": "الموسوعة القرآنية","u": "https://quranpedia.net/book/47"}]},{"t": "نظم السور والآيات","d": "دراسة ترابط الآية بسياقها، ومقاصد السورة، وارتباط مقاطعها بعضها ببعض كوحدة واحدة.","books": [{"t": "نظم الدرر في تناسب الآيات والسور","a": "برهان الدين البقاعي (ت 885هـ)","m": "دائرة المعارف العثمانية، حيدر آباد","n": "أهم مصادر علم المناسبات تاريخيًا؛ ينظّم القرآن كله في تناسبه الداخلي، والنص كامل للقراءة.","s": "المكتبة الشاملة","u": "https://shamela.ws/book/9098"},{"t": "مصابيح الدرر في تناسب آيات القرآن الكريم والسور","a": "عادل بن محمد أبو العلاء","m": "الجامعة الإسلامية بالمدينة المنورة","n": "قسّم الدراسة بين تناسب الآيات في السورة والتناسب بين السور، والنص كامل للقراءة.","s": "المكتبة الشاملة","u": "https://shamela.ws/book/4410"}]},{"t": "مطالع السور وخواتيمها","d": "لماذا بدأت السورة بهذه العبارة؟ لماذا خُتمت بهذا المعنى؟ وعلاقة الخاتمة بمطلع السورة التالية.","books": [{"t": "التناسب بين السور في المفتتح والخواتيم","a": "د. فاضل صالح السامرائي","m": "دار ابن كثير — الطبعة الرابعة، 2024، نحو 199 صفحة","n": "يبحث تحديدًا في افتتاح السورة وخاتمتها وعلاقة خاتمة سورة بمفتتح أخرى؛ النسخة معروضة للتصفح.","s": "مكتبة القرآن على الإنترنت","u": "https://quranonlinelibrary.com/kutub-library/Al-Tanasub-Bain-Al-Suwar-Fil-Muftateh"}]},{"t": "مقاصد السور","d": "المقصد العام الذي تدور حوله كل سورة؛ وبه تكتمل المقارنة بين سورتين.","books": [{"t": "مصاعد النظر للإشراف على مقاصد السور","a": "برهان الدين البقاعي (ت 885هـ)","m": "المكتبة الشاملة","n": "أصل كلاسيكي في الوقوف على مقصد كل سورة سورةً سورة؛ النص كامل للقراءة.","s": "المكتبة الشاملة","u": "https://shamela.ws/book/1404"},{"t": "أغراض السور في تفسير التحرير والتنوير لابن عاشور","a": "مجموع من أغراض ابن عاشور","m": "الموسوعة القرآنية","n": "جمع لأغراض السور ومقاصدها من التحرير والتنوير؛ متاح للقراءة والتحميل.","s": "الموسوعة القرآنية","u": "https://quranpedia.net/book/13829"}]},{"t": "الأسر القرآنية","d": "مجموعات السور المتشابهة في المطالع أو الفواصل أو الأنماط التعبيرية: أسرة الحمد، أسرة المسبحات، أسرة تبارك، والصافات والذاريات والمرسلات.","books": [{"t": "جواهر الدرر في علم مقارنات السور","a": "د. أمحمد محمد صافي المستغانمي","m": "دار ابن كثير، 2018","n": "المصدر الأساس لمفهوم «الأسر القرآنية»؛ قسم منه مخصص لدراسة الأسر والمقارنات بينها.","s": "مكتبة القرآن على الإنترنت","u": "https://www.quranonlinelibrary.com/kutub-library/Jawahir-ad-Durar-fi-Ilm-Muqaranat-as-Suwar"}]},{"t": "الروابط الموضوعية","d": "وحدة المضمون والقصة والمقصود بين سور قرآنية لا تلتقي ظاهرًا في أسلوبها.","books": [{"t": "جواهر الدرر في علم مقارنات السور","a": "د. أمحمد محمد صافي المستغانمي","m": "دار ابن كثير، 2018","n": "يُعنى ببيان العلاقات الموضوعية واللفظية بين سور القرآن؛ النسخة معروضة للتصفح.","s": "مكتبة القرآن على الإنترنت","u": "https://www.quranonlinelibrary.com/kutub-library/Jawahir-ad-Durar-fi-Ilm-Muqaranat-as-Suwar"}]},{"t": "الروابط اللفظية","d": "التوازن بين مطابق اللفظ والمختلف فيه، وتكرار الألفاظ المشتركة بين السور ودلالته.","books": [{"t": "نظم الدرر في تناسب الآيات والسور","a": "برهان الدين البقاعي (ت 885هـ)","m": "دائرة المعارف العثمانية، حيدر آباد","n": "بحث في التناسب اللفظي والمضموني بين آيات القرآن وسوره؛ النص كامل للقراءة.","s": "المكتبة الشاملة","u": "https://shamela.ws/book/9098"}]}];
 
 var CM_OPEN = -1;
