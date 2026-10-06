@@ -357,7 +357,7 @@ footer a{color:var(--gold);text-decoration:none;}
 
   <section class="sec" id="search">
     <h2 class="sec-t">ابحث في القرآن</h2>
-    <p class="sub">اكتب كلمة، آية، موضوعًا أو اسم سورة...</p>
+    <p class="sub">اكتب كلمة، آية، موضوعًا أو اسم سورة... — وكل كلمة تُفتح لها بطاقة تفسير موسّعة: الجذر والوزن وحروف الزيادة ودورها، ثم مواضعها في النص.</p>
     <div class="orn">— ✦ —</div>
     <div class="searchrow" style="max-width:560px;margin:0 auto 12px;"><input id="searchInput" placeholder="مثال: الصبر" onkeydown="if(event.key==='Enter')quranSearch()"><button class="btn" style="padding:10px 22px;" onclick="quranSearch()">🔍</button></div>
     <div id="searchResults" style="max-width:720px;margin:0 auto;"></div>
@@ -965,7 +965,7 @@ function buildVersePanels(){
   var h = '';
   h += '<div class="panel" id="panel-v-text"><h3>النص</h3><p class="v">'+v+'</p><p class="hint">سورة '+s.name+' — الآية '+arNum(CUR.a)+' · رسم عثماني</p></div>';
   var words = v.split(/\s+/).filter(function(w){ return w; });
-  h += '<div class="panel" id="panel-v-words"><h3>الكلمات</h3><p class="hint">اضغط أي كلمة للبحث عن مواضعها في القرآن. التحليل الجذري والأوزان موثق حالياً لآية النساء 82 فقط.</p><div>'+
+  h += '<div class="panel" id="panel-v-words"><h3>الكلمات</h3><p class="hint">اضغط أي كلمة لفتح تفسيرها الموسّع: الجذر، الوزن، حروف الزيادة ودورها في الكلمة، والصيغ المشتقة، ثم مواضعها في القرآن. التحليل الجذري الموثّق لآية النساء 82، والباقي استخراج آلي مبدئي يحتاج مراجعة.</p><div>'+
     words.map(function(w){ return '<button class="wchip" onclick="wordSearch(this.textContent)">'+w+'</button>'; }).join('')+'</div></div>';
   var cx = '';
   for(var k = Math.max(0, CUR.a - 3); k < Math.min(s.verses.length, CUR.a + 2); k++){
@@ -2705,6 +2705,250 @@ function shareAya(){
     if(navigator.clipboard){ navigator.clipboard.writeText(t); }
   }catch(e){}
 }
+/* ====== تفسير الكلمات الموسّع: الجذر · الوزن · حروف الزيادة ودورها ====== */
+var ZS = {'ء':1,'ا':1,'و':1,'ي':1,'ن':1,'م':1,'ت':1,'ه':1,'ة':1};
+var WORD_FIX = {'الله': {root:['ا','ل','ه'], weight:'اسم علم — أصله «إِلَه»',
+  fixed:'اسم علم مفرد؛ والأشهر في كتب اللغة أن أصله «إِلَه» فحُذفت الهمزة وشوهدت اللام، ولا يُوزن بالقواعد الاعتيادية.'}};
+var WP = [
+  {n:'فَعَلَ (ثلاثي مجرد)', s:'123', z:[], m:'أصل المادة المجردة؛ كل حروف الكلمة من أصول الجذر ولا زيادة فيها.'},
+  {n:'فَعَّلَ', s:'12x3', z:[], m:'بنوا وزن فَعَّلَ بزيادة الشدّة — يفيد غالبًا التكثير أو التعدية (أن يجعل الفعل واقعًا على غيره).'},
+  {n:'فاعِل', s:'1#23', z:[['ا','و','ي']], m:'اسم فاعل؛ الزوائد بُنيت بها هذه الصيغة الدالة على من قام بالفعل.'},
+  {n:'فَعِيل', s:'12#3', z:[['ي']], m:'صيغة مبالغة أو اسم؛ الزائدة (الياء) مدٌّ يفيد الثبوت واتساع المعنى.'},
+  {n:'فُعُول', s:'12#3', z:[['و']], m:'اسم مفعول أو مبالغة؛ الزائدة (الواو) تفيد المدّ واتساع المعنى.'},
+  {n:'فِعَال / فَعَال', s:'12#3', z:[['ا']], m:'مصدر أو صيغة مبالغة؛ الألف الزائدة تُوصل بها النطق وتُوسَّع بها دلالة الكلمة.'},
+  {n:'فَعْلان', s:'123##', z:[['ا'],['ن']], m:'صيغة مبالغة؛ الألف والنون زائدتان تنقلان المعنى إلى المبالغة والتوسع.'},
+  {n:'فَعَائِلَة', s:'12##3#', z:[['ا'],['ي','ئ'],['ة','ه']], m:'صيغة وصف أو جمع؛ الألف والهمزة المبدوّة بياء (أو هاء التأنيث) زائدتان لبناء الصيغة.'},
+  {n:'أَفْعَلَ', s:'#123', z:[['ا']], m:'بنوا وزن أَفْعَلَ بهمزة مزيدة — يدل غالبًا على الدخول في فعل أو صفة بحدّة.'},
+  {n:'مَفْعَل / مُفْعِل / مُفْعَل', s:'#123', z:[['م']], m:'ميم مزيدة تُبنى بها اسم المكان أو الزمان أو اسم الفاعل/المفعول، ويتحدد الدقيق باختلاف الحركة والسياق.'},
+  {n:'تَفْعَلَ / تَفَعَّلَ', s:'#123', z:[['ت']], m:'تاء مزيدة أول الكلمة — من أوزان التفعّل، وتدل غالبًا على التفاعل أو التحوّل.'},
+  {n:'مَفْعُول', s:'#12#3', z:[['م'],['و']], m:'اسم مفعول؛ الميم والواو زائدتان لبناء صيغة من وقع عليه الفعل وتوسيع المعنى.'},
+  {n:'مَفْعِيل', s:'#12#3', z:[['م'],['ي']], m:'اسم مفعول أو مبالغة؛ الزائدتان (الميم والياء) لبناء الصيغة وتوسيع دلالتها.'},
+  {n:'مِفْعال (اسم آلة)', s:'#12#3', z:[['م'],['ا']], m:'اسم آلة؛ الميم والألف زائدتان، وبهما بُنيت صيغة اسم الآلة.'},
+  {n:'تَفْعِيل', s:'#12#3', z:[['ت'],['ي']], m:'من وزن تفعيل؛ التاء والياء زائدتان لبناء صيغة الصناعة أو المعاملة أو التلطف.'},
+  {n:'تَفَاعُل', s:'#12#3', z:[['ت'],['ا']], m:'بنوا وزن تفاعل بتاء وألف مزيدتين — يدل غالبًا على تفاعل الطرفين أو تكامل المعنى.'},
+  {n:'مَفْعَلة', s:'#123#', z:[['م'],['ة','ه']], m:'اسم الآلة أو المكان أو التأنيث؛ الميم وتاء التأنيث زائدتان، وبهما بُني الاسم المفرد.'},
+  {n:'مُفَعِّل / مُفَعَّل', s:'#12x3', z:[['م']], m:'من وزن المفعّل؛ الميم مزيدة مع الشدّة، وتدل الصيغة غالبًا على المبالغة أو الصناعة.'},
+  {n:'تَفَعُّلَ', s:'#12x3', z:[['ت']], m:'تاء مزيدة مع الشدّة — من أوزان التفاعل، وتدل غالبًا على التلازم بين طرفين.'},
+  {n:'مُفْتَعِل / مُفْتَعَل', s:'#1#23', z:[['م'],['ت']], m:'بنوا وزن مفتعل بالميم والتاء المزيدتين — يدل غالبًا على الاتخاذ أو الالتحام بالفعل.'},
+  {n:'اِفْتِعَلَ', s:'#1#23', z:[['ا'],['ت']], m:'بنوا وزن افتعل بالألف والتاء المزيدتين — التحوّل والالتحام والمطاوعة غالبًا.'},
+  {n:'اِفْتِعَال', s:'#1#2#3', z:[['ا'],['ت'],['ا']], m:'اسم من وزن الافتعال؛ الألفان والتاء زائدتان، وبها بُني الاسم المصدري للالتحام والتحوّل.'},
+  {n:'اِنْفِعَلَ', s:'##123', z:[['ا'],['ن']], m:'بنوا وزن الانفعال بالنون — يدل على الانكشاف والانقياد للفعل.'},
+  {n:'اِنْفِعَال', s:'##12#3', z:[['ا'],['ن'],['ا']], m:'اسم من وزن الانفعال؛ النون والألفان زائدتان دليلًا على الانكشاف والتوسّع.'},
+  {n:'اِسْتَفْعَلَ', s:'###123', z:[['ا'],['س'],['ت']], m:'بنوا وزن الاستفعال بالسين والتاء المزمومتين — يدل غالبًا على الطلب والاهتمام بحصول الفعل.'},
+  {n:'مُسْتَفْعِل', s:'###123', z:[['م'],['س'],['ت']], m:'اسم فاعل من وزن الاستفعال؛ الميم والسين والتاء زائدتان لبناء الصيغة.'},
+  {n:'اِسْتِفْعال', s:'###12#3', z:[['ا'],['س'],['ت'],['ا']], m:'اسم من وزن الاستفعال؛ زوائد الطلب (السين والتاء) مع ألف المصدر تُبنى بها الصيغة المصدريّة.'},
+  {n:'اِسْتِفْعَال (بمَدٍّ في العين)', s:'###1#23', z:[['ا'],['س'],['ت'],['ا']], m:'اسم من وزن الاستفعال، ووقع في محلّ العين ألف مدٍّ بدل الواو أو الياء الأصلية.', vowel:1}
+];
+var WPRE = [
+  ['ال', 4, 'ألف ولام التعريف', 'زائدتان تُضافان للتعريف، وتحذفان عند استخراج الجذر.'],
+  ['و', 4, 'واو زائدة', 'واو عطف أو قسم أو افتتاح — حرف زائد لا يدخل في الجذر.'],
+  ['ف', 4, 'فاء زائدة', 'فاء سببية أو عطف — حرف زائد لا يدخل في الجذر.'],
+  ['ب', 4, 'حرف جرّ مزيد', '«ب» من حروف الجرّ الزائدة، لا تدخل في الجذر.'],
+  ['ل', 4, 'حرف جرّ مزيد', '«ل» من حروف الجرّ أو لام التعليل — زائدة لا تدخل في الجذر.'],
+  ['ك', 4, 'حرف جرّ مزيد', '«ك» من حروف الجرّ — زائدة لا تدخل في الجذر.'],
+  ['ي', 0, 'ياء المضارعة', 'ياء زائدة في أول الفعل المضارع، تدل على إسناد الفعل إلى فاعله.'],
+  ['ت', 0, 'تاء الفاعل في المضارع', 'تاء زائدة في أول المضارع، تدل على إسناد الفعل إلى المخاطب/المخاطبة.'],
+  ['ن', 0, 'نون الفاعلين', 'نون زائدة في أول المضارع، تدل على المخاطبة الجمعية.']
+];
+var WSUF = [
+  ['ون', 4, 'الواو والنون', 'زائدتان — علامة جمع المذكر السالم.'],
+  ['ين', 4, 'الياء والنون', 'زائدتان — علامة جمع المؤنث السالم أو المثنى المنصوب.'],
+  ['ان', 4, 'الألف والنون', 'زائدتان — علامة المثنى.'],
+  ['ات', 4, 'التاء والألف', 'زائدتان — علامة جمع المؤنث السالم.'],
+  ['هم', 4, 'ضمير متصل', 'هاء وواو (أصلان لضمير الغائب) زائدتان على الجذر.'],
+  ['هن', 4, 'ضمير متصل', 'هاء ونون زائدتان على الجذر.'],
+  ['ها', 4, 'ضمير متصل', 'هاء وألف زائدتان على الجذر.'],
+  ['كم', 4, 'ضمير متصل', 'كاف وميم زائدتان على الجذر.'],
+  ['كن', 4, 'ضمير متصل', 'كاف ونون زائدتان على الجذر.'],
+  ['نا', 4, 'ضمير متصل', 'نون وألف زائدتان على الجذر.'],
+  ['ك', 4, 'ضمير متصل', 'كاف المخاطب — حرف زائد لا يدخل في الجذر.'],
+  ['ه', 4, 'ضمير متصل', 'هاء الغائب — حرف زائد لا يدخل في الجذر.'],
+  ['ي', 4, 'ضمير متصل', 'ياء المتكلم — حرف زائد لا يدخل في الجذر.'],
+  ['ت', 4, 'تاء زائدة', 'تاء التأنيث أو التكلّم — حرف زائد لا يدخل في الجذر.'],
+  ['ن', 4, 'نون زائدة', 'نون التأكيد أو التوجّه — حرف زائد لا يدخل في الجذر.'],
+  ['و', 4, 'واو زائدة', 'واو الجماعة — حرف زائد لا يدخل في الجذر.'],
+  ['ا', 4, 'ألف زائدة', 'ألف الإطراء أو التأنيث — حرف زائد لا يدخل في الجذر.']
+];
+function wletters(s){
+  s = String(s || '');
+  s = s.replace(/\u0670/g, 'ا');
+  s = s.replace(/[\u064B-\u0650\u0652-\u0670\u06D6-\u06ED\u0640\u0610-\u061A\u200D\u200C]/g, '');
+  s = s.replace(/([\u0621-\u064A])\u0651/g, '$1$1');
+  s = s.replace(/\u0651/g, '');
+  var ai = s.indexOf('ال');
+  if(ai >= 0 && (ai === 0 || (ai === 1 && 'وفبلك'.indexOf(s.charAt(0)) >= 0)) &&
+     s.charAt(ai + 2) === s.charAt(ai + 3) && /[\u0621-\u064A]/.test(s.charAt(ai + 2)))
+    s = s.slice(0, ai + 3) + s.slice(ai + 4);
+  s = s.replace(/[أإآٱ]/g, 'ا').replace(/ى/g, 'ي');
+  return s.replace(/[^\u0621-\u063A\u0641-\u064A]/g, '');
+}
+function matchSkel(L, p){
+  if(L.length !== p.s.length) return null;
+  var rslot = {}, zl = [], zi = 0;
+  for(var i = 0; i < p.s.length; i++){
+    var t = p.s.charAt(i), ch = L.charAt(i);
+    if(t === '1' || t === '2' || t === '3'){ rslot[t] = i; }
+    else if(t === 'x'){ if(rslot['2'] === undefined || L.charAt(rslot['2']) !== ch) return null; }
+    else if(t === '#'){
+      var al = (p.z || [])[zi++];
+      if(al){ if(al.indexOf(ch) < 0) return null; }
+      else if(!ZS[ch]) return null;
+      zl.push({ch:ch, i:i});
+    } else return null;
+  }
+  if(rslot['1'] === undefined || rslot['2'] === undefined || rslot['3'] === undefined) return null;
+  var cons = 0;
+  (p.z || []).forEach(function(a){ if(a && a.length) cons++; });
+  return {root:[L.charAt(rslot['1']), L.charAt(rslot['2']), L.charAt(rslot['3'])], z:zl, cons:cons, pat:p};
+}
+function analyzeWord(raw){
+  var base = wletters(raw);
+  if(base.length < 3) return null;
+  var fix = WORD_FIX[norm(raw)];
+  var cands = [];
+  function add(L, pre, suf){ if(L.length >= 3) cands.push({L:L, pre:pre, suf:suf}); }
+  var bases = [base];
+  if(base.slice(0, 2) === 'ال' && base.length >= 5) bases.push(base.slice(2));
+  for(var b = 0; b < bases.length; b++){
+    var B = bases[b];
+    var pre0 = b ? [{t:'ال', cost:4, n:'ألف ولام التعريف', d:'زائدتان تُضافان للتعريف، وتحذفان عند استخراج الجذر.'}] : [];
+    add(B, pre0, []);
+    for(var i = 0; i < WPRE.length; i++){
+      var pr = WPRE[i];
+      if(B.slice(0, pr[0].length) === pr[0] && B.length - pr[0].length >= 3)
+        add(B.slice(pr[0].length), pre0.concat([{t:pr[0], cost:pr[1], n:pr[2], d:pr[3]}]), []);
+    }
+    for(var j = 0; j < WSUF.length; j++){
+      var sf = WSUF[j];
+      if(B.length > sf[0].length && B.slice(-sf[0].length) === sf[0] && B.length - sf[0].length >= 3)
+        add(B.slice(0, -sf[0].length), pre0, [{t:sf[0], cost:sf[1], n:sf[2], d:sf[3]}]);
+    }
+    for(var i2 = 0; i2 < WPRE.length; i2++){
+      var pr2 = WPRE[i2];
+      if(B.slice(0, pr2[0].length) !== pr2[0]) continue;
+      var B2 = B.slice(pr2[0].length);
+      if(B2.length < 3) continue;
+      for(var j2 = 0; j2 < WSUF.length; j2++){
+        var sf2 = WSUF[j2];
+        if(B2.length > sf2[0].length && B2.slice(-sf2[0].length) === sf2[0] && B2.length - sf2[0].length >= 3)
+          add(B2.slice(0, -sf2[0].length), pre0.concat([{t:pr2[0], cost:pr2[1], n:pr2[2], d:pr2[3]}]), [{t:sf2[0], cost:sf2[1], n:sf2[2], d:sf2[3]}]);
+      }
+    }
+  }
+  var best = null;
+  for(var c = 0; c < cands.length; c++){
+    var cd = cands[c];
+    var extra = 0;
+    cd.pre.concat(cd.suf).forEach(function(x){ extra += x.cost; });
+    for(var p = 0; p < WP.length; p++){
+      if(cd.L.slice(0, 2) === 'ال' && WP[p].s.charAt(1) !== '#') continue;
+      var m = matchSkel(cd.L, WP[p]);
+      if(!m) continue;
+      var pen = 0;
+      if(m.root.indexOf('ة') >= 0) pen += 4;
+      var score = 6 * m.cons - 3 * m.z.length - extra - pen - 0.001 * p;
+      if(!best || score > best.score + 1e-9){ best = {score:score, m:m, c:cd, pi:p, extra:extra}; }
+    }
+  }
+  if(fix) return {root:fix.root, weight:fix.weight, z:[], pre:[], suf:[], clitics:[], fixed:fix.fixed, conf:'عالية', base:base, letters:base};
+  if(!best) return null;
+  var m = best.m, cd = best.c, extra = best.extra;
+  var conf = 'منخفضة';
+  if(extra === 0) conf = 'عالية';
+  else if(extra <= 4) conf = 'متوسطة';
+  return {root:m.root, weight:m.pat.n, mean:m.pat.m, vowel:m.pat.vowel ? 1 : 0, z:m.z, pre:cd.pre, suf:cd.suf,
+    clitics:cd.pre.concat(cd.suf), conf:conf, letters:cd.L, base:base, matched:cd.L};
+}
+function deriveForms(r){
+  var a = r[0], b = r[1], c = r[2];
+  return [
+    ['المجرد', a + b + c],
+    ['فاعِل', a + 'ا' + b + c],
+    ['فَعِيل', a + b + 'ي' + c],
+    ['فُعُول', a + b + 'و' + c],
+    ['مَفْعُول', 'م' + a + b + 'و' + c],
+    ['مَفْعَل', 'م' + a + b + c],
+    ['مَفْعَلة', 'م' + a + b + c + 'ة'],
+    ['تَفْعِيل', 'ت' + a + b + 'ي' + c],
+    ['تَفَاعُل', 'ت' + a + b + 'ا' + c],
+    ['اِفْتِعَال', 'ا' + a + 'ت' + b + 'ا' + c],
+    ['اِسْتِفْعال', 'است' + a + b + 'ا' + c],
+    ['اِنْفِعَال', 'ان' + a + b + 'ا' + c],
+    ['أَفْعَلَ', 'ا' + a + b + c]
+  ];
+}
+function zLetterNote(ch, idx, len, wname){
+  if(ch === 'ة') return 'تاء التأنيث (الظاهرة هاءً) — زائدة تفيد التأنيث أو الاتساع، ولا تدخل في الجذر.';
+  if(ch === 'ه' && idx === len - 1) return 'هاء في آخر الكلمة — إمّا تاء تأنيث أو ضمير متصل، وكلاهما زائد لا يدخل في الجذر.';
+  if(ch === 'م' && idx === 0) return 'ميم مزيدة في أول الكلمة — علامة بناء الاسم (مكان/زمان/آلة/فاعل) بحسب الوزن.';
+  if(ch === 'ت' && idx === 0) return 'تاء مزيدة أول الكلمة — من علامات أوزان التفعيل والافتعال والتفاوت.';
+  if(ch === 'ت') return 'تاء مزيدة في وسط الكلمة — من علامات الافتعال والاستفعال.';
+  if(ch === 'ا' && idx === 0) return 'ألف مبدأ زائدة (همزة وصل أو قطع) — تُحدَّد بحركة ما بعدها ولا تدخل في الجذر.';
+  if(ch === 'س') return 'سين مزيدة — من علامات وزن الاستفعال، وتدل على الطلب.';
+  if(ch === 'ن' && idx <= 1) return 'نون مزيدة — من علامات وزن الانفعال، ودلالتها على الانكشاف والانقياد.';
+  if(ch === 'ا') return 'ألف زائدة — تُوصل بها النطق وتُوسَّع بها دلالة الكلمة (مدٌّ زائد).';
+  if(ch === 'و') return 'واو زائدة — مدٌّ يفصل بين الحركات ويسهّل النطق ويوسّع المعنى.';
+  if(ch === 'ي') return 'ياء زائدة — مدٌّ يفصل بين الحركات ويسهّل النطق ويوسّع المعنى.';
+  return 'حرف زائد من حروف الزيادة (ء ا و ي ن م ت ه) أو تاء التأنيث — بُني به الوزن ولم يدخل في الجذر.';
+}
+function countWordVerses(q){
+  if(!QDATA) return -1;
+  var nq = norm(q), n = 0;
+  try{
+    QDATA.surahs.forEach(function(su){
+      su.verses.forEach(function(v){ if(v.indexOf(q) >= 0 || norm(v).indexOf(nq) >= 0) n++; });
+    });
+  }catch(e){ return -1; }
+  return n;
+}
+function wordCardHTML(raw){
+  var res = null;
+  try{ res = analyzeWord(raw); }catch(e){ res = null; }
+  var n = countWordVerses(raw);
+  var h = '<div class="panel" id="wordCard"><h3>تفسير الكلمة: «' + esc(raw) + '»</h3>';
+  h += '<p class="hint">بطاقة موسّعة: البنية اللغوية للكلمة ثم مواضعها في القرآن.</p>';
+  h += '<div class="group-label">البنية اللغوية</div>';
+  if(res){
+    var rdisp = res.root.map(function(x){ return x === 'ؤ' ? 'أ' : x; });
+    h += '<p><b>الجذر (المادة):</b> ' + rdisp.join(' - ') + ' &nbsp;·&nbsp; <b>الوزن (الميزان):</b> ' + res.weight + '</p>';
+    if(res.fixed) h += '<p><b>ملاحظة:</b> ' + esc(res.fixed) + '</p>';
+    if(res.vowel) h += '<p class="hint">وقع ألف مدٍّ في محلّ العين، والأصل هناك واو أو ياء (مثل «استغاثة» من غ و ث) — فالتقدير الأدق يعود إلى معجم موثّق.</p>';
+    var zch = [];
+    res.z.forEach(function(o){ if(zch.indexOf(o.ch) < 0) zch.push(o.ch); });
+    h += '<p><b>حروف الزيادة:</b> ' + (zch.length ? zch.join(' ، ') + ' — من حروف الزيادة الثمانية (ء ا و ي ن م ت ه)'
+      : 'لا زيادة — كل حروف الكلمة بعد الحذف من أصول الجذر.') + '</p>';
+    if(res.clitics && res.clitics.length)
+      h += '<p><b>حروف زائدة أُزيلت للاستخراج (وليست من الجذر):</b> ' +
+        res.clitics.map(function(x){ return x.t + ' (' + x.n + ')'; }).join(' ، ') + '</p>';
+    h += '<div class="group-label">دور حروف الزيادة في الكلمة</div>';
+    var notes = [];
+    (res.clitics || []).forEach(function(x){ notes.push('<b>' + esc(x.t) + '</b> — ' + esc(x.d)); });
+    res.z.forEach(function(o){ notes.push('<b>' + o.ch + '</b> (' + (o.i === 0 ? 'أول الكلمة' : (o.i === res.letters.length - 1 ? 'آخر الكلمة' : 'وسط الكلمة')) + ') — ' + zLetterNote(o.ch, o.i, res.letters.length, res.weight)); });
+    if(!notes.length) notes.push('لا حروف زيادة في هذه الكلمة؛ فكل حروفها أصول مادّتها، ولذلك بقيت على وزنها المجرد دون بناء جديد.');
+    if(zch.length || (res.clitics && res.clitics.length))
+      notes.push('باختصار: بُنيت حروف الزيادة هذه وزن <b>' + res.weight + '</b> — ' + (res.mean || 'ولكل وزن دلالته المضبوطة في كتب اللغة.') + ' ثم حُذفن في الاستخراج ليبقى الجذر خالصًا.');
+    h += '<p>' + notes.map(function(x){ return '• ' + x; }).join('<br>') + '</p>';
+    h += '<p><b>الثقة:</b> ' + res.conf + (res.fixed ? ' <span class="hint">(معلومة لغوية معروفة)</span>' : ' <span class="hint">(تحليل آلي — قد يخطئ في المركبات وأسماء الأعلام وفي أصول الهمزات والأجوف)</span>') + '</p>';
+    if(res.root[2] === 'ة')
+      h += '<p class="hint">التاء الظاهرة (ة) تاء تأنيث، وقد تحلّ محل حرف أصلي من الجذر (مثل الواو في «صلاة»).</p>';
+    var hamz = res.root.some(function(x){ return x === 'ء' || x === 'ؤ' || x === 'ئ' || x === 'ا'; });
+    if(hamz){
+      h += '<p class="hint">الصيغ المشتقة من أصول همزيّة تحتاج قواعد همز الوصل والقطع، فتُعرض من معجم موثّق بدل تركيبها آليًا.</p>';
+    } else try{
+      var forms = deriveForms(res.root);
+      h += '<div class="group-label">صيغ مشتقّة من الجذر نفسه</div><p>' + forms.map(function(f){
+        return '<span class="hint">' + f[0] + ':</span> <button class="wchip" onclick="wordSearch(this.textContent)">' + f[1] + '</button>';
+      }).join(' ') + '</p><p class="hint">هذه الصيغ محسوبة آليًا بتركيب الجذر على الأوزان، وبعضها قد لا يرد في القرآن.</p>';
+    }catch(e){}
+  } else {
+    h += '<p class="hint">تعذّر استخراج الجذر آليًا لهذه الكلمة (قد تكون مركّبة أو اسمًا علمًا أو صيغة خاصة). الرجوع إلى معجم موثّق أنفع هنا.</p>';
+  }
+  h += '<div class="group-label">مواضعها في القرآن</div>';
+  h += '<p class="hint">' + (n >= 0 ? 'وردت هذه الكلمة في ' + arNum(n) + ' آية (بحث نصّي حرفي بعد إسقاط التشكيل) — النتائج تحت هذا القسم.' : 'جارٍ حساب المواضع…') + '</p>';
+  h += '<p class="quiet">تنبيه: هذا تحليل آلي مبدئي للاستئناس، وليس بديلًا عن معجم موثّق؛ التحليل الجذري الموثّق حرفيًا يبقى في لوحة «الكلمات» لآية النساء ٨٢. والقرآن لا يُحسم معناه بالوزن وحده، بل بالنص والسياق والمصادر.</p>';
+  h += '</div>';
+  return h;
+}
 function quranSearch(){
   var box = document.getElementById('searchResults');
   var q = document.getElementById('searchInput').value.trim();
@@ -2722,11 +2966,15 @@ function quranSearch(){
       }
     }
   }
-  var html = out.length ? '<p class="hint">النتائج: ' + arNum(out.length) + '</p>' + out.map(function(r){
+  var html = out.length ? '<p class="hint">النتائج: ' + arNum(out.length) + ' (تُعرض أول ٦٠)</p>' + out.map(function(r){
     return '<div class="res" onclick="openSurahLink('+r.s+','+r.a+')"><b>'+r.sn+' ﴿'+arNum(r.a)+'﴾</b><br>'+r.t.slice(0,120)+'…</div>';
   }).join('') : '<p class="hint">لا نتائج — جرّب كلمة أخرى.</p>';
   if(hitSura) html = '<div class="res" onclick="openSurahLink('+hitSura.n+')"><b>سورة '+hitSura.name+'</b> — '+arNum(hitSura.verses.length)+' آية (افتح السورة)</div>' + html;
-  box.innerHTML = html;
+  var card = '';
+  if(!/\s/.test(q) && /[\u0621-\u064A]/.test(q)){
+    try{ card = wordCardHTML(q); }catch(e){ card = ''; }
+  }
+  box.innerHTML = card + html;
 }
 function randomAya(){
   var box = document.getElementById('randomBox');
