@@ -148,13 +148,13 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .quiet{color:var(--muted);font-size:.78rem;}
 /* listen */
 .rcit{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:6px;}
-.rcit button{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:start;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink);font-family:inherit;cursor:pointer;transition:.15s;}
+.rcit button{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:start;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink);font-family:inherit;cursor:pointer;transition:.2s;}
 .rcit button:hover{border-color:var(--gold);}
 .rcit button.on{border-color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 2px var(--gold-soft);}
 .rcit b{color:var(--gold);font-size:.92rem;}
 .rcit span{color:var(--muted);font-size:.75rem;}
 .lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-height:430px;overflow:auto;padding-inline-end:4px;}
-.lcard{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.15s;}
+.lcard{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.2s;}
 .lcard:hover{border-color:var(--gold);transform:translateY(-2px);}
 .lcard.on{border-color:var(--gold);background:var(--gold-soft);}
 .lcard .nm{font-weight:800;color:var(--ink);font-size:.95rem;}
@@ -229,13 +229,190 @@ footer a{color:var(--gold);text-decoration:none;}
 .cmread{display:inline-block;background:var(--gold);color:#141310;border-radius:24px;padding:8px 18px;font-size:.82rem;font-weight:700;text-decoration:none;}
 .cmread:hover{filter:brightness(1.07);}
 .cmpend{color:var(--muted);font-size:.8rem;}
-@media (prefers-reduced-motion:no-preference){.sec{animation:fadeUp .7s ease both;}}
+@media (prefers-reduced-motion:no-preference){.sec{animation:fadeUp .4s ease both;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}}
+
+/* ====== طبقة إعادة التصميم: زمرة زمردي + محتوى عاجي (حسب المخطط المرجعي) ====== */
+:root{
+  --bg:#F3EBDD; --bg2:#EAE1D0; --card:#FFFDF8; --card2:#FAF5EA;
+  --ink:#17231F; --muted:#766F63; --gold:#C9A45C; --gold-d:#8a6f3a;
+  --gold-soft:rgba(201,164,92,.10); --line:rgba(201,164,92,.34); --accent:#C9A45C;
+}
+:root[data-theme="light"]{
+  --bg:#081A16; --bg2:#061310; --card:#10251F; --card2:#0C211D;
+  --ink:#F3EBDD; --muted:#B9AE99; --gold:#C9A45C; --gold-d:#8a6f3a;
+  --gold-soft:rgba(201,164,92,.14); --line:rgba(201,164,92,.35); --accent:#C9A45C;
+}
+body{
+  margin:0;background-color:var(--bg);
+  background-image:
+    radial-gradient(1300px 560px at 50% -180px, rgba(201,164,92,.16), transparent 70%),
+    radial-gradient(900px 700px at 106% 16%, rgba(8,26,22,.055), transparent 62%),
+    radial-gradient(1000px 760px at -8% 100%, rgba(201,164,92,.09), transparent 64%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg fill='none' stroke='%23C9A45C' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M24 24 H116 V116 H24 Z'/%3E%3Cpath d='M70 6 L134 70 L70 134 L6 70 Z'/%3E%3Ccircle cx='70' cy='70' r='10'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:auto,auto,auto,140px 140px;
+  color:var(--ink);font-family:'Cairo','Tajawal',sans-serif;line-height:1.9;
+}
+:root[data-theme="light"] body{
+  background-image:
+    radial-gradient(1600px 900px at 50% -280px, rgba(214,178,105,.40) 0%, rgba(201,164,92,.15) 44%, transparent 78%),
+    radial-gradient(1000px 720px at 104% 30%, rgba(201,164,92,.10), transparent 58%),
+    radial-gradient(1100px 800px at -10% 95%, rgba(37,110,86,.16), transparent 62%),
+    linear-gradient(180deg,#07150f 0%,#04100c 48%,#020807 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg fill='none' stroke='%23C9A45C' stroke-opacity='0.06' stroke-width='1'%3E%3Cpath d='M24 24 H116 V116 H24 Z'/%3E%3Cpath d='M70 6 L134 70 L70 134 L6 70 Z'/%3E%3Ccircle cx='70' cy='70' r='10'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:auto,auto,auto,auto,140px 140px;
+}
+h1,h2,h3{font-family:'Cairo','Tajawal',sans-serif;}
+.sec{padding:44px 0 10px;}
+.sec-t{color:var(--ink);text-align:start;font-family:'Amiri','Cairo',serif;font-size:1.8rem;letter-spacing:.2px;display:flex;align-items:baseline;gap:14px;margin:0 0 6px;font-weight:700;}
+.sec-t::after{content:'';flex:1 1 auto;height:1px;background:linear-gradient(to left,var(--line),transparent);transform:translateY(-5px);}
+.sub{text-align:start;color:var(--muted);margin:0 0 22px;max-width:860px;}
+.orn{text-align:start;letter-spacing:7px;margin:0 0 22px;color:var(--gold);opacity:.8;}
+/* شريط علوي ثابت بلون الزمرة */
+nav{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,#061310,#081A16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,164,92,.32);box-shadow:0 8px 26px rgba(3,10,8,.36);}
+:root[data-theme="light"] nav{background:linear-gradient(180deg,#061310,#081A16);}
+.nav-in{max-width:1140px;padding:8px 16px;gap:10px;}
+.brand b{color:#E7C88B;font-size:1.04rem;letter-spacing:.2px;}
+.brand small{color:#A79D88;font-size:.6rem;letter-spacing:.4px;}
+.brand .bk{display:inline-flex;}
+.brand .bk svg{width:26px;height:26px;color:#C9A45C;}
+nav .links>a,nav .drop>button{font-size:.88rem;padding:7px 10px;color:#E9E1CF;}
+nav .links>a:hover,nav .drop>button:hover{background:rgba(201,164,92,.15);color:#E7C88B;}
+nav .links>a.on{color:#E7C88B;border-bottom:2px solid #C9A45C;}
+.drop .menu{border-radius:14px;padding:7px;box-shadow:0 18px 46px rgba(3,10,8,.5);border:1px solid var(--line);}
+.tools{display:flex;gap:7px;align-items:center;}
+.iconbtn{background:rgba(201,164,92,.07);border:1px solid rgba(201,164,92,.45);color:#D8BC7A;border-radius:50%;width:34px;height:34px;padding:0;display:inline-grid;place-items:center;transition:.2s;white-space:nowrap;}
+.iconbtn:hover{background:rgba(201,164,92,.2);border-color:#C9A45C;transform:translateY(-1px);}
+.iconbtn svg{width:17px;height:17px;}
+.searchbtn{display:none;}
+@media(min-width:1520px){.searchbtn{display:inline-grid;}}
+/* شريط جانبي أيمن (شاشات كبيرة) */
+.sidenav{display:none;}
+@media(min-width:1361px){
+  body{padding-right:186px;}
+  .player{right:186px;}
+  .sidenav{display:flex;flex-direction:column;position:fixed;top:0;right:0;bottom:0;width:186px;z-index:70;background:linear-gradient(180deg,#081A16,#040D0A);border-left:1px solid rgba(201,164,92,.30);box-shadow:-10px 0 30px rgba(3,10,8,.30);padding-bottom:14px;}
+}
+.sn-brand{flex:none;height:62px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(201,164,92,.28);}
+.sn-brand svg{width:30px;height:30px;color:#C9A45C;}
+.sidenav a{display:flex;align-items:center;gap:11px;padding:13px 15px;color:#C9C0AC;text-decoration:none;font-size:.87rem;border-right:3px solid transparent;transition:.2s;white-space:nowrap;}
+.sidenav a svg{width:20px;height:20px;flex:0 0 20px;color:#C9A45C;opacity:.92;}
+.sidenav a:hover{background:rgba(201,164,92,.10);color:#E7C88B;}
+.sidenav a.on{background:rgba(201,164,92,.17);color:#E7C88B;border-right-color:#C9A45C;}
+.sidenav .sn-note{margin-top:auto;text-align:center;color:#7E7666;font-size:.68rem;letter-spacing:1px;padding:10px 8px;}
+/* الواجهة الرئيسة (شريط سينمائي) */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  background:linear-gradient(175deg,rgba(6,19,16,.90) 0%,rgba(8,26,22,.72) 46%,rgba(16,37,31,.82) 100%),url("img/hero.jpg") center 32%/cover no-repeat;
+  --ink:#F6EFE0;--muted:#C0B69F;--gold:#D8BC7A;--gold-d:#B99A55;--gold-soft:rgba(216,188,122,.15);--line:rgba(216,188,122,.35);--card:#0B1F1A;--bg:#071510;--accent:#D8BC7A;color:#F6EFE0;}
+:root[data-theme="light"] .hero{background:linear-gradient(175deg,rgba(6,19,16,.90) 0%,rgba(8,26,22,.72) 46%,rgba(16,37,31,.82) 100%),url("img/hero.jpg") center 32%/cover no-repeat;}
+:root[data-theme="light"] .hero::after{background:radial-gradient(130% 115% at 50% 34%, transparent 58%, rgba(0,0,0,.45));}
+:root[data-theme="light"] .hero::before{background:radial-gradient(closest-side, rgba(214,178,105,.40), rgba(201,164,92,.16) 46%, transparent 74%);}
+.hero>.hero-art{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.30;}
+.hero-in{max-width:940px;padding:58px 16px 64px;text-align:center;}
+.hero-surah{display:inline-flex;align-items:center;gap:9px;color:#E7C88B;font-family:'Aref Ruqaa',serif;font-size:1.05rem;letter-spacing:.5px;border:1px solid rgba(216,188,122,.45);border-radius:40px;padding:7px 24px;background:rgba(216,188,122,.07);}
+.hero-surah svg{width:15px;height:15px;color:#D8BC7A;}
+.hero-num{display:block;color:#C9A45C;font-size:.86rem;margin-top:16px;letter-spacing:3px;}
+.hero-text{font-family:'Scheherazade New','Amiri',serif;font-size:clamp(1.85rem,4.2vw,2.8rem);line-height:2.05;color:#F7F1E3;margin:8px auto 12px;max-width:880px;font-weight:700;}
+.hero-link{display:inline-block;color:#D8BC7A;text-decoration:none;font-size:.9rem;border-bottom:1px dashed rgba(216,188,122,.55);padding-bottom:2px;}
+.hero-link:hover{color:#F0DDB2;}
+.hero .lead{color:#BDB39C;max-width:660px;margin:18px auto 8px;}
+.hero-acts{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:10px;}
+.hero-arrow{width:44px;height:44px;border-radius:50%;border:1px solid rgba(216,188,122,.5);background:rgba(216,188,122,.06);color:#E7C88B;font-size:1.15rem;display:inline-grid;place-items:center;cursor:pointer;transition:.2s;font-family:inherit;}
+.hero-arrow:hover{background:rgba(216,188,122,.2);transform:translateY(-2px);}
+/* بطاقات الزوايا — 9 بطاقات */
+.acards{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:10px;}
+.acard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:.2s;box-shadow:0 6px 18px rgba(18,32,26,.06);}
+:root[data-theme="light"] .acard{box-shadow:0 6px 18px rgba(0,0,0,.26);}
+.acard:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 14px 30px rgba(18,32,26,.12);}
+.acard .ic svg{width:30px;height:30px;stroke-width:1.6;}
+.acard h4{color:var(--gold);font-size:.95rem;margin:0 0 3px;}
+.acard p{font-size:.66rem;}
+.acard.feat{background:linear-gradient(165deg,#0D2A21 0%,#081B15 100%);border-color:#C9A45C;box-shadow:0 10px 26px rgba(6,17,13,.35);--ink:#EFE7D6;--muted:#B4AB94;--gold:#E7C88B;}
+.acard.feat:hover{border-color:#E7C88B;}
+.acard.feat h4{color:#E7C88B;}
+@media(max-width:1240px){.acards{grid-template-columns:repeat(5,minmax(0,1fr));}}
+@media(max-width:760px){.acards{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}}
+@media(max-width:430px){.acards{grid-template-columns:repeat(2,minmax(0,1fr));}}
+/* بطاقات الصف السفلي (القرآن · آية اليوم · رحلة التدبر) */
+.hcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch;}
+@media(max-width:1020px){.hcards{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:640px){.hcards{grid-template-columns:1fr;}}
+.hc{display:flex;flex-direction:column;}
+.hc h3{color:var(--ink);font-size:1.08rem;display:flex;align-items:center;gap:9px;margin:0 0 4px;}
+.hc h3 svg{width:19px;height:19px;color:var(--gold);flex:none;}
+.hc-sub{color:var(--muted);font-size:.83rem;margin:0 0 12px;}
+.hc-surahs{display:flex;flex-direction:column;gap:4px;margin-top:10px;}
+.hc-srow{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;cursor:pointer;color:var(--ink);text-decoration:none;font-size:.93rem;border:1px solid transparent;background:var(--bg);transition:.2s;}
+.hc-srow:hover{border-color:var(--line);background:var(--gold-soft);}
+.hc-srow .st svg{width:14px;height:14px;color:var(--gold);}
+.hc-srow .cv{margin-inline-start:auto;color:var(--muted);font-size:1rem;}
+.hc-all{justify-content:center;color:var(--gold);font-weight:700;font-size:.88rem;background:none;border:1px dashed var(--line);}
+.hc-all:hover{background:var(--gold-soft);}
+/* آية اليوم (بطاقة داكنة مميزة) */
+.daily{position:relative;overflow:hidden;background:linear-gradient(165deg,rgba(10,31,26,.90) 0%,rgba(16,37,31,.86) 55%,rgba(8,24,20,.92) 100%),url("img/daily.jpg") center 45%/cover no-repeat;border:1px solid rgba(216,188,122,.45);border-radius:18px;padding:24px 22px;text-align:center;box-shadow:0 14px 32px rgba(6,17,13,.30);--ink:#F6EFE0;--muted:#BCB29B;--gold:#D8BC7A;--line:rgba(216,188,122,.4);--card:#0B1F1A;--bg:#0A1D18;color:#F6EFE0;}
+.daily::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 90% at 50% -10%, rgba(216,188,122,.20), transparent 60%);pointer-events:none;}
+.daily>*{position:relative;}
+.daily .dt{font-family:'Scheherazade New','Amiri',serif;font-size:1.55rem;line-height:2.1;color:#F7F1E3;}
+.daily .acts span{color:#E7C88B;}
+/* بطاقة رحلة التدبر (خط زمني رأسي) */
+.jbox .jbhead{display:flex;gap:12px;align-items:center;margin-bottom:16px;}
+.jbhead .jbi{width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);}
+.jbhead .jbi svg{width:22px;height:22px;}
+.jbhead h3{margin:0;}
+.jlist{position:relative;display:flex;flex-direction:column;gap:3px;}
+.jlist::before{content:'';position:absolute;top:18px;bottom:18px;right:21px;width:2px;background:linear-gradient(180deg,rgba(168,129,60,.6),rgba(168,129,60,.16));border-radius:2px;}
+:root[data-theme="light"] .jlist::before{background:linear-gradient(180deg,rgba(201,164,92,.6),rgba(201,164,92,.16));}
+.jrow{position:relative;display:flex;align-items:center;gap:11px;padding:9px 6px;border-radius:12px;cursor:pointer;color:var(--ink);text-decoration:none;transition:.2s;}
+.jrow .jic{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1.5px solid var(--line);color:var(--gold);z-index:1;}
+.jrow .jic svg{width:15px;height:15px;}
+.jrow .jl{flex:1;font-size:.93rem;}
+.jrow .jchev{color:var(--muted);font-size:1.05rem;padding-inline-end:3px;}
+.jrow:hover{background:var(--gold-soft);}
+.jrow.on{background:var(--gold-soft);border-inline-start:3px solid var(--gold);padding-inline-start:8px;}
+.jrow.on .jic{border-color:var(--gold);background:var(--gold);color:#FFFDF8;}
+/* الصندوقات والبطاقات */
+.qbox,.claim-card,.cmbox,.soonbox{box-shadow:0 10px 28px rgba(18,32,26,.07);}
+:root[data-theme="light"] .qbox,:root[data-theme="light"] .claim-card,:root[data-theme="light"] .cmbox,:root[data-theme="light"] .soonbox{box-shadow:0 10px 28px rgba(0,0,0,.30);}
+.qbox{border:1px solid var(--line);border-radius:18px;}
+.qbox h3{color:var(--ink);font-size:1.1rem;display:flex;align-items:center;gap:9px;}
+.qbox h3 svg{width:19px;height:19px;color:var(--gold);flex:none;}
+.panel{border:1.5px solid rgba(168,129,60,.55);border-radius:16px;box-shadow:0 8px 22px rgba(18,32,26,.06);}
+:root[data-theme="light"] .panel{border-color:rgba(201,164,92,.6);box-shadow:0 8px 22px rgba(0,0,0,.28);}
+.cmcard,.scard,.lcard,.res,.nbitem,.statcard{border-radius:14px;}
+/* التذييل والمشغّل بشريط الزمرة */
+footer{background:linear-gradient(180deg,#061310,#040D0A);border-top:1px solid rgba(201,164,92,.38);margin-top:48px;padding:32px 16px 44px;text-align:center;color:#A79D88;font-size:.85rem;--gold:#D8BC7A;--muted:#A79D88;--ink:#EFE7D6;--line:rgba(201,164,92,.3);--card:#0A1B16;--bg:#06130F;}
+footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;margin-top:12px;}
+.player{background:#061310;--ink:#F3EBDD;--muted:#B9AE99;--gold:#C9A45C;--line:rgba(201,164,92,.35);--bg2:#061310;color:#F3EBDD;}
+/* صور سينمائية (مصحف · مكتبة · تأمل) */
+#encSec,#compareSec,#philoSec{position:relative;background-repeat:no-repeat;background-size:100% auto;background-position:top center;}
+#encSec{background-image:linear-gradient(180deg,rgba(243,235,221,.76),rgba(243,235,221,.93) 44%,rgba(243,235,221,.99) 100%),url("img/library.jpg");}
+#compareSec{background-image:linear-gradient(180deg,rgba(243,235,221,.78),rgba(243,235,221,.94) 46%,rgba(243,235,221,.99) 100%),url("img/compare.jpg");}
+#philoSec{background-image:linear-gradient(180deg,rgba(243,235,221,.60),rgba(243,235,221,.90) 56%,rgba(243,235,221,.99) 100%),url("img/tadabbur.jpg");}
+:root[data-theme="light"] #encSec{background-image:linear-gradient(180deg,rgba(6,19,16,.82),rgba(6,19,16,.94) 46%,rgba(6,19,16,.99) 100%),url("img/library.jpg");}
+:root[data-theme="light"] #compareSec{background-image:linear-gradient(180deg,rgba(6,19,16,.84),rgba(6,19,16,.95) 48%,rgba(6,19,16,.99) 100%),url("img/compare.jpg");}
+:root[data-theme="light"] #philoSec{background-image:linear-gradient(180deg,rgba(6,19,16,.72),rgba(6,19,16,.91) 58%,rgba(6,19,16,.99) 100%),url("img/tadabbur.jpg");}
+.jimg{display:block;margin:-18px -18px 14px;height:104px;border-radius:17px 17px 0 0;background:linear-gradient(180deg,rgba(6,19,16,.10),rgba(6,19,16,.52)),url("img/journey.jpg") center 45%/cover no-repeat;}
+.hero-nav{display:inline-block;background:rgba(216,188,122,.07);border:1px solid rgba(216,188,122,.55);color:#E7C88B;padding:10px 24px;border-radius:30px;font-family:inherit;font-size:.9rem;cursor:pointer;transition:.2s;}
+.hero-nav:hover{background:rgba(216,188,122,.20);transform:translateY(-1px);}
+/* ظهور تدريجي عند التمرير */
+@media (prefers-reduced-motion:no-preference){
+  .sec{animation:none;}
+  html.jsr .sec{opacity:0;transform:translateY(20px);transition:opacity .35s ease,transform .35s ease;}
+  html.jsr .sec.in{opacity:1;transform:none;}
+}
+@media (prefers-reduced-motion:reduce){.sec{animation:none;}}
+@media(max-width:560px){
+  .hero-in{padding:42px 14px 48px;}
+  .hero-text{font-size:1.68rem;}
+  .sec{padding:32px 0 8px;}
+  .sec-t{font-size:1.5rem;gap:10px;}
+  .hcards{gap:12px;}
+}
 </style>
 </head>
 <body>
 <nav><div class="nav-in">
-  <a class="brand" href="#home"><span class="bk">📖</span><span><b>أفلا يتدبرون القرآن</b><small>من القراءة إلى الفهم... ومن الفهم إلى التدبر</small></span></a>
+  <a class="brand" href="#home"><span class="bk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M12 2.5L21.5 12 12 21.5 2.5 12z"/></svg></span><span><b>أفلا يتدبرون القرآن</b><small>من القراءة إلى الفهم... ومن الفهم إلى التدبر</small></span></a>
   <div class="links">
     <a href="#home" class="on">الرئيسية</a>
     <div class="drop"><button>القرآن ▾</button><div class="menu">
@@ -263,34 +440,77 @@ footer a{color:var(--gold);text-decoration:none;}
     <a href="#encSec" onclick="openGharib()">غريب القرآن</a>
     <a href="#/about">حول المشروع</a>
   </div>
-  <button class="iconbtn" onclick="goSec('savedSec')" title="المحفوظات">🔖</button>
-  <button class="iconbtn" onclick="cycleFont()" title="حجم الخط">⚙️</button>
-  <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" title="المظهر">🌙</button>
+  <div class="tools">
+    <button class="iconbtn searchbtn" onclick="goSec('search')" title="البحث"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+    <button class="iconbtn" onclick="goSec('savedSec')" title="المحفوظات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></button>
+    <button class="iconbtn" onclick="cycleFont()" title="حجم الخط"><svg viewBox="0 0 24 24" fill="none"><text x="12" y="17.5" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor" font-family="Cairo,Tajawal,sans-serif">أ</text></svg></button>
+    <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" title="المظهر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg></button>
+  </div>
 </div></nav>
+<aside class="sidenav">
+  <div class="sn-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M12 2.5L21.5 12 12 21.5 2.5 12z"/></svg></div>
+  <a href="#quran-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg><span>القرآن</span></a>
+  <a href="#listenSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 9.5h4L13 5v14L8 14.5H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>الاستماع</span></a>
+  <a href="#study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span>رحلة التدبر</span></a>
+  <a href="#search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg><span>البحث</span></a>
+  <a href="#encSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 4.5h6.5v15H4z"/><path d="M12 4.5h6.5v15H12z"/><path d="M4 9h6.5M12 9h6.5"/></svg><span>المفسرون والمعاصرون</span></a>
+  <a href="#encSec" onclick="openGharib()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 9.5v5M9.8 12h4.4"/></svg><span>غريب القرآن</span></a>
+  <a href="#notebookSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M7 3.5h12v17H7z"/><path d="M7 3.5v17"/><path d="M10.5 8h5M10.5 12h5M4.5 6.5C3.4 7.6 3 9 3 10.5s.4 2.9 1.5 4"/></svg><span>دفتر التدبر</span></a>
+  <a href="#/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>حول المشروع</span></a>
+  <div class="sn-note">— ✦ —</div>
+</aside>
 
 <div class="wrap" id="home">
-  <section class="sec hero" style="border:none;background:none;padding-top:44px;">
-    <div class="eyebrow" style="color:var(--gold)">سورة النساء | الآية 82</div>
-    <div class="ayah"><span class="o">❖</span> أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ <span class="o">❖</span></div>
-    <div class="motto">اقرأ ... افهم ... اربط ... تدبر</div>
-    <p class="lead">منصة تفتح لك أبواب القرآن من خلال اللغة والسياق والتفسير والدليل والعقل، لتصل من القراءة إلى التدبر.</p>
-    <a class="btn" href="#study" onclick="jrnFocus()">📖 ابدأ رحلة التدبر</a>
-    <a class="btn-ghost" href="#quran-sec">استكشف القرآن</a>
+  <section class="sec hero">
+    <svg class="hero-art" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke-linejoin="round">
+      <circle cx="600" cy="330" r="300" stroke="rgba(216,188,122,.13)" stroke-width="1.5"/>
+      <circle cx="600" cy="330" r="230" stroke="rgba(216,188,122,.10)" stroke-width="1.5"/>
+      <path d="M600 96 C740 96 846 210 846 340 L846 560" stroke="rgba(216,188,122,.55)" stroke-width="2.4"/>
+      <path d="M600 96 C460 96 354 210 354 340 L354 560" stroke="rgba(216,188,122,.55)" stroke-width="2.4"/>
+      <path d="M600 132 C714 132 804 232 804 346 L804 560" stroke="rgba(216,188,122,.28)" stroke-width="1.5"/>
+      <path d="M600 132 C486 132 396 232 396 346 L396 560" stroke="rgba(216,188,122,.28)" stroke-width="1.5"/>
+      <path d="M120 470 H354 M846 470 H1080" stroke="rgba(216,188,122,.30)" stroke-width="1.4"/>
+      <path d="M600 40 V88 M600 40 L594 52 M600 40 L606 52" stroke="rgba(216,188,122,.5)" stroke-width="1.6"/>
+      <g stroke="rgba(216,188,122,.55)" stroke-width="1.3">
+        <path transform="translate(150 140) scale(1.15)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(1052 176) scale(.95)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(978 78) scale(.65)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(214 306) scale(.6)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(1084 420) scale(.8)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(118 430) scale(.7)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(460 60) scale(.5)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+        <path transform="translate(760 48) scale(.55)" d="M-8 -8 H8 V8 H-8 Z M0 -13 L13 0 L0 13 L-13 0 Z"/>
+      </g>
+    </svg>
+    <div class="hero-in">
+      <div class="hero-surah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M12 2.5L21.5 12 12 21.5 2.5 12z"/></svg><span id="heroSurah">سورة النساء</span></div>
+      <span class="hero-num" id="heroAya">الآية ٨٢</span>
+      <div class="hero-text" id="heroText">أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا</div>
+      <a class="hero-link" id="heroLink" href="#/4/82">سورة النساء · الآية ٨٢</a>
+      <p class="lead">اقرأ ... افهم ... اربط ... تدبر — منصة تفتح لك أبواب القرآن من خلال اللغة والسياق والتفسير والدليل والعقل، لتصل من القراءة إلى التدبر.</p>
+      <div class="hero-acts">
+        <button class="hero-nav" onclick="prevAya()" title="الآية السابقة">السابق</button>
+        <a class="btn" href="#study" onclick="jrnFocus()">رحلة تدبر الآية</a>
+        <button class="btn-ghost" onclick="listenAya(this)">استمع إلى الآية</button>
+        <button class="hero-nav" onclick="nextAya()" title="الآية التالية">التالي</button>
+      </div>
+    </div>
   </section>
 
   <section class="sec" id="angles">
     <h2 class="sec-t">كيف تنظر إلى الآية؟</h2>
-    <p class="sub">اختر زاوية النظر التي تناسبك، أو استكشف جميع الجوانب.</p>
+    <p class="sub">اكتشف معانيها وأبعادها من خلال العلوم المختلفة</p>
     <div class="orn">— ✦ —</div>
     <div class="acards">
-      <div class="acard" onclick="gotoStudy('words')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13c5-2 11-2 16 1 5-3 11-3 16-1v22c-5-2-11-2-16 1-5-3-11-3-16-1z"/><path d="M24 14v22"/><text x="24" y="30" text-anchor="middle" font-size="14" fill="currentColor" stroke="none" font-family="'Aref Ruqaa',serif">ع</text></svg></span><h4>لغة</h4><p>اكتشف الكلمة والجذر والمعنى</p></div>
-      <div class="acard" onclick="gotoStudy('grammar')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10c-3.5 8-3.5 20 0 28"/><path d="M37 10c3.5 8 3.5 20 0 28"/><text x="24" y="30" text-anchor="middle" font-size="16" fill="currentColor" stroke="none" font-family="'Aref Ruqaa',serif">أع</text><path d="M31 13l2.5-2.5M15 35l2.5 2.5"/></svg></span><h4>إعراب</h4><p>افهم بناء الجملة وأثره في المعنى</p></div>
-      <div class="acard" onclick="gotoStudy('context')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13h20"/><path d="M10 24h28" stroke-width="2.6"/><path d="M14 35h20"/><circle cx="10" cy="24" r="1.6" fill="currentColor" stroke="none"/><circle cx="38" cy="24" r="1.6" fill="currentColor" stroke="none"/></svg></span><h4>سياق</h4><p>انظر إلى الآية قبلها وبعدها</p></div>
-      <div class="acard" onclick="gotoStudy('tafsir')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c4-1.6 8.5-1.6 12 .5v18c-3.5-2.1-8-2.1-12-.5z"/><path d="M17 15.5V34"/><circle cx="31" cy="29" r="7.5"/><path d="M36.5 34.5L43 41"/></svg></span><h4>تفسير</h4><p>قارن بين أقوال المفسرين</p></div>
-      <div class="acard" onclick="gotoStudy('links')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="24" r="8"/><circle cx="34" cy="24" r="8"/><path d="M22 24h4"/><path d="M10 24h8M30 24h8"/></svg></span><h4>ترابط</h4><p>اكتشف صلات الآيات والسور</p></div>
-      <div class="acard" onclick="gotoStudy('horizons')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="21" r="10"/><path d="M7 33h34"/><path d="M37 4l1.2 2.8L41 8l-2.8 1.2L37 12l-1.2-2.8L33 8l2.8-1.2z"/></svg></span><h4>آفاق</h4><p>علم، تاريخ، أرقام، وقراءات معاصرة</p></div>
+      <div class="acard" onclick="gotoStudy('words')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13c5-2 11-2 16 1 5-3 11-3 16-1v22c-5-2-11-2-16 1-5-3-11-3-16-1z"/><path d="M24 14v22"/><text x="24" y="30" text-anchor="middle" font-size="14" fill="currentColor" stroke="none" font-family="'Aref Ruqaa',serif">ع</text></svg></span><h4>اللغة</h4><p>اكتشف الكلمة والجذر والمعنى</p></div>
+      <div class="acard" onclick="gotoStudy('grammar')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 10c-3.5 8-3.5 20 0 28"/><path d="M37 10c3.5 8 3.5 20 0 28"/><text x="24" y="30" text-anchor="middle" font-size="16" fill="currentColor" stroke="none" font-family="'Aref Ruqaa',serif">أع</text><path d="M31 13l2.5-2.5M15 35l2.5 2.5"/></svg></span><h4>الإعراب</h4><p>افهم بناء الجملة وأثره في المعنى</p></div>
+      <div class="acard" onclick="gotoStudy('context')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13h20"/><path d="M10 24h28" stroke-width="2.6"/><path d="M14 35h20"/><circle cx="10" cy="24" r="1.6" fill="currentColor" stroke="none"/><circle cx="38" cy="24" r="1.6" fill="currentColor" stroke="none"/></svg></span><h4>السياق</h4><p>انظر إلى الآية قبلها وبعدها</p></div>
+      <div class="acard" onclick="gotoStudy('tafsir')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c4-1.6 8.5-1.6 12 .5v18c-3.5-2.1-8-2.1-12-.5z"/><path d="M17 15.5V34"/><circle cx="31" cy="29" r="7.5"/><path d="M36.5 34.5L43 41"/></svg></span><h4>التفسير</h4><p>قارن بين أقوال المفسرين</p></div>
+      <div class="acard" onclick="gotoStudy('links')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="24" r="8"/><circle cx="34" cy="24" r="8"/><path d="M22 24h4"/><path d="M10 24h8M30 24h8"/></svg></span><h4>الترابط</h4><p>اكتشف صلات الآيات والسور</p></div>
+      <div class="acard feat" onclick="goSec('compareSec')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="10" r="5"/><circle cx="10" cy="34" r="5"/><circle cx="38" cy="34" r="5"/><path d="M24 15 L12.5 30 M24 15 L35.5 30 M15 34h18"/></svg></span><h4>علوم مقارنة السور</h4><p>الروابط بين السور والأنساق القرآنية</p></div>
+      <div class="acard" onclick="gotoStudy('horizons')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="21" r="10"/><path d="M7 33h34"/><path d="M37 4l1.2 2.8L41 8l-2.8 1.2L37 12l-1.2-2.8L33 8l2.8-1.2z"/></svg></span><h4>الآفاق</h4><p>علم، تاريخ، أرقام، وقراءات معاصرة</p></div>
       <div class="acard" onclick="gotoStudy('mind')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17" stroke-width="1.4"/><path d="M24 13c-5.5 0-9.5 4.5-9.5 11s4 11 9.5 11 9.5-4.5 9.5-11S29.5 13 24 13z"/><path d="M24 13v22"/><path d="M24 20c-2.5 0-4 1.5-4 3.5M24 20c2.5 0 4 1.5 4 3.5M24 28c-2 0-3.2 1.2-3.2 2.8M24 28c2 0 3.2 1.2 3.2 2.8"/><circle cx="24" cy="24" r="1.5" fill="currentColor" stroke="none"/></svg></span><h4>العقل</h4><p>اختبر الدليل والافتراض والاستنتاج</p></div>
-      <div class="acard" onclick="gotoStudy('tadabbur')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M32.5 5.5A10 10 0 1 0 32.5 24.5 12 12 0 0 1 32.5 5.5Z"/><path d="M17.5 8.5l1.8 2.8M24 4.5V8"/><path d="M10 32c4.5-1.8 9.5-1.8 14 .8 4.5-2.6 9.5-2.6 14-.8v8.5c-4.5-1.8-9.5-1.8-14 .8-4.5-2.6-9.5-2.6-14-.8z"/><path d="M24 32.8v8.5"/></svg></span><h4>تدبر</h4><p>اكتب تأملك واحفظه في دفتر التدبر</p></div>
+      <div class="acard" onclick="gotoStudy('tadabbur')"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M32.5 5.5A10 10 0 1 0 32.5 24.5 12 12 0 0 1 32.5 5.5Z"/><path d="M17.5 8.5l1.8 2.8M24 4.5V8"/><path d="M10 32c4.5-1.8 9.5-1.8 14 .8 4.5-2.6 9.5-2.6 14-.8v8.5c-4.5-1.8-9.5-1.8-14 .8-4.5-2.6-9.5-2.6-14-.8z"/><path d="M24 32.8v8.5"/></svg></span><h4>التدبر</h4><p>اكتب تأملك واحفظه في دفتر التدبر</p></div>
     </div>
   </section>
 
@@ -308,16 +528,44 @@ footer a{color:var(--gold);text-decoration:none;}
     <div id="panels"></div>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="philoSec">
     <p class="philo">لا نخبرك <b>ماذا تفكر</b>...<br>بل نضع بين يديك النص، واللغة، والسياق، والدليل...<br>ثم نترك لعقلك <b>مساحة التدبر</b>.</p>
   </section>
 
-  <section class="sec" id="journey">
-    <h2 class="sec-t">رحلة الآية</h2>
-    <p class="sub">آية واحدة... قد تفتح لك عالمًا من المعاني.</p>
-    <div class="orn">— ✦ —</div>
-    <div class="jpath">
-      <span class="jstep">النص</span><span class="jsep">↓</span><span class="jstep">الكلمة</span><span class="jsep">↓</span><span class="jstep">اللغة</span><span class="jsep">↓</span><span class="jstep">السياق</span><span class="jsep">↓</span><span class="jstep">التفسير</span><span class="jsep">↓</span><span class="jstep">الدليل</span><span class="jsep">↓</span><span class="jstep">العقل</span><span class="jsep">↓</span><span class="jstep">التدبر</span>
+  <section class="sec" id="homeCards">
+    <div class="hcards">
+      <div class="qbox hc">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg>القرآن الكريم</h3>
+        <p class="hc-sub">اختر سورة واقرأ آياتها بالرسم العثماني</p>
+        <div class="hc-surahs">
+          <a class="hc-srow" href="#quran-sec" onclick="openSurahLink(1)"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 4l1.7 4.3L18 10l-4.3 1.7L12 16l-1.7-4.3L6 10l4.3-1.7z"/></svg></span>الفاتحة<span class="cv">١ ‹</span></a>
+          <a class="hc-srow" href="#quran-sec" onclick="openSurahLink(2)"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 4l1.7 4.3L18 10l-4.3 1.7L12 16l-1.7-4.3L6 10l4.3-1.7z"/></svg></span>البقرة<span class="cv">٢ ‹</span></a>
+          <a class="hc-srow" href="#quran-sec" onclick="openSurahLink(3)"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 4l1.7 4.3L18 10l-4.3 1.7L12 16l-1.7-4.3L6 10l4.3-1.7z"/></svg></span>آل عمران<span class="cv">٣ ‹</span></a>
+          <a class="hc-srow" href="#quran-sec" onclick="openSurahLink(4)"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 4l1.7 4.3L18 10l-4.3 1.7L12 16l-1.7-4.3L6 10l4.3-1.7z"/></svg></span>النساء<span class="cv">٤ ‹</span></a>
+          <a class="hc-srow hc-all" href="#quran-sec">جميع السور<span class="cv">‹</span></a>
+        </div>
+      </div>
+      <div class="daily hc">
+        <h3 style="margin-top:0;color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="15" rx="2"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/></svg>آية اليوم</h3>
+        <div id="homeDailyRef" style="color:var(--muted);font-size:.85rem;">سورة النساء | الآية 82</div>
+        <div class="dt" id="homeDailyText">أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا</div>
+        <div class="acts"><span onclick="listenDaily()">استماع</span><span onclick="saveDaily(this)">حفظ</span><span onclick="shareAya()">مشاركة</span><span onclick="openAya(DAILY.s,DAILY.a); scrollToId('study')">اقرأ وتأمل</span></div>
+      </div>
+      <div class="qbox hc jbox" id="journey">
+        <div class="jimg" aria-hidden="true"></div>
+        <div class="jbhead"><span class="jbi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><div><h3>رحلة التدبر</h3><p class="hc-sub" style="margin:0">رحلة متكاملة مع الآية، خطوة بخطوة</p></div></div>
+        <div class="jlist">
+          <a class="jrow on" data-step="words" href="#study" onclick="gotoStudy('words',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg></span><span class="jl">معاني الكلمات</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="grammar" href="#study" onclick="gotoStudy('grammar',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5c-2 2.4-2 11.6 0 14M16 5c2 2.4 2 11.6 0 14M10.5 12h3"/></svg></span><span class="jl">الإعراب والتحليل</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="context" href="#study" onclick="gotoStudy('context',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></span><span class="jl">السياق القرآني</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="tafsir" href="#study" onclick="gotoStudy('tafsir',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c2.5-1.2 5.5-1.2 8 .4v12c-2.5-1.6-5.5-1.6-8-.4z"/><circle cx="16.5" cy="15.5" r="4"/><path d="M19.5 18.5L22 21"/></svg></span><span class="jl">التفسير</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="links" href="#study" onclick="gotoStudy('links',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="7" cy="12" r="3.4"/><circle cx="17" cy="12" r="3.4"/><path d="M10.4 12h3.2"/></svg></span><span class="jl">الروابط</span><span class="jchev">‹</span></a>
+          <a class="jrow" onclick="goSec('compareSec')"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="1.5"/><rect x="13" y="5" width="8" height="14" rx="1.5"/><path d="M11 12h2"/></svg></span><span class="jl">علوم مقارنة السور</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="horizons" href="#study" onclick="gotoStudy('horizons',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="11" r="6.5"/><path d="M4.5 19.5h15M12 4.5V2.6"/></svg></span><span class="jl">الآفاق</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="mind" href="#study" onclick="gotoStudy('mind',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg></span><span class="jl">العقل</span><span class="jchev">‹</span></a>
+          <a class="jrow" data-step="tadabbur" href="#study" onclick="gotoStudy('tadabbur',event)"><span class="jic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M19 14.6A7.6 7.6 0 0 1 9.4 5 7.6 7.6 0 1 0 19 14.6z"/><path d="M16.4 3.4l.9 2 2 .9-2 .9-.9 2-.9-2-2-.9 2-.9z"/></svg></span><span class="jl">التدبر</span><span class="jchev">‹</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -339,20 +587,20 @@ footer a{color:var(--gold);text-decoration:none;}
     <h2 class="sec-t">القرآن الكريم</h2>
     <p class="sub">اختر سورة لعرض آياتها بالرسم العثماني.</p>
     <div class="orn">— ✦ —</div>
-    <div class="qbox" id="savedSec" style="margin-bottom:14px;"><h3>🔖 المحفوظات</h3><div class="sgrid" id="savedBlock" style="max-height:160px;"><p class="hint">لا محفوظات بعد.</p></div></div>
+    <div class="qbox" id="savedSec" style="margin-bottom:14px;"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg>المحفوظات</h3><div class="sgrid" id="savedBlock" style="max-height:160px;"><p class="hint">لا محفوظات بعد.</p></div></div>
     <div class="qgrid2">
       <div class="qbox">
-        <h3>📖 جميع السور</h3>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg>جميع السور</h3>
         <div class="searchrow"><input id="surahSearch" placeholder="ابحث عن سورة..." oninput="filterSurahs(this.value)"></div>
         <div class="sgrid" id="surahGrid"><p class="hint">جارٍ تحميل قائمة السور…</p></div>
         <button class="more" id="surahMore" onclick="toggleSurahs()">المزيد من السور ▾</button>
         <p class="src">النص: مشروع <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</p>
       </div>
       <div class="daily">
-        <h3 style="margin-top:0;color:var(--gold)">📅 آية اليوم</h3>
+        <h3 style="margin-top:0;color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="15" rx="2"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/></svg>آية اليوم</h3>
         <div id="dailyRef" style="color:var(--muted);font-size:.85rem;">سورة النساء | الآية 82</div>
         <div class="dt" id="dailyText">أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا</div>
-        <div class="acts"><span onclick="listenDaily()">🔊 استماع</span><span onclick="saveDaily(this)">🔖 حفظ</span><span onclick="shareAya()">↗ مشاركة</span></div>
+        <div class="acts"><span onclick="listenDaily()">استماع</span><span onclick="saveDaily(this)">حفظ</span><span onclick="shareAya()">مشاركة</span></div>
       </div>
     </div>
     <div id="surahView" style="margin-top:14px;"></div>
@@ -364,7 +612,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <p class="sub">استمع إلى السور الكاملة بصوت نخبة من القراء، بمصادر موثوقة من مجمع القرآن الصوتي — <span dir="ltr">Islamic Network CDN</span>.</p>
     <div class="orn">— ✦ —</div>
     <div class="qbox">
-      <div class="group-label">🎙 اختر القارئ</div>
+      <div class="group-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-3px"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21M9 21h6"/></svg> اختر القارئ</div>
       <div class="rcit" id="rcGrid"></div>
       <div class="group-label" id="listenListTitle">سور القرآن</div>
       <div class="searchrow" style="max-width:420px;margin:0 0 10px;"><input id="listenQ" placeholder="ابحث عن سورة..." oninput="renderListenList()"></div>
@@ -377,9 +625,9 @@ footer a{color:var(--gold);text-decoration:none;}
     <h2 class="sec-t">ابحث في القرآن</h2>
     <p class="sub">اكتب كلمة، آية، موضوعًا أو اسم سورة... — وكل كلمة تُفتح لها بطاقة تفسير موسّعة: الجذر والوزن وحروف الزيادة ودورها، ثم مواضعها في النص.</p>
     <div class="orn">— ✦ —</div>
-    <div class="searchrow" style="max-width:560px;margin:0 auto 12px;"><input id="searchInput" placeholder="مثال: الصبر" onkeydown="if(event.key==='Enter')quranSearch()"><button class="btn" style="padding:10px 22px;" onclick="quranSearch()">🔍</button></div>
+    <div class="searchrow" style="max-width:560px;margin:0 auto 12px;"><input id="searchInput" placeholder="مثال: الصبر" onkeydown="if(event.key==='Enter')quranSearch()"><button class="btn" style="padding:10px 22px;" onclick="quranSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" style="width:16px;height:16px;vertical-align:-3px"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button></div>
     <div id="searchResults" style="max-width:720px;margin:0 auto;"></div>
-    <p style="text-align:center"><button class="more" onclick="randomAya()">🎲 أو ابدأ بآية عشوائية للتدبر</button></p>
+    <p style="text-align:center"><button class="more" onclick="randomAya()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-3px"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.3" fill="currentColor"/><circle cx="15" cy="15" r="1.3" fill="currentColor"/><circle cx="15" cy="9" r="1.3" fill="currentColor"/><circle cx="9" cy="15" r="1.3" fill="currentColor"/></svg> أو ابدأ بآية عشوائية للتدبر</button></p>
     <div id="randomBox" style="max-width:720px;margin:0 auto;"></div>
   </section>
 
@@ -390,7 +638,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <div class="orn">— ✦ —</div>
     <div class="qbox">
       <div id="encStats"><p class="hint">جارٍ تحميل إحصاءات الموسوعة…</p></div>
-      <div class="searchrow"><input id="encInput" placeholder="ابحث: اسم مؤلف / عنوان كتاب / مرجع آية (مثال: النساء 82) / كلمة مفتاحية..." oninput="encSuggest()" onkeydown="if(event.key==='Enter'){encSuggestHide();encSearchRun();}" onblur="setTimeout(encSuggestHide,220)"><button class="btn" style="padding:10px 22px;" onclick="encSuggestHide();encSearchRun()">🔍 بحث</button><div class="suggest" id="encSuggest" style="display:none"></div></div>
+      <div class="searchrow"><input id="encInput" placeholder="ابحث: اسم مؤلف / عنوان كتاب / مرجع آية (مثال: النساء 82) / كلمة مفتاحية..." oninput="encSuggest()" onkeydown="if(event.key==='Enter'){encSuggestHide();encSearchRun();}" onblur="setTimeout(encSuggestHide,220)"><button class="btn" style="padding:10px 22px;" onclick="encSuggestHide();encSearchRun()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" style="width:16px;height:16px;vertical-align:-3px"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg> بحث</button><div class="suggest" id="encSuggest" style="display:none"></div></div>
       <div class="chips" id="encChips"></div>
       <div id="encResults"><p class="hint">جارٍ تحميل فهرس الموسوعة…</p></div>
       <div id="encDetail" style="display:none"></div>
@@ -412,6 +660,7 @@ footer a{color:var(--gold);text-decoration:none;}
   <footer id="about">
     <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
     <div>القرآن نور... والتدبر حياة</div>
+    <div class="fline">التدبر لك... وليس للآلة</div>
     <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#listenSec">الاستماع</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#encSec">المفسرون والمعاصرون</a><a href="#compareSec">علوم مقارنة السور</a><a href="#notebookSec">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
     <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
   </footer>
@@ -572,6 +821,7 @@ footer a{color:var(--gold);text-decoration:none;}
   <footer>
     <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
     <div>القرآن نور... والتدبر حياة</div>
+    <div class="fline">التدبر لك... وليس للآلة</div>
     <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a></div>
     <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
   </footer>
@@ -709,6 +959,13 @@ function scheduleAlign(el){
 function gotoStudy(id, ev){
   if(ev && ev.preventDefault){ try{ ev.preventDefault(); }catch(e){} }
   try{
+    var jr = document.querySelectorAll('.jrow');
+    for(var ji = 0; ji < jr.length; ji++){
+      var ds = jr[ji].getAttribute ? jr[ji].getAttribute('data-step') : null;
+      if(ds) jr[ji].classList.toggle('on', ds === id);
+    }
+  }catch(e){}
+  try{
     if(CUR_VIEW !== 'home'){
       showView('home');
       var hh = currentRoute();
@@ -749,10 +1006,28 @@ function renderAyaHead(){
   if(!QDATA){ el.innerHTML = '<p class="hint">جارٍ التحميل…</p>'; loadQuran(renderAyaHead); return; }
   if(!ayaText(CUR.s, CUR.a)){ el.innerHTML = '<p class="hint">الآية غير متوفرة.</p>'; return; }
   var is82 = (CUR.s === 4 && CUR.a === 82);
-  el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'<div class="acts"><span onclick="listenAya(this)">🔊 استماع</span><span onclick="saveAya(this)">🔖 حفظ</span><span onclick="shareAyaText()">↗ مشاركة</span><span onclick="noteAya()">✍️ ملاحظة</span><span onclick="journeyAya()">🧭 رحلة التدبر</span></div><div class="acts"><span onclick="prevAya()">‹ السابق</span><span onclick="nextAya()">التالي ›</span><span onclick="firstAya()">⇤ أول السورة</span><span onclick="backToSurahs()">السور</span></div></div>';
+  el.innerHTML = '<div class="ayahead"><div class="an">سورة '+surahName(CUR.s)+' — الآية '+arNum(CUR.a)+'</div><div class="at">'+ayaText(CUR.s, CUR.a)+'</div>'+(is82 ? '<div class="hint">الدراسة الكاملة لهذه الآية بالأسفل ✓</div>' : '')+'<div class="acts"><span onclick="listenAya(this)">استماع</span><span onclick="saveAya(this)">حفظ</span><span onclick="shareAyaText()">↗ مشاركة</span><span onclick="noteAya()">ملاحظة</span><span onclick="journeyAya()">رحلة التدبر</span></div><div class="acts"><span onclick="prevAya()">‹ السابق</span><span onclick="nextAya()">التالي ›</span><span onclick="firstAya()">⇤ أول السورة</span><span onclick="backToSurahs()">السور</span></div></div>';
   if(is82){ if(!CURATED) buildCuratedPanels(); fillMindDynamic(); fillTadabbur82(); }
   else { CURATED = false; buildVersePanels(); }
+  try{ renderHero(); }catch(e){}
   if(PENDING_GOTO){ var g = PENDING_GOTO; PENDING_GOTO = null; try{ gotoStudy(g); }catch(e){} }
+}
+function renderHero(){
+  try{
+    if(typeof QDATA === 'undefined' || !QDATA) return;
+    var txt = ayaText(CUR.s, CUR.a);
+    if(!txt) return;
+    var name = 'سورة ' + surahName(CUR.s);
+    var num = 'الآية ' + arNum(CUR.a);
+    var e1 = document.getElementById('heroSurah');
+    var e2 = document.getElementById('heroAya');
+    var e3 = document.getElementById('heroText');
+    var e4 = document.getElementById('heroLink');
+    if(e1) e1.textContent = name;
+    if(e2) e2.textContent = num;
+    if(e3) e3.textContent = txt;
+    if(e4){ e4.textContent = name + ' · ' + num; e4.setAttribute('href', '#/' + CUR.s + '/' + CUR.a); }
+  }catch(e){}
 }
 function verseKey(){ return 'tadabbur_aya_'+CUR.s+'_'+CUR.a; }
 function loadVerseRefs(){
@@ -761,7 +1036,7 @@ function loadVerseRefs(){
 function renderVerseRefs(){
   var el = document.getElementById('vSavedList');
   if(!el) return;
-  el.innerHTML = loadVerseRefs().map(function(r){ return '<div class="saved-note">📅 '+r.date+'<br>'+r.text+'</div>'; }).join('');
+  el.innerHTML = loadVerseRefs().map(function(r){ return '<div class="saved-note">'+r.date+'<br>'+r.text+'</div>'; }).join('');
 }
 function saveVerseReflection(){
   var box = document.getElementById('vReflectionBox');
@@ -1539,15 +1814,17 @@ if(typeof window !== 'undefined' && window.addEventListener){
   window.addEventListener('load', syncNavOffset);
   window.addEventListener('resize', syncNavOffset);
 }
+var T_THEME_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg>';
+var T_THEME_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19"/></svg>';
 function toggleTheme(){
   var r = document.documentElement;
   var light = r.getAttribute('data-theme') === 'light';
   if(light){ r.removeAttribute('data-theme'); }
   else{ r.setAttribute('data-theme','light'); }
   try{ localStorage.setItem('tad-theme', light ? 'dark' : 'light'); }catch(e){}
-  document.getElementById('themeBtn').textContent = light ? '🌙' : '☀️';
+  try{ document.getElementById('themeBtn').innerHTML = light ? T_THEME_MOON : T_THEME_SUN; }catch(e){}
 }
-try{ if(document.documentElement.getAttribute('data-theme')==='light') document.getElementById('themeBtn').textContent='☀️'; }catch(e){}
+try{ if(document.documentElement.getAttribute('data-theme')==='light') document.getElementById('themeBtn').innerHTML = T_THEME_SUN; }catch(e){}
 
 document.querySelectorAll('.ayah span').forEach(w=>{
   w.addEventListener('click', ()=>{ CUR = {s:4, a:82}; gotoStudy('words'); });
@@ -1563,7 +1840,7 @@ function renderReflections(){
   const list = loadReflections();
   const el = document.getElementById('savedList');
   if(!el) return;
-  el.innerHTML = list.map(r=>'<div class="saved-note">📅 '+r.date+'<br>'+r.text+'</div>').join('');
+  el.innerHTML = list.map(r=>'<div class="saved-note">'+r.date+'<br>'+r.text+'</div>').join('');
 }
 function saveReflection(){
   const box = document.getElementById('reflectionBox');
@@ -1975,7 +2252,7 @@ function encStatsHTML(){
   return '<div class="group-label">إحصاءات الموسوعة</div><div class="statgrid">' +
     rows.map(function(r){ return '<div class="statcard"><b>' + arNum(r[1]) + '</b><span>' + r[0] + '</span></div>'; }).join('') + '</div>' +
     encAvailLegend() +
-    '<p><button class="btn-ghost" style="padding:6px 16px;font-size:.85rem;" onclick="encShowSources()">📚 مصادر المكتبة</button></p>';
+    '<p><button class="btn-ghost" style="padding:6px 16px;font-size:.85rem;" onclick="encShowSources()">مصادر المكتبة</button></p>';
 }
 function encShowSources(){
   if(!ENCY) return;
@@ -2900,7 +3177,7 @@ function openCompare(i){
   box.innerHTML = '<div class="cmbox" id="cmBox"><h3>'+c.t+'</h3>' + c.books.map(function(b){
     var badge = b.u ? '<span class="badge">موثق</span>' : '<span class="badge wait">بانتظار مصدر</span>';
     var foot = b.u
-      ? '<a class="cmread" href="'+b.u+'" target="_blank" rel="noopener">📕 قراءة الكتاب</a><span class="src">المصدر: '+b.s+'</span>'
+      ? '<a class="cmread" href="'+b.u+'" target="_blank" rel="noopener">قراءة الكتاب</a><span class="src">المصدر: '+b.s+'</span>'
       : '<span class="cmpend">سيُضاف الرابط فور التأكد من فتح مصدره.</span>';
     return '<div class="cmwork"><div class="cmw-top"><div><h4>'+b.t+'</h4>'
       + '<div class="au">'+b.a+'</div><div class="mt">'+b.m+'</div></div>' + badge + '</div>'
@@ -2937,7 +3214,7 @@ function renderSavedBlock(){
   var list = loadSavedVerses();
   box.innerHTML = list.length ? list.map(function(x){
     return '<div class="scard" onclick="openAya(' + x.s + ',' + x.a + ')"><div class="nm">' + surahNameOf(x.s) + '</div><div class="c">﴿' + arNum(x.a) + '﴾</div></div>';
-  }).join('') : '<p class="hint">لا محفوظات بعد — اضغط 🔖 حفظ على أي آية.</p>';
+  }).join('') : '<p class="hint">لا محفوظات بعد — اضغط «حفظ» على أي آية.</p>';
 }
 function saveAya(btn){
   var v = selectedVerse();
@@ -2946,7 +3223,7 @@ function saveAya(btn){
   if(at >= 0) list.splice(at, 1); else list.unshift({s:v.surahNumber, a:v.verseNumber});
   try{ localStorage.setItem('tadabbur_saved_verses', JSON.stringify(list)); }catch(e){}
   renderSavedBlock();
-  if(btn) btn.textContent = (at >= 0) ? '🔖 حفظ' : '✓ محفوظة';
+  if(btn) btn.textContent = (at >= 0) ? 'حفظ' : '✓ محفوظة';
 }
 function saveDaily(btn){ saveTextToNotebook('آية اليوم — سورة '+surahName(DAILY.s)+' ﴿'+DAILY.a+'﴾: '+document.getElementById('dailyText').textContent, btn); }
 function verseURL(s, a){ try{ return location.origin + location.pathname + '#/' + s + '/' + a; }catch(e){ return '#/' + s + '/' + a; } }
@@ -2979,6 +3256,10 @@ function upgradeDaily(){
     }
     document.getElementById('dailyText').textContent = QDATA.surahs[DAILY.s - 1].verses[DAILY.a - 1];
     document.getElementById('dailyRef').textContent = 'سورة ' + QDATA.surahs[DAILY.s - 1].name + ' | الآية ' + arNum(DAILY.a);
+    try{
+      document.getElementById('homeDailyText').textContent = QDATA.surahs[DAILY.s - 1].verses[DAILY.a - 1];
+      document.getElementById('homeDailyRef').textContent = 'سورة ' + QDATA.surahs[DAILY.s - 1].name + ' | الآية ' + arNum(DAILY.a);
+    }catch(e2){}
   }catch(e){}
 }
 function shareAya(){
@@ -3351,6 +3632,11 @@ function syncNavActive(){
       var on = !!(want && links[i].getAttribute && links[i].getAttribute('href') === want);
       if(on){ links[i].classList.add('on'); } else { links[i].classList.remove('on'); }
     }
+    var sn = document.querySelectorAll('.sidenav a');
+    for(var sj = 0; sj < sn.length; sj++){
+      var son = !!(want && sn[sj].getAttribute && sn[sj].getAttribute('href') === want);
+      if(son){ sn[sj].classList.add('on'); } else { sn[sj].classList.remove('on'); }
+    }
   }catch(e){}
 }
 function openNav(id){
@@ -3426,6 +3712,34 @@ try{ renderReciters(); renderListenList(); renderNotebook(); renderCompare(); }c
 loadQuran();
 loadEncyclopedia();
 routeFromHash(true, false);
+try{
+  if(typeof window !== 'undefined' && window.IntersectionObserver && document.documentElement && document.documentElement.classList){
+    document.documentElement.classList.add('jsr');
+    var __io = new IntersectionObserver(function(entries){
+      for(var i = 0; i < entries.length; i++){
+        if(entries[i].isIntersecting){
+          try{ entries[i].target.classList.add('in'); }catch(e){}
+          try{ __io.unobserve(entries[i].target); }catch(e){}
+        }
+      }
+    }, {rootMargin:'0px 0px -6% 0px', threshold:0});
+    document.querySelectorAll('.sec').forEach(function(sc){ try{ __io.observe(sc); }catch(e){} });
+    var __revealView = function(){
+      document.querySelectorAll('.sec').forEach(function(sc){
+        try{
+          if(sc.classList.contains('in')) return;
+          var r = sc.getBoundingClientRect();
+          if(r.top < window.innerHeight && r.bottom > 0) sc.classList.add('in');
+        }catch(e){}
+      });
+    };
+    window.addEventListener('load', __revealView);
+    if(window.addEventListener){
+      window.addEventListener('hashchange', function(){ setTimeout(__revealView, 60); });
+      window.addEventListener('scroll', function(){ clearTimeout(window.__rvT); window.__rvT = setTimeout(__revealView, 140); }, {passive:true});
+    }
+  }
+}catch(e){}
 </script>
 </body>
 </html>
