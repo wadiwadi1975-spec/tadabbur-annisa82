@@ -408,6 +408,50 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
   .sec-t{font-size:1.5rem;gap:10px;}
   .hcards{gap:12px;}
 }
+/* ===== محركا الإحصاء (إحصاء القرآن · إحصاء الجذور) ===== */
+.stgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin-bottom:16px;}
+.statcard b{font-size:1.45rem;}
+.tablewrap{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:2px;}
+.sttable{width:100%;border-collapse:collapse;font-size:.85rem;}
+.sttable th,.sttable td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap;}
+.sttable th{color:var(--gold);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--card);z-index:2;font-size:.8rem;}
+.sttable th:hover{background:var(--gold-soft);}
+.sttable td.num{font-variant-numeric:tabular-nums;}
+.sttable tr{cursor:pointer;}
+.sttable tr:hover td{background:var(--gold-soft);}
+.badge{display:inline-block;font-size:.7rem;background:var(--gold-soft);border:1px solid var(--line);border-radius:10px;padding:1px 8px;margin-inline-end:4px;color:var(--ink);}
+.badge.warn{background:rgba(201,164,92,.22);border-color:var(--gold);}
+.rword{font-family:'Scheherazade New','Amiri',serif;font-size:1.35rem;color:var(--gold);line-height:1.9;margin:2px 0;}
+.rootdisp{font-family:'Scheherazade New','Amiri',serif;font-size:2.1rem;color:var(--gold);letter-spacing:3px;line-height:1.5;}
+.mono{direction:ltr;display:inline-block;font-size:.82rem;color:var(--muted);font-family:ui-monospace,Consolas,monospace;}
+.state{padding:22px 10px;text-align:center;color:var(--muted);}
+.state .spin{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:rSpin .8s linear infinite;margin:0 auto 10px;}
+@keyframes rSpin{to{transform:rotate(360deg);}}
+@media (prefers-reduced-motion:reduce){.state .spin{animation:none;}}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;max-height:320px;overflow:auto;padding:2px;}
+.rchip{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:7px 6px;cursor:pointer;text-align:center;font-family:'Scheherazade New','Amiri',serif;font-size:1.25rem;color:var(--ink);line-height:1.5;}
+.rchip:hover{border-color:var(--gold);color:var(--gold);}
+.rchip small{display:block;font-size:.68rem;color:var(--muted);font-family:'Cairo','Tajawal',sans-serif;letter-spacing:0;}
+.roothd{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;border-bottom:1px dashed var(--line);padding-bottom:12px;margin-bottom:12px;}
+.rootsum{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:.83rem;}
+.rootsum b{color:var(--gold);}
+.rfilter{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;}
+.rfilter select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 9px;color:var(--ink);font-family:inherit;font-size:.85rem;}
+.occlist{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.occrow{border:1px solid var(--line);border-radius:12px;padding:9px 12px;background:var(--bg);}
+.occrow .occh{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.occrow .chip{font-size:.78rem;padding:5px 12px;}
+.lemrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:7px 2px;}
+.lemrow:last-child{border-bottom:none;}
+.cmpbox{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;}
+.cmpbox .cc{text-align:center;}
+.cmpbox .cc b{display:block;color:var(--gold);font-size:1.2rem;}
+@media(max-width:640px){
+  .sttable{font-size:.76rem;}
+  .sttable th,.sttable td{padding:6px 4px;}
+  .cmpbox{grid-template-columns:1fr;}
+  .rootdisp{font-size:1.7rem;}
+}
 </style>
 </head>
 <body>
@@ -437,6 +481,8 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
     <a href="#notebookSec">دفتر التدبر</a>
     <a href="#encSec">المفسرون والمعاصرون</a>
     <a href="#compareSec">علوم مقارنة السور</a>
+    <a href="#statSec">إحصاء القرآن</a>
+    <a href="#rootsSec">إحصاء الجذور</a>
     <a href="#encSec" onclick="openGharib()">غريب القرآن</a>
     <a href="#/about">حول المشروع</a>
   </div>
@@ -457,6 +503,8 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
   <a href="#encSec" onclick="openGharib()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 9.5v5M9.8 12h4.4"/></svg><span>غريب القرآن</span></a>
   <a href="#notebookSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M7 3.5h12v17H7z"/><path d="M7 3.5v17"/><path d="M10.5 8h5M10.5 12h5M4.5 6.5C3.4 7.6 3 9 3 10.5s.4 2.9 1.5 4"/></svg><span>دفتر التدبر</span></a>
   <a href="#/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>حول المشروع</span></a>
+  <a href="#statSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>إحصاء القرآن</span></a>
+  <a href="#rootsSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M6 8.6v6.8M8.5 7.2 15.6 11M8.5 16.8 15.6 13"/></svg><span>إحصاء الجذور</span></a>
   <div class="sn-note">— ✦ —</div>
 </aside>
 
@@ -657,11 +705,88 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
     <p class="quiet" style="text-align:center;max-width:640px;margin:26px auto 0">هذا القسم جزء من التزام المشروع: لا ننسب للقرآن ولا للعلماء شيئًا إلا بذريعه، ولا نُعرض كتابًا على أنه متاح إلا بعد التأكد من فتح مصدره.</p>
   </section>
 
+  <section class="sec" id="statSec">
+    <div class="eyebrow" style="text-align:center">محرّك إحصائي</div>
+    <h2 class="sec-t">إحصاء القرآن</h2>
+    <p class="sub">كل رقم في هذا القسم يُحسب لحظيًا في متصفحك من نص المصحف الموجود في هذا الموقع نفسه — لا رقم مكتوب يدويًا، ولا قيمة تُعرض قبل التحقق منها.</p>
+    <div class="orn">— ✦ —</div>
+    <div id="statState"></div>
+    <div id="statBody" style="display:none">
+      <div class="stgrid" id="statCards"></div>
+      <p class="hint" style="text-align:center;margin:-4px 0 16px">الكلمة = كل مقطع تضمّ حرفًا عربيًا واحدًا على الأقل؛ والحروف معدودة دون التشكيل.</p>
+
+      <div class="qbox">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>بحث كلمة أو عبارة</h3>
+        <div class="searchrow"><input id="statQ" placeholder="مثال: الصبر · يوم القيامة" onkeydown="if(event.key==='Enter')statSearchRun()"><button class="btn" style="padding:10px 22px;" onclick="statSearchRun()">بحث</button></div>
+        <div class="chips" id="statChips"></div>
+        <label class="hint" style="display:inline-flex;gap:6px;align-items:center;margin:4px 0 8px"><input type="checkbox" id="statSh" onchange="statSearchRun()"> مراعاة الشدة (تفصل «يَعْلَمُ» عن «يُعَلِّمُ»، لكنها قد تُضعف مطابقة ألفاظ كتبها المصحف بالخنجرية)</label>
+        <div id="statRes"></div>
+      </div>
+
+      <div class="qbox">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="1.5"/><rect x="13" y="5" width="8" height="14" rx="1.5"/><path d="M11 12h2"/></svg>مقارنة بين عبارتين</h3>
+        <div class="searchrow"><input id="cmpA" placeholder="العبارة الأولى (مثال: الصبر)"><input id="cmpB" placeholder="العبارة الثانية (مثال: الطمأنينة)"><button class="btn" style="padding:10px 22px;" onclick="statCompare()">قارن</button></div>
+        <div id="cmpRes"><p class="hint">اكتب عبارتين لتقارن عدد المرات وعدد الآيات في النص نفسه وبالمنهجية نفسها للطرفين.</p></div>
+      </div>
+
+      <div class="qbox">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>إحصاء السور</h3>
+        <div class="searchrow" style="max-width:420px"><input id="stSurahQ" placeholder="ابحث عن سورة..." oninput="renderStatSurahs()"></div>
+        <div class="tablewrap"><table class="sttable"><thead><tr>
+          <th onclick="statSortBy('n')">#</th><th onclick="statSortBy('name')">السورة</th><th onclick="statSortBy('a')">الآيات</th><th onclick="statSortBy('w')">الكلمات</th><th onclick="statSortBy('l')">الحروف</th><th onclick="statSortBy('avg')">متوسط الكلمات/آية</th>
+        </tr></thead><tbody id="stSurahBody"></tbody></table></div>
+        <p class="hint">اضغط رأس العمود للترتيب، وانقر أي سطر لفتح السورة في قارئ المصحف.</p>
+      </div>
+
+      <div class="qbox">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M6 8.6v6.8M8.5 7.2 15.6 11M8.5 16.8 15.6 13"/></svg>إحصاء الجذور (من قاعدة التحليل الصرفي)</h3>
+        <div id="statRoots"><p class="hint">جارٍ التحميل…</p></div>
+      </div>
+
+      <div class="qbox">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg>منهجية العد</h3>
+        <ul class="hint" style="padding-inline-start:18px;line-height:2.1;margin:0">
+          <li><b>النص المعتمد</b>: النص القرآني الموجود في هذا الموقع (Tanzil — رسم عثماني). كل الأرقام تُحسب منه عند فتح الصفحة، ولا شيء منها مكتوب مسبقًا.</li>
+          <li><b>الكلمة</b>: كل مقطع في النص تضمّ حرفًا عربيًا واحدًا على الأقل. علامات الوقف المستقلة (كـ <span class="mono">ۚ</span> و <span class="mono">ۖ</span>) ليست كلمات، ولذلك يكون عدد الكلمات أقل من عدد المقاطع المفصولة بفراغ.</li>
+          <li><b>الحرف</b>: حرف من حروف الهجاء العربية (من <span class="mono">ء</span> إلى <span class="mono">ي</span>) دون التشكيل ودون علامات التلاوة.</li>
+          <li><b>التشكيل</b>: الحركات الصغيرة (فتحة، ضمة، كسرة، تنوين، شدة، سكون، ألف خنجرية).</li>
+          <li><b>التوحيد عند البحث</b>: تُزال التشكيل والعلامات، ويُوحَّد رسم الهمزة (أ إ آ ٱ ← ا)، وتاء التأنيث (ة ← ه)، والألف المقصورة (ى ← ي)، وتُحوَّل الألف الخنجرية (<span class="mono">ٰ</span>) إلى ألف عادية — لأن رسم المصحف يختلف أحيانًا عن الكتابة اليومية (مثل «الرَّحْمَـٰن» و«الكتاب»).</li>
+          <li><b>التطابق التام</b> = الكلمة مستقلة كما هي؛ <b>التطابق المرن</b> = وردت ضمن كلمة أو عبارة، أو مع إسقاط الألفات. ويظهر في النتيجة اسم الوضع المستخدم بوضوح مع كل عدد.</li>
+          <li><b>الجذور</b> لا تُستخرج من شكل الكلمة ولا من تشابه الحروف، بل تُؤخذ من ملف تحليل صرفي موثّق (Quranic Arabic Corpus) — التفاصيل كاملة في قسم «إحصاء الجذور».</li>
+        </ul>
+        <p class="src">المصادر: نص القراءة — <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> (رسم عثماني، بصيغته الموجودة في المشروع). الجذور — <a href="https://corpus.quran.com/" target="_blank" rel="noopener">Quranic Arabic Corpus</a> (Version 0.4، ترخيص GNU GPL) مع الإبقاء على بيان الحقوق كما هو في الملف الأصلي.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="rootsSec">
+    <div class="eyebrow" style="text-align:center">محرّك بحث بالجذور</div>
+    <h2 class="sec-t">إحصاء الجذور</h2>
+    <p class="sub">جذور مأخوذة من تحليل صرفي موثّق (Quranic Arabic Corpus) — لا جذر يُستنتج من تشابه الحروف، ولا عدد يُعرض قبل التحقق، وكل موضع يفتح في آيته الصحيحة.</p>
+    <div class="orn">— ✦ —</div>
+    <div class="qbox">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>ابحث عن جذر</h3>
+      <div class="searchrow"><input id="rootQ" placeholder="مثال: ع ل م · علم · Elm" onkeydown="if(event.key==='Enter')rootSearchRun()"><button class="btn" style="padding:10px 22px;" onclick="rootSearchRun()">ابحث</button></div>
+      <div id="rootState"></div>
+      <div id="rootChoices"></div>
+      <div id="rootResult"></div>
+      <p class="hint">يقبل البحث: حروف الجذر بترتيبها (مع أو بدون مسافات)، أو الرمز اللاتيني المستخدم في المصدر (مثل <span class="mono">qwl</span> و <span class="mono">Elm</span>)، أو كلمة من المصحف فتُعرض الجذور الموثّقة لها (مثل «يقول» ← ق و ل). ويُجرَّب تلقائيًا حذف ألف التعريف («الله» ← «له») لأن أصل الجذر لا يدخل فيه.</p>
+    </div>
+    <div class="qbox">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>تصفّح الجذور</h3>
+      <div class="searchrow" style="max-width:420px"><input id="rootListQ" placeholder="اكتب حروفًا لتصفّح الجذور..." oninput="renderRootList()"></div>
+      <div class="rgrid" id="rootList"><p class="hint">جارٍ تحميل الفهرس…</p></div>
+      <button class="more" id="rootListMore" style="display:none" onclick="rootListAll()">عرض كل الجذور</button>
+    </div>
+    <div class="qbox" id="rootNotice"></div>
+    <p class="src" id="rootSrc"></p>
+  </section>
+
   <footer id="about">
     <div style="font-family:'Aref Ruqaa',serif;font-size:1.3rem;color:var(--gold)">أفلا يتدبرون القرآن</div>
     <div>القرآن نور... والتدبر حياة</div>
     <div class="fline">التدبر لك... وليس للآلة</div>
-    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#listenSec">الاستماع</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#encSec">المفسرون والمعاصرون</a><a href="#compareSec">علوم مقارنة السور</a><a href="#notebookSec">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
+    <div class="fl"><a href="#home">الرئيسية</a><a href="#quran-sec">القرآن</a><a href="#listenSec">الاستماع</a><a href="#study">رحلة التدبر</a><a href="#search">البحث</a><a href="#encSec">المفسرون والمعاصرون</a><a href="#compareSec">علوم مقارنة السور</a><a href="#statSec">إحصاء القرآن</a><a href="#rootsSec">إحصاء الجذور</a><a href="#notebookSec">دفتر التدبر</a><a href="#/about">حول المشروع</a></div>
     <div class="src">النص القرآني: <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</div>
   </footer>
 </div>
@@ -3552,6 +3677,606 @@ function randomAya(){
   if(!pick) return;
   box.innerHTML = '<div class="daily"><div class="dt">'+pick.t+'</div><div style="color:var(--muted)">'+pick.sn+' ﴿'+arNum(pick.a)+'﴾</div><br><button class="btn" onclick="openSurahLink('+pick.s+','+pick.a+')">ابدأ رحلة التدبر</button></div>';
 }
+/* ===================== محركا الإحصاء (إحصاء القرآن · إحصاء الجذور) ===================== */
+/* --- أدوات التوحيد المشتركة --- */
+function nrmStat(s, sh){
+  s = (s === null || s === undefined) ? '' : String(s);
+  s = s.replace(/\u0670/g, '\u0627');                                   /* ألف خنجرية ← ألف عادية */
+  if(sh) s = s.replace(/([\u0621-\u064A])\u0651/g, '$1$1');              /* الشدة = مضاعفة الحرف عند الاختيار */
+  s = s.replace(/[\u064B-\u0655\u065F\u0640\u0610-\u061A\u06D6-\u06ED\u200D\u200C]/g, '');
+  s = s.replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/\u0624/g, '\u0648')
+       .replace(/\u0626/g, '\u064A').replace(/\u0629/g, '\u0647').replace(/\u0649/g, '\u064A');
+  return s.replace(/\s+/g, ' ').trim();
+}
+function nrmLoose(s){ return nrmStat(s, false).replace(/\u0627/g, ''); }  /* مطابقة مرنة: تُسقط الألفات */
+function nrmRootKey(s){ return nrmStat(s, false).replace(/\s+/g, ''); }
+var AR_RE = /[\u0621-\u064A]/;
+var TASH_RE = /[\u064B-\u0655\u0670]/;
+var TILAWA_RE = /[\u06D6-\u06ED\u0610-\u061A]/;
+function ayaToks(v){ return String(v).split(/\s+/).filter(function(t){ return AR_RE.test(t); }); }
+function countIn(str, sub){
+  if(!sub) return 0;
+  var n = 0, i = 0;
+  while((i = str.indexOf(sub, i)) >= 0){ n++; i += sub.length; }
+  return n;
+}
+function stLoad(el, msg){ if(el) el.innerHTML = '<div class="state"><div class="spin"></div><p>' + esc(msg) + '</p></div>'; }
+function stErr(el, msg, fn){ if(el) el.innerHTML = '<div class="state"><p>' + esc(msg) + '</p><button class="btn-ghost" onclick="' + fn + '">إعادة المحاولة</button></div>'; }
+function stNone(el, msg){ if(el) el.innerHTML = '<div class="state"><p>' + msg + '</p></div>'; }
+function statCard(label, val){ return '<div class="statcard"><b>' + arNum(val) + '</b><span>' + label + '</span></div>'; }
+
+/* --- إحصاء النص (محسوب لحظيًا من quran-uthmani.json) --- */
+var STAT = null, NCACHE = {mode: '', toks: []};
+function verseToksN(s, i, sh){
+  var key = sh ? '1' : '0';
+  if(NCACHE.mode !== key){ NCACHE = {mode: key, toks: []}; }
+  var per = NCACHE.toks[s];
+  if(!per) per = NCACHE.toks[s] = [];
+  if(!per[i]) per[i] = ayaToks(QDATA.surahs[s].verses[i]).map(function(t){ return nrmStat(t, sh); });
+  return per[i];
+}
+function computeStat(){
+  var st = {surahs:0, ayat:0, raw:0, words:0, letters:0, tash:0, tilawa:0, uniq:0, uniqSh:0, per:[]};
+  var u1 = {}, u2 = {}, c1 = 0, c2 = 0;
+  for(var s = 0; s < QDATA.surahs.length; s++){
+    var su = QDATA.surahs[s], w = 0, l = 0;
+    st.surahs++;
+    for(var i = 0; i < su.verses.length; i++){
+      var v = su.verses[i];
+      st.ayat++;
+      var parts = v.split(/\s+/);
+      for(var p = 0; p < parts.length; p++) if(parts[p]) st.raw++;
+      var toks = ayaToks(v);
+      st.words += toks.length; w += toks.length;
+      for(var j = 0; j < toks.length; j++){
+        var a1 = nrmStat(toks[j], false); if(!(a1 in u1)){ u1[a1] = 1; c1++; }
+        var b1 = nrmStat(toks[j], true); if(!(b1 in u2)){ u2[b1] = 1; c2++; }
+      }
+      for(var k = 0; k < v.length; k++){
+        var ch = v.charAt(k);
+        if(AR_RE.test(ch)){ st.letters++; l++; }
+        if(TASH_RE.test(ch)) st.tash++;
+        if(TILAWA_RE.test(ch)) st.tilawa++;
+      }
+    }
+    st.per.push({n:su.n, name:su.name, a:su.verses.length, w:w, l:l});
+  }
+  st.uniq = c1; st.uniqSh = c2;
+  return st;
+}
+function initStat(force){
+  var box = document.getElementById('statState'), body = document.getElementById('statBody');
+  if(!box || !body) return;
+  if(STAT && !force){ box.innerHTML = ''; body.style.display = ''; return; }
+  body.style.display = 'none';
+  stLoad(box, 'جارٍ تحميل نص المصحف وحساب الإحصاءات...');
+  var t0 = new Date().getTime(), tried = false;
+  var iv = setInterval(function(){
+    if(typeof QDATA !== 'undefined' && QDATA){
+      clearInterval(iv);
+      try{ STAT = computeStat(); box.innerHTML = ''; body.style.display = ''; renderStatAll(); }
+      catch(e){ stErr(box, 'تعذّر حساب الإحصاءات: ' + (e && e.message ? e.message : e), 'initStat(true)'); }
+      return;
+    }
+    if(!tried){ tried = true; try{ loadQuran(); }catch(e){} }
+    if(new Date().getTime() - t0 > 28000){
+      clearInterval(iv);
+      stErr(box, 'تعذّر تحميل ملف النص القرآني (data/quran-uthmani.json). تحقق من الاتصال ثم أعد المحاولة.', 'initStat(true)');
+    }
+  }, 400);
+}
+function renderStatAll(){ renderStatCards(); renderStatSurahs(); renderStatChips(); statRootsSummary(false); }
+function renderStatCards(){
+  var box = document.getElementById('statCards');
+  if(!box || !STAT) return;
+  box.innerHTML = [
+    statCard('السور', STAT.surahs),
+    statCard('الآيات', STAT.ayat),
+    statCard('الكلمات', STAT.words),
+    statCard('الحروف', STAT.letters),
+    statCard('الكلمات المفردة (موحّدة)', STAT.uniq),
+    statCard('علامات التشكيل', STAT.tash),
+    statCard('علامات التلاوة', STAT.tilawa),
+    statCard('مقاطع غير كلمات (علامات وقف مستقلة)', STAT.raw - STAT.words)
+  ].join('');
+}
+function renderStatChips(){
+  var box = document.getElementById('statChips');
+  if(!box) return;
+  var words = ['الله', 'الكتاب', 'يوم القيامة', 'قل', 'الصلاة', 'الصبر'];
+  box.innerHTML = words.map(function(w){ return '<button class="chip" onclick="statTry(\'' + w + '\')">' + w + '</button>'; }).join('');
+}
+function statTry(w){
+  var i = document.getElementById('statQ');
+  if(i) i.value = w;
+  statSearchRun();
+}
+/* --- العد --- */
+function statCount(q, sh){
+  var phrase = /\s/.test(String(q).trim());
+  var nq = nrmStat(q, sh);
+  var nqL = nq.replace(/\u0627/g, '');
+  var r = {nq:nq, phrase:phrase, exactA:0, exactT:0, subA:0, subT:0, looseA:0, looseT:0, list:[]};
+  if(!nq || !QDATA) return r;
+  for(var s = 0; s < QDATA.surahs.length; s++){
+    var su = QDATA.surahs[s];
+    for(var i = 0; i < su.verses.length; i++){
+      var toks = verseToksN(s, i, sh);
+      var hit = 0, sub = 0, loose = 0, j, nt, nl;
+      if(phrase){
+        sub = countIn(toks.join(' '), nq);                       /* العبارة تُبحث عبر حدود الكلمات */
+        if(!sub && nqL) loose = countIn(toks.join(' ').replace(/\u0627/g, ''), nqL);
+      }else{
+        for(j = 0; j < toks.length; j++){                        /* الكلمة تُبحث داخل الكلمة لا عبر حدودها */
+          nt = toks[j];
+          if(nt === nq) hit++;
+          else if(nt.indexOf(nq) >= 0) sub++;
+        }
+        if(!hit && !sub && nqL){
+          for(j = 0; j < toks.length; j++){
+            nl = toks[j].replace(/\u0627/g, '');
+            if(nl.indexOf(nqL) >= 0) loose++;
+          }
+        }
+      }
+      if(hit || sub || loose){
+        r.exactT += hit; if(hit) r.exactA++;
+        r.subT += sub; if(sub) r.subA++;
+        r.looseT += loose; if(loose) r.looseA++;
+        if(r.list.length < 300) r.list.push({s:su.n, a:i+1, hit:hit, sub:sub, loose:loose, t:su.verses[i]});
+      }
+    }
+  }
+  return r;
+}
+function statPrimary(r){
+  if(r.phrase){
+    if(r.subT > 0) return {k:'sub', t:r.subT, a:r.subA, label:'بحث عبارة — وردت بالترتيب نفسه في النص'};
+    if(r.looseT > 0) return {k:'loose', t:r.looseT, a:r.looseA, label:'بحث عبارة — وردت بعد إسقاط الألفات، لاختلاف رسم المصحف عن الكتابة اليومية'};
+    return null;
+  }
+  if(r.exactT > 0) return {k:'exact', t:r.exactT, a:r.exactA, label:'تطابق تام — الكلمة وردت مستقلة بهذا الرسم'};
+  if(r.subT > 0) return {k:'sub', t:r.subT, a:r.subA, label:'مطابقة مرنة — وردت ضمن كلمة أو عبارة (لم يُعثر على كلمة مستقلة بهذا الرسم)'};
+  if(r.looseT > 0) return {k:'loose', t:r.looseT, a:r.looseA, label:'مطابقة مرنة — بعد إسقاط الألفات، لاختلاف رسم المصحف عن الكتابة اليومية (مثل: الرَّحْمَـٰن)'};
+  return null;
+}
+function statHitsOf(row, k){ return k === 'exact' ? row.hit : (k === 'sub' ? row.sub : row.loose); }
+function statSearchRun(){
+  var box = document.getElementById('statRes');
+  var q = (document.getElementById('statQ').value || '').trim();
+  if(!box) return;
+  if(!q){ stNone(box, 'اكتب كلمة أو عبارة للبحث.'); return; }
+  if(!QDATA || !STAT){ stLoad(box, 'جارٍ تحميل النص...'); initStat(false); return; }
+  var sh = !!(document.getElementById('statSh') && document.getElementById('statSh').checked);
+  var r = statCount(q, sh);
+  var p = statPrimary(r);
+  if(!p){
+    stNone(box, 'لا نتائج لهذا الرسم في نص المصحف. جرّب: كلمة أخرى، أو اترك خانة «مراعاة الشدة» كما هي، أو استخدم حروف الكلمة دون تشكيل (مثال: «الصبر» وليس «الصَّبْرِ»).');
+    return;
+  }
+  var h = '<div class="panel"><h3>«' + esc(q) + '»</h3>';
+  h += '<p><b>الوضع:</b> ' + p.label + '</p>';
+  h += '<p><b>عدد المرات:</b> ' + arNum(p.t) + ' &nbsp;·&nbsp; <b>عدد الآيات:</b> ' + arNum(p.a) + '</p>';
+  if(!r.phrase && p.k === 'exact' && r.subA > r.exactA)
+    h += '<p class="hint">وإلى جانب ذلك، وردت ضمن كلمات أو عبارات أخرى في ' + arNum(r.subA) + ' آية (عدّ شامل).</p>';
+  if(p.k !== 'exact' && !r.phrase && r.exactT === 0)
+    h += '<p class="hint">لم يُعثر على تطابق تام لهذا الرسم؛ والأعداد أعلاه من المطابقة المرنة، وسببها غالبًا اختلاف رسم المصحف (خنجرية/همزات) عن الكتابة اليومية.</p>';
+  var vis = r.list.filter(function(row){ return statHitsOf(row, p.k) > 0; }).slice(0, 60);
+  h += '<div class="group-label">المواضع (' + arNum(vis.length) + ' من ' + arNum(p.a) + ' آية)</div>';
+  h += '<div class="occlist">' + vis.map(function(row){
+    var n = statHitsOf(row, p.k);
+    return '<div class="occrow"><div class="occh"><b>سورة ' + esc((QDATA.surahs[row.s - 1] || {}).name || '') + '</b> ﴿' + arNum(row.a) + '﴾' +
+      '<span class="badge">في هذه الآية: ' + arNum(n) + '</span>' +
+      '<button class="chip" onclick="openSurahLink(' + row.s + ',' + row.a + ')">فتح في المصحف</button>' +
+      '<button class="chip" onclick="openAya(' + row.s + ',' + row.a + ')">رحلة التدبر</button></div>' +
+      '<div class="v" style="font-size:1.15rem">' + esc(row.t) + '</div></div>';
+  }).join('') + '</div>';
+  if(p.a > vis.length) h += '<p class="hint">تُعرض أول ' + arNum(vis.length) + ' آية؛ والعدد أعلاه هو العدد الكلي المحسوب من النص.</p>';
+  h += '</div>';
+  box.innerHTML = h;
+}
+function statCompare(){
+  var box = document.getElementById('cmpRes');
+  var a = (document.getElementById('cmpA').value || '').trim();
+  var b = (document.getElementById('cmpB').value || '').trim();
+  if(!box) return;
+  if(!a || !b){ stNone(box, 'اكتب عبارتين للمقارنة.'); return; }
+  if(!QDATA || !STAT){ stLoad(box, 'جارٍ تحميل النص...'); initStat(false); return; }
+  var sh = !!(document.getElementById('statSh') && document.getElementById('statSh').checked);
+  var ra = statCount(a, sh), rb = statCount(b, sh);
+  var pa = statPrimary(ra), pb = statPrimary(rb);
+  function col(txt, p, r){
+    if(!p) return '<div class="cc"><b>٠</b><span>' + esc(txt) + '</span><p class="hint">لا نتائج</p></div>';
+    return '<div class="cc"><b>' + arNum(p.t) + '</b><span>«' + esc(txt) + '» — مرة</span><p class="hint">' + arNum(p.a) + ' آية · ' + (p.k === 'exact' ? 'تطابق تام' : 'مرن') + '</p></div>';
+  }
+  var h = '<div class="cmpbox">' + col(a, pa, ra) + '<div class="cc"><b>مقابل</b></div>' + col(b, pb, rb) + '</div>';
+  if(pa && pb && pa.k !== pb.k) h += '<p class="hint">تنبيه: الوضعان مختلفان (تام/مرن) فالمقارنة هنا تقريبية؛ اضبط الخانة «مراعاة الشدة» لجعل الطرفين على منهجية واحدة.</p>';
+  box.innerHTML = h;
+}
+/* --- جدول السور --- */
+var STSORT = {k:'n', d:1};
+function statSortBy(k){ STSORT.d = (STSORT.k === k) ? -STSORT.d : 1; STSORT.k = k; renderStatSurahs(); }
+function renderStatSurahs(){
+  var box = document.getElementById('stSurahBody');
+  if(!box || !STAT) return;
+  var qi = document.getElementById('stSurahQ');
+  var q = nrmStat(qi ? qi.value : '', false);
+  var rows = STAT.per.filter(function(r){ return !q || nrmStat(r.name, false).indexOf(q) >= 0 || String(r.n) === q; }).slice();
+  var k = STSORT.k, d = STSORT.d;
+  rows.sort(function(x, y){
+    var a = (k === 'avg') ? (x.w / x.a) : x[k], b = (k === 'avg') ? (y.w / y.a) : y[k];
+    if(typeof a === 'string') return d * String(a).localeCompare(String(b), 'ar');
+    return d * (a - b);
+  });
+  box.innerHTML = rows.map(function(r){
+    return '<tr onclick="openSurahLink(' + r.n + ')"><td>' + arNum(r.n) + '</td><td>' + esc(r.name) + '</td>' +
+      '<td class="num">' + arNum(r.a) + '</td><td class="num">' + arNum(r.w) + '</td><td class="num">' + arNum(r.l) + '</td>' +
+      '<td class="num">' + (r.w / r.a).toFixed(2) + '</td></tr>';
+  }).join('') || '<tr><td colspan="6">لا نتائج مطابقة.</td></tr>';
+}
+/* --- إحصاء الجذور داخل قسم الإحصاء --- */
+function statRootsSummary(force){
+  var box = document.getElementById('statRoots');
+  if(!box) return;
+  function draw(){
+    var c = RDB.counts, list = RIDX ? RIDX.list : [];
+    var h = '<div class="stgrid">' +
+      statCard('عدد الجذور', c.roots) +
+      statCard('مواضع مصنّفة بجذر', c.occurrences) +
+      statCard('مدخلات بلا جذر في المصدر', c.stemsNoRoot) +
+      statCard('مواضع بألحقات (ال/و/ف/ب/ك...)', c.withClitic) +
+      statCard('مواضع تحتاج مراجعة لغوية', c.review) + '</div>';
+    if(list.length){
+      h += '<p class="hint">أعلى الجذور تكرارًا — انقر للانتقال إلى بحث الجذور:</p><div class="chips">' +
+        list.slice(0, 10).map(function(x){
+          return '<button class="chip" onclick="rootJump(&quot;' + esc(x.c) + '&quot;)">' + esc(x.a) + ' <span class="hint">(' + arNum(x.t) + ')</span></button>';
+        }).join('') + '</div>';
+    }
+    h += '<p class="hint">«مدخلات بلا جذر» تشمل أدوات الربط (ال، و، في، من...) وما تركّه المصدر بلا جذر بحق؛ وهي جزء من بيان المصدر لا خطأ فيه. والمواضع «التي تحتاج مراجعة» هي المواضع التي لم تتطابق حروفها مع الكلمة في نص الموقع بعد المطابقة، وتبقى معروضة حتى تُراجع لغويًا.</p>';
+    box.innerHTML = h;
+  }
+  if(RDB && !force){ draw(); return; }
+  stLoad(box, 'جارٍ تحميل قاعدة الجذور (Quranic Arabic Corpus v0.4)…');
+  loadRootsDb(function(ok){
+    if(!ok) stErr(box, 'تعذّر تحميل قاعدة الجذور (data/roots.json). تحقق من الاتصال.', 'statRootsSummary(true)');
+    else draw();
+  });
+}
+
+/* --- تحميل قواعد بيانات الجذور --- */
+var RIDX = null, RDB = null, RIDXST = '', RDBST = '', RIDXCBS = [], RDBCBS = [];
+function loadRootsIdx(cb){
+  if(RIDX){ cb(true); return; }
+  RIDXCBS.push(cb);
+  if(RIDXST === 'load') return;
+  RIDXST = 'load';
+  fetchJSON('data/roots-index.json', 30000, function(d){
+    var ok = !!(d && d.list && d.list.length);
+    if(ok){ RIDX = d; buildRootMap(); }
+    RIDXST = ok ? 'ok' : 'err';
+    var qs = RIDXCBS; RIDXCBS = [];
+    qs.forEach(function(f){ try{ f(ok); }catch(e){} });
+  });
+}
+function loadRootsDb(cb){
+  if(RDB){ cb(true); return; }
+  RDBCBS.push(cb);
+  if(RDBST === 'load') return;
+  RDBST = 'load';
+  fetchJSON('data/roots.json', 60000, function(d){
+    var ok = !!(d && d.roots && d.counts);
+    if(ok) RDB = d;
+    RDBST = ok ? 'ok' : 'err';
+    var qs = RDBCBS; RDBCBS = [];
+    qs.forEach(function(f){ try{ f(ok); }catch(e){} });
+  });
+}
+/* فهرس مساعِد: كلمة مفردة من المصحف ← الجذور الموثّقة لها في المصدر
+   (يبني من المواضع نفسها، أي إسناد موثّق لا استنتاج) */
+var W2R = null, W2RL = null;
+function buildWordRoots(){
+  if(W2R) return W2R;
+  if(!RDB || !QDATA) return null;
+  var map = {}, loose = {}, vcache = {};
+  Object.keys(RDB.roots).forEach(function(rk){
+    RDB.roots[rk].forEach(function(fo){
+      fo.o.forEach(function(o){
+        var key = o[0] + ':' + o[1], toks = vcache[key];
+        if(!toks){
+          var su = QDATA.surahs[o[0] - 1];
+          toks = (su && su.verses[o[1] - 1]) ? ayaToks(su.verses[o[1] - 1]) : [];
+          vcache[key] = toks;
+        }
+        for(var i = o[2]; i <= o[3]; i++){
+          if(i < 0 || i >= toks.length) continue;
+          var w = nrmStat(toks[i], false);
+          if(!w) continue;
+          if(!map[w]) map[w] = [];
+          if(map[w].indexOf(rk) < 0) map[w].push(rk);
+          var wl = w.replace(/\u0627/g, '');
+          if(wl){
+            if(!loose[wl]) loose[wl] = [];
+            if(loose[wl].indexOf(rk) < 0) loose[wl].push(rk);
+          }
+        }
+      });
+    });
+  });
+  W2R = map; W2RL = loose;
+  return W2R;
+}
+var RMAP = {}, RLOOSE = {};
+function buildRootMap(){
+  RMAP = {}; RLOOSE = {};
+  RIDX.list.forEach(function(x){
+    var k = nrmRootKey(x.a), kl = k.replace(/\u0627/g, '');   /* بلا ألف: «كتب» بدل «كتاب» */
+    if(!RMAP[k]) RMAP[k] = [];
+    if(RMAP[k].indexOf(x.c) < 0) RMAP[k].push(x.c);
+    if(!RLOOSE[kl]) RLOOSE[kl] = [];
+    if(RLOOSE[kl].indexOf(x.c) < 0) RLOOSE[kl].push(x.c);
+  });
+}
+function rootResolve(q){
+  var base = nrmRootKey(q), out = [], cands = [], lcands = [];
+  function push(arr, v){ if(v && arr.indexOf(v) < 0) arr.push(v); }
+  function add(c){ if(out.indexOf(c) < 0) out.push(c); }
+  push(cands, base);
+  if(base.indexOf('ال') === 0) push(cands, base.slice(2));   /* ألف التعريف ليست من الجذر */
+  cands.forEach(function(c){ push(lcands, c.replace(/\u0627/g, '')); });
+  if(!cands.length) return out;
+  var items = RIDX.list.map(function(x){ return {c:x.c, k:nrmRootKey(x.a), t:x.t}; });
+  var i, c;
+  /* 1) مطابقة تامة على الرسم المكتوب */
+  for(i = 0; i < cands.length; i++) if(RMAP[cands[i]]) RMAP[cands[i]].forEach(add);
+  if(out.length) return out.slice(0, 40);
+  /* 2) مطابقة تامة بعد إسقاط الألفات («الكتاب» ← «كتب») */
+  for(i = 0; i < lcands.length; i++) if(RLOOSE[lcands[i]]) RLOOSE[lcands[i]].forEach(add);
+  if(out.length) return out.slice(0, 40);
+  /* 3) كلمة من النص: الجذور التي أوثّقها التحليل الصرفي لتلك الكلمة نفسها
+        (لا استنتاج للجذر، بل إسناد موثّق من المصدر) */
+  if(W2R){
+    for(i = 0; i < cands.length; i++) if(W2R[cands[i]]) W2R[cands[i]].forEach(add);
+    if(out.length) return out.slice(0, 40);
+    for(i = 0; i < lcands.length; i++) if(W2R[lcands[i]]) W2R[lcands[i]].forEach(add);
+    if(out.length) return out.slice(0, 40);
+    if(W2RL) for(i = 0; i < cands.length; i++){ if(cands[i].length >= 5 && W2RL[cands[i]]) W2RL[cands[i]].forEach(add); }
+    if(out.length) return out.slice(0, 40);
+    if(W2RL) for(i = 0; i < lcands.length; i++){ if(lcands[i].length >= 5 && W2RL[lcands[i]]) W2RL[lcands[i]].forEach(add); }
+    if(out.length) return out.slice(0, 40);
+  }
+  /* 4) رمز لاتيني كما في المصدر (Elm, qwl) */
+  if(/^[A-Za-z]{1,8}$/.test(base)){
+    RIDX.list.forEach(function(x){ if(x.c.toLowerCase() === base.toLowerCase()) add(x.c); });
+    if(out.length) return out.slice(0, 40);
+  }
+  /* 5) بادئة (من 3 حروف فأكثر حتى لا تضيع «الله» في نتائج «لهو») */
+  for(i = 0; i < cands.length; i++){
+    c = cands[i];
+    if(c.length < 3) continue;
+    items.filter(function(x){ return x.k.indexOf(c) === 0; })
+         .sort(function(a, b){ return b.t - a.t; })
+         .forEach(function(x){ add(x.c); });
+  }
+  if(out.length) return out.slice(0, 40);
+  /* 5) يحتوي — يشمل كتابة ألف التعريف («الله» ← «له» داخل «أ ل ه») */
+  for(i = 0; i < cands.length; i++){
+    c = cands[i];
+    if(c.length < 2) continue;
+    items.filter(function(x){ return x.k.indexOf(c) >= 0; })
+         .sort(function(a, b){ return b.t - a.t; })
+         .forEach(function(x){ add(x.c); });
+  }
+  if(out.length) return out.slice(0, 40);
+  /* 6) يحتوي بعد إسقاط الألفات */
+  for(i = 0; i < lcands.length; i++){
+    c = lcands[i];
+    if(c.length < 2) continue;
+    items.filter(function(x){ return x.k.replace(/\u0627/g, '').indexOf(c) >= 0; })
+         .sort(function(a, b){ return b.t - a.t; })
+         .forEach(function(x){ add(x.c); });
+  }
+  return out.slice(0, 40);
+}
+/* --- قاموس الترجمة الصرفية --- */
+var POSAR = {N:'اسم', V:'فعل', ADJ:'صفة', PN:'اسم علم', LOC:'ظرف مكان', T:'ظرف زمان', INTG:'استفهام', COND:'شرط', IMPN:'فعل أمر', REL:'اسم موصول', NUM:'عدد', ADJT:'اسم جنس'};
+var FEATAR = {
+  PERF:'ماضٍ', IMPF:'مضارع', IMPV:'أمر', VN:'مصدر',
+  NOM:'رفع', GEN:'جر', ACC:'نصب',
+  M:'مفرد', F:'مؤنث', MS:'مفرد مذكر', FS:'مفرد مؤنث', MD:'مثنى مذكر', FD:'مثنى مؤنث',
+  MP:'جمع مذكر', FP:'جمع مؤنث', DP:'جمع غير محدد', DS:'مثنى غير محدد',
+  INDEF:'نكرة', DEF:'معرفة', REL:'اسم موصول', SUBST:'اسم',
+  ACT:'اسم فاعل', PASS:'اسم مفعول', PCPL:'مشتق',
+  'MOOD:IND':'وصلٍ (غير جزم)', 'MOOD:JUS':'جزم', 'MOOD:SUBJ':'نصب افتراضي', 'MOOD:DIV':'جزم/افتراضي',
+  '1S':'أنا', '2MS':'أنتَ', '2FS':'أنتِ', '2MD':'أنتما', '2FD':'أنتما (مؤنث)', '1P':'نحن', '2MP':'أنتم', '2FP':'أنتنّ',
+  '3MS':'هو', '3FS':'هي', '3MD':'هما', '3FD':'هما (مؤنث)', '3MP':'هم', '3FP':'هنّ'
+};
+var WTAR = {I:'المجرّد', II:'التفعيل', III:'المفاعلة', IV:'الإفعال', V:'الانفعال', VI:'الافتعال', VII:'الاندفاع', VIII:'الافتعال', IX:'الإفعال', X:'الاستفعال'};
+function featAr(f){
+  var ps = String(f || '').split('|'), out = [], last = '';
+  for(var i = 0; i < ps.length; i++){
+    var p = ps[i];
+    if(!p) continue;
+    if(p.indexOf('POS:') === 0) continue;
+    var m = /^\(([A-Za-z]+)\)$/.exec(p);
+    if(m){ out.push(WTAR[m[1]] ? 'الوزن ' + WTAR[m[1]] : 'وزن (' + m[1] + ')'); last = 'W'; continue; }
+    if(p.indexOf('SP:') === 0){ out.push('مع «' + p.slice(3) + '»'); last = 'SP'; continue; }
+    if(p === 'PCPL' && (last === 'ACT' || last === 'PASS')){ last = 'PCPL'; continue; }
+    out.push(FEATAR[p] || p);
+    last = p;
+  }
+  return out.join(' · ') || '—';
+}
+/* --- قسم إحصاء الجذور --- */
+var RCUR = null, RCURFORMS = [], RCURALL = [], RF = {s:0, pos:'', lem:''}, RPAGE = 40, RCHOICES = [], RLISTALL = false;
+function rootArOf(code){ return (RDB && RDB.ar && RDB.ar[code]) || ''; }
+function rootSectionInit(){ renderRootList(); }
+function renderRootList(){
+  var box = document.getElementById('rootList');
+  if(!box) return;
+  stLoad(box, 'جارٍ تحميل فهرس الجذور…');
+  loadRootsIdx(function(ok){
+    if(!ok){ stErr(box, 'تعذّر تحميل فهرس الجذور (data/roots-index.json). تحقق من الاتصال.', 'renderRootList()'); return; }
+    var qi = document.getElementById('rootListQ');
+    var q = nrmRootKey(qi ? qi.value : '');
+    var list = RIDX.list.filter(function(x){ return !q || nrmRootKey(x.a).indexOf(q) >= 0 || x.c.toLowerCase().indexOf(q.toLowerCase()) >= 0; });
+    var vis = (RLISTALL || q) ? list : list.slice(0, 120);
+    box.innerHTML = vis.map(function(x){
+      return '<div class="rchip" onclick="rootJump(&quot;' + esc(x.c) + '&quot;)">' + esc(x.a) +
+        '<small>' + arNum(x.t) + ' موضعًا · ' + esc(x.c) + '</small></div>';
+    }).join('') || '<p class="hint">لا جذور مطابقة لهذا الرسم في الفهرس.</p>';
+    var more = document.getElementById('rootListMore');
+    if(more) more.style.display = (!q && list.length > 120 && !RLISTALL) ? 'block' : 'none';
+  });
+}
+function rootListAll(){ RLISTALL = true; renderRootList(); }
+function rootJump(code){
+  var i = document.getElementById('rootQ');
+  if(i) i.value = rootArOf(code) || code;
+  rootSearchRun();
+}
+function rootSearchRun(){
+  var st = document.getElementById('rootState');
+  var qi = document.getElementById('rootQ');
+  var q = (qi ? qi.value : '').trim();
+  document.getElementById('rootChoices').innerHTML = '';
+  document.getElementById('rootResult').innerHTML = '';
+  RCUR = null;
+  if(!q){ stNone(st, 'اكتب جذرًا بالحروف العربية (مثال: علم) أو رمزه اللاتيني (مثال: <span class="mono">Elm</span>).'); return; }
+  stLoad(st, 'جارٍ تحميل فهرس الجذور…');
+  loadRootsIdx(function(ok){
+    if(!ok){ stErr(st, 'تعذّر تحميل فهرس الجذور (data/roots-index.json). تحقق من الاتصال.', 'rootSearchRun()'); return; }
+    var codes = rootResolve(q);
+    stLoad(st, 'جارٍ تحميل قاعدة الجذور ونص المصحف…');
+    loadRootsDb(function(ok2){
+      if(!ok2){ stErr(st, 'تعذّر تحميل قاعدة الجذور (data/roots.json). تحقق من الاتصال.', 'rootSearchRun()'); return; }
+      showRootNotice();
+      var start = function(){
+        if(!codes.length){ try{ buildWordRoots(); }catch(e){} codes = rootResolve(q); }
+        if(!codes.length){
+          stNone(st, 'لا يوجد جذر مطابق لهذا الرسم في قاعدة الجذور. جرّب: كتابة حروف الجذر بترتيبها، أو الرمز اللاتيني (مثل <span class="mono">qwl</span>)، أو كلمة من المصحف ورد فيها الجذر (مثل «يقول»)، أو استعرض القائمة أدناه.');
+          return;
+        }
+        st.innerHTML = '';
+        renderRootChoices(codes);
+        renderRoot(codes[0]);
+      };
+      if(typeof QDATA !== 'undefined' && QDATA) start();
+      else loadQuran(function(){ start(); });
+    });
+  });
+}
+function showRootNotice(){
+  var nb = document.getElementById('rootNotice');
+  if(nb && RDB && RDB.notice) nb.innerHTML = '<details><summary>بيان حقوق المصدر (كما هو حرفًا في الملف الأصلي)</summary><p class="quiet" style="white-space:pre-line">' + esc(RDB.notice) + '</p></details>';
+  var sr = document.getElementById('rootSrc');
+  if(sr && RDB && RDB.src){
+    sr.innerHTML = 'المصدر الصرفي: <a href="' + RDB.src.morphUrl + '" target="_blank" rel="noopener">Quranic Arabic Corpus</a> — Version 0.4 (GNU GPL)؛ وبحث التحليل: <a href="' + RDB.src.morphSearch + '" target="_blank" rel="noopener">morphologicalsearch</a>؛ وصفحة التنزيل والشروط: <a href="' + RDB.src.morphDownload + '" target="_blank" rel="noopener">download/terms</a>. النص القرآني: <a href="' + RDB.src.textUrl + '" target="_blank" rel="noopener">Tanzil</a> — ' + esc(RDB.src.text) + '. (عدد المواضع والجذور محسوب من الملف نفسه.)';
+  }
+}
+function renderRootChoices(codes){
+  RCHOICES = codes;
+  var box = document.getElementById('rootChoices');
+  if(!box) return;
+  if(codes.length < 2){ box.innerHTML = ''; return; }
+  box.innerHTML = '<p class="hint">وجدنا ' + arNum(codes.length) + ' جذورًا مقاربة — اختر:</p><div class="chips">' +
+    codes.slice(0, 24).map(function(c, i){
+      var m = 0;
+      RIDX.list.forEach(function(x){ if(x.c === c) m = x.t; });
+      return '<button class="chip" onclick="rootPick(' + i + ')">' + esc(rootArOf(c) || c) + ' <span class="hint">(' + arNum(m) + ')</span></button>';
+    }).join('') + '</div>';
+}
+function rootPick(i){
+  if(!RCHOICES[i]) return;
+  renderRoot(RCHOICES[i]);
+}
+function rootFormFilter(i){
+  if(!RCURFORMS[i]) return;
+  RF.lem = (RF.lem === RCURFORMS[i].l) ? '' : RCURFORMS[i].l;
+  RPAGE = 40;
+  renderRootOccs();
+}
+function rootFilterSet(k, v){ RF[k] = (k === 's') ? parseInt(v, 10) : v; RPAGE = 40; renderRootOccs(); }
+function rootMore(){ RPAGE += 40; renderRootOccs(); }
+function rootLemRow(fo, i){
+  return '<div class="lemrow"><div><b class="rword" style="font-size:1.1rem">' + esc(fo.a || fo.l) + '</b> ' +
+    '<span class="badge">' + esc(POSAR[fo.t] || fo.t) + '</span> <span class="hint">' + esc(featAr(fo.f)) + '</span> ' +
+    '<span class="mono">' + esc(fo.l) + '</span></div>' +
+    '<div><b style="color:var(--gold)">' + arNum(fo.o.length) + '</b> <span class="hint">موضعًا</span> ' +
+    '<button class="chip" onclick="rootFormFilter(' + i + ')">' + (RF.lem === fo.l ? 'إلغاء التصفية' : 'اعرض المواضع') + '</button></div></div>';
+}
+function renderRoot(code){
+  var box = document.getElementById('rootResult');
+  if(!box || !RDB) return;
+  RCUR = code; RF = {s:0, pos:'', lem:''}; RPAGE = 40;
+  var forms = (RDB.roots[code] || []);
+  RCURFORMS = forms; RCURALL = [];
+  var total = 0, review = 0, clitic = 0, surahs = {}, posc = {};
+  forms.forEach(function(fo){
+    total += fo.o.length;
+    posc[fo.t] = (posc[fo.t] || 0) + fo.o.length;
+    fo.o.forEach(function(o){
+      if(o[4] & 4) review++;
+      if(o[4] & 3) clitic++;
+      surahs[o[0]] = (surahs[o[0]] || 0) + 1;
+      RCURALL.push({s:o[0], a:o[1], st:o[2], en:o[3], fl:o[4], lem:fo.l, lemAr:fo.a, pos:fo.t, fe:fo.f});
+    });
+  });
+  RCURALL.sort(function(x, y){ return (x.s - y.s) || (x.a - y.a) || (x.st - y.st); });
+  var posList = Object.keys(posc).sort(function(a, b){ return posc[b] - posc[a]; });
+  var ar = rootArOf(code) || code;
+  var h = '<div class="roothd"><div><div class="rootdisp">' + esc(ar) + '</div>' +
+    '<div class="hint">الرمز في المصدر: <span class="mono">' + esc(code) + '</span></div></div>' +
+    '<div class="rootsum"><span>المواضع: <b>' + arNum(total) + '</b></span><span>الصيغ: <b>' + arNum(forms.length) + '</b></span>' +
+    (clitic ? '<span>بألحقات: <b>' + arNum(clitic) + '</b></span>' : '') +
+    (review ? '<span class="badge warn">تحتاج مراجعة لغوية: ' + arNum(review) + '</span>' : '') + '</div></div>';
+  if(RCHOICES.length > 1) h += '<div class="chips">' + RCHOICES.map(function(c, i){
+    return '<button class="chip' + (c === code ? ' on' : '') + '" onclick="rootPick(' + i + ')">' + esc(rootArOf(c) || c) + '</button>';
+  }).join('') + '</div>';
+  h += '<div class="rfilter">' +
+    '<select onchange="rootFilterSet(\'s\',this.value)"><option value="0">كل السور (' + arNum(RCURALL.length) + ')</option>' +
+    Object.keys(surahs).sort(function(a, b){ return a - b; }).map(function(sn){
+      var su = (QDATA && QDATA.surahs[sn - 1]) || {};
+      return '<option value="' + sn + '">' + esc(su.name || ('سورة ' + sn)) + ' (' + arNum(surahs[sn]) + ')</option>';
+    }).join('') + '</select>' +
+    '<select onchange="rootFilterSet(\'pos\',this.value)"><option value="">كل الصور الصرفية</option>' +
+    posList.map(function(p){ return '<option value="' + esc(p) + '">' + esc(POSAR[p] || p) + ' (' + arNum(posc[p]) + ')</option>'; }).join('') + '</select>' +
+    '</div>';
+  h += '<div class="group-label">الصيغ المشتقّة من هذا الجذر (' + arNum(forms.length) + ')</div>' +
+    '<div>' + forms.map(function(fo, i){ return rootLemRow(fo, i); }).join('') + '</div>';
+  h += '<div class="group-label">المواضع في المصحف</div><div id="rootOccs"></div>';
+  box.innerHTML = h;
+  renderRootOccs();
+}
+function occWord(o){
+  if(!QDATA || o.st < 0) return '';
+  var su = QDATA.surahs[o.s - 1];
+  if(!su || !su.verses[o.a - 1]) return '';
+  return ayaToks(su.verses[o.a - 1]).slice(o.st, o.en + 1).join(' ');
+}
+function renderRootOccs(){
+  var box = document.getElementById('rootOccs');
+  if(!box || !RCUR) return;
+  var f = RCURALL.filter(function(o){
+    return (!RF.s || o.s === RF.s) && (!RF.pos || o.pos === RF.pos) && (!RF.lem || o.lem === RF.lem);
+  });
+  if(!f.length){ box.innerHTML = '<p class="hint">لا موضعًا بهذه التصفية.</p>'; return; }
+  var vis = f.slice(0, RPAGE);
+  var sum = '';
+  if(RF.s || RF.pos || RF.lem) sum = ' (مُصفّاة: ' + [RF.s ? 'سورة ' + (((QDATA && QDATA.surahs[RF.s - 1]) || {}).name || RF.s) : '', RF.pos ? (POSAR[RF.pos] || RF.pos) : '', RF.lem ? (RCURFORMS.filter(function(x){ return x.l === RF.lem; })[0] || {}).a : ''].filter(Boolean).join(' · ') + ')';
+  var h = '<p class="hint">' + arNum(f.length) + ' موضعًا' + sum + ' — تُعرض أول ' + arNum(vis.length) + '.</p>';
+  h += '<div class="occlist">' + vis.map(function(o){
+    var su = (QDATA && QDATA.surahs[o.s - 1]) || {};
+    return '<div class="occrow"><div class="occh"><b>سورة ' + esc(su.name || o.s) + '</b> ﴿' + arNum(o.a) + '﴾' +
+      ((o.fl & 3) ? '<span class="badge">بألحقات</span>' : '') +
+      ((o.fl & 4) ? '<span class="badge warn">يحتاج مراجعة</span>' : '') +
+      '<button class="chip" onclick="openSurahLink(' + o.s + ',' + o.a + ')">فتح في المصحف</button>' +
+      '<button class="chip" onclick="openAya(' + o.s + ',' + o.a + ')">رحلة التدبر</button></div>' +
+      '<div class="rword">' + esc(occWord(o)) + '</div>' +
+      '<div class="hint">' + esc(o.lemAr || o.lem) + ' · ' + esc(POSAR[o.pos] || o.pos) + ' · ' + esc(featAr(o.fe)) + '</div></div>';
+  }).join('') + '</div>';
+  if(f.length > vis.length) h += '<button class="more" onclick="rootMore()">عرض ' + arNum(Math.min(40, f.length - vis.length)) + ' موضعًا إضافيًا (' + arNum(f.length - vis.length) + ' متبقٍ)</button>';
+  box.innerHTML = h;
+}
 function currentRoute(){ try{ return location.hash || ''; }catch(e){ return ''; } }
 var CUR_VIEW = 'home';
 function sectionInHome(el){
@@ -3579,13 +4304,15 @@ function viewName(el){
   if(id === 'search') return 'search';
   if(id === 'encSec') return 'enc';
   if(id === 'compareSec') return 'compare';
+  if(id === 'statSec') return 'stat';
+  if(id === 'rootsSec') return 'roots';
   return 'home';
 }
 function showView(v){
   var home = document.getElementById('home'), about = document.getElementById('aboutView');
   if(!home || !about) return;
   if(v === 'about'){ home.style.display = 'none'; about.style.display = ''; CUR_VIEW = 'about'; return; }
-  if(v !== 'home' && v !== 'quran' && v !== 'listen' && v !== 'notebook' && v !== 'search' && v !== 'enc' && v !== 'compare') v = 'home';
+  if(v !== 'home' && v !== 'quran' && v !== 'listen' && v !== 'notebook' && v !== 'search' && v !== 'enc' && v !== 'compare' && v !== 'stat' && v !== 'roots') v = 'home';
   about.style.display = 'none';
   home.style.display = '';
   var kids = home.children || [];
@@ -3596,6 +4323,8 @@ function showView(v){
   }
   home.style.paddingTop = (v === 'home') ? '' : '10px';
   CUR_VIEW = v;
+  if(v === 'stat') setTimeout(function(){ try{ initStat(false); }catch(e){} }, 60);
+  if(v === 'roots') setTimeout(function(){ try{ rootSectionInit(); }catch(e){} }, 60);
 }
 function scrollToTopNow(){
   try{ window.scrollTo({top:0, behavior:'instant'}); }catch(e){ try{ window.scrollTo(0, 0); }catch(e2){} }
@@ -3627,6 +4356,8 @@ function syncNavActive(){
     else if(CUR_VIEW === 'notebook') want = '#notebookSec';
     else if(CUR_VIEW === 'enc') want = '#encSec';
     else if(CUR_VIEW === 'compare') want = '#compareSec';
+    else if(CUR_VIEW === 'stat') want = '#statSec';
+    else if(CUR_VIEW === 'roots') want = '#rootsSec';
     var links = document.querySelectorAll('.links > a');
     for(var i = 0; i < links.length; i++){
       var on = !!(want && links[i].getAttribute && links[i].getAttribute('href') === want);
