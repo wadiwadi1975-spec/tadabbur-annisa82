@@ -12,6 +12,8 @@
 | `checkjs.js` | يفحص صياغة أكواد JavaScript داخل `public/index.html` دون تشغيلها. |
 | `serve.js` | خادم محلي بسيط للاختبار على `http://localhost:8787` (غير مطلوب للنشر). |
 | `gen-logo.ps1` | يولّد أصول الشعار والأيقونات من `assets/logo-medallion-source.png` (يشغَّل عند تغيير الشعار فقط). |
+| `add-sources.js` | يضيف إلى `public/data/encyclopedia.json` كتبًا لها مصدر رقمي مفتوح **مفحوص وقت التشغيل**، ويحذف ما لا يُعثر له على مصدر. |
+| `verify-encyclopedia.js` | فحوصات سلامة الموسوعة: توفّر كل كتاب، عدم وجود مؤلف بلا مادة، سلامة مراجع الآيات والتصنيفات، وعيّنة من الروابط. |
 
 ## أوامر
 
@@ -20,8 +22,18 @@ node tools/build-roots.js     # إعادة بناء قاعدة الجذور
 node tools/verify.js          # التحقق (يجب أن يخرج بكل الفحوصات ناجحة)
 node tools/checkjs.js         # فحص صياغة الكود
 node tools/serve.js           # تشغيل محلي للاختبار
+node tools/verify-encyclopedia.js --network   # سلامة الموسوعة + فتح عيّنة من الروابط
+node tools/add-sources.js --dry               # معاينة أثر إضافة المصادر دون كتابة
+node tools/add-sources.js                     # تطبيق إضافة المصادر
 powershell -ExecutionPolicy Bypass -File tools/gen-logo.ps1   # إعادة توليد الشعار والأيقونات
 ```
+
+## الموسوعة القرآنية — سياسة المصادر
+
+- **لا يُدرج الكتاب إن لم يكن له مصدر رقمي مفتوح يمكن فتحه فعليًا.** كل مدخل في `public/data/encyclopedia.json` يحمل `sourceUrl` و`verifiedAt`، وكل `availabilityStatus` من: `full_text` أو `pdf` أو `online_viewer`.
+- عند تعذّر إيجاد مصدر، يُحذف المدخل بدل إبقائه «عنوانًا بلا فائدة».
+- لا يُنسب أي عمل إلى مؤلف إلا بدليل من وصف المصدر نفسه (حقل `creator` أو العنوان المطابق في صفحة العنصر).
+- المصداقية تُفحص لا تُفترض: `add-sources.js` يقرأ `https://archive.org/metadata/<id>` ويصرّ على وجود عنوان وملفات قبل الكتابة، و`verify-encyclopedia.js --network` يفتح عيّنة من الروابط ويتحقق من الحالة 200.
 
 ## الشعار والأيقونات
 
@@ -38,6 +50,9 @@ powershell -ExecutionPolicy Bypass -File tools/gen-logo.ps1   # إعادة تو�
   بطاقة SHA-256 لملف المصدر:
   `A1D12923815341FACE765083805D2148ED2D9F5CC3F7D6665219D887675D8C46`
 - **Tanzil** — https://tanzil.net/download/ (نص المصحف برسم عثماني، الموجود أصلًا في الموقع).
+- **أرشيف الإنترنت (Internet Archive)** — https://archive.org/ — مصدر الكتب في `public/data/encyclopedia.json`.
+  الرخصة تبقى على عاتق العمل الأصلي لكل كتاب؛ فلا يعيد الموقع نشر النصوص، بل يشير إلى موضعها المفتوح، ويحفظ حقل `copyrightStatus: unknown` كما هو.
+- **الموسوعة القرآنية (Quranpedia)** — https://quranpedia.net — مصدر الكتب الثاني في `encyclopedia.json`.
 
 ## ملاحظات منهجية
 

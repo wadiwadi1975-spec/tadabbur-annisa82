@@ -829,6 +829,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
       <div id="encResults"><p class="hint">جارٍ تحميل فهرس الموسوعة…</p></div>
       <div id="encDetail" style="display:none"></div>
       <p class="quiet">لا يرتّب الموقع المفسرين ولا يصنّف «أفضل» أو «أصح»؛ كما لا يخترع كتابًا أو مؤلفًا أو رابطًا أو اقتباسًا. وما لم يُوثَّق يبقى «بانتظار مصدر» أو «المصدر غير موثق حاليًا».</p>
+      <p class="src">مصادر المكتبة: <a href="https://quranpedia.net" target="_blank" rel="noopener">الموسوعة القرآنية (Quranpedia)</a> و<a href="https://archive.org" target="_blank" rel="noopener">أرشيف الإنترنت (Internet Archive)</a> — كل رابط في هذا القسم فُحص فعليًا وفُتح، وسُجّل تاريخ الفحص في سجل الكتاب. رخص النشر تبقى على عاتق العمل الأصلي لكل كتاب؛ فلا يعيد الموقع نشر نصوصًا، بل يشير إلى موضعها المفتوح.</p>
     </div>
   </section>
 
@@ -2119,26 +2120,26 @@ function saveReflection(){
 }
 
 var SCHOLARS = [
-  {id:'shahrour', name:'محمد شحرور', category:'مفكر معاصر', g:'g1', works:[{t:'الكتاب والقرآن', k:'كتاب'}]},
-  {id:'abu-zayd', name:'نصر حامد أبو زيد', category:'مفكر معاصر', g:'g1', works:[{t:'مفهوم النص', k:'كتاب'}]},
-  {id:'arkoun', name:'محمد أركون', category:'مفكر معاصر', g:'g1', works:[{t:'الفكر الإسلامي: قراءة علمية', k:'كتاب'}]},
-  {id:'jabri', name:'محمد عابد الجابري', category:'باحث معاصر', g:'g1', works:[{t:'فهم القرآن الحكيم', k:'كتاب'}]},
-  {id:'fazlur', name:'فضل الرحمن', category:'باحث معاصر', g:'g1', works:[{t:'الموضوعات الكبرى في القرآن', k:'كتاب'}]},
-  {id:'khalafallah', name:'محمد أحمد خلف الله', category:'باحث معاصر', g:'g1', works:[{t:'الفن القصصي في القرآن', k:'كتاب'}]},
-  {id:'soroush', name:'عبد الكريم سروش', category:'مفكر معاصر', g:'g1', works:[{t:'القبض والبسط في الشريعة', k:'كتاب'}]},
-  {id:'talbi', name:'محمد الطالبي', category:'مفكر معاصر', g:'g1', works:[{t:'دليل المسلم القرآني', k:'كتاب'}, {t:'تأملات في القرآن', k:'كتاب'}]},
-  {id:'ozturk', name:'ياشار نوري أوزتورك', category:'باحث معاصر', g:'g1', works:[{t:'الإسلام في القرآن', k:'كتاب'}, {t:'المفاهيم الأساسية للقرآن', k:'كتاب'}, {t:'ترجمة تركية لمعاني القرآن', k:'ترجمة'}]},
+  {id:'shahrour', name:'محمد شحرور', category:'مفكر معاصر', g:'g1', works:[{t:'الكتاب والقرآن', k:'كتاب', u:'https://archive.org/details/1_20191010_20191010_1858'}]},
+  {id:'abu-zayd', name:'نصر حامد أبو زيد', category:'مفكر معاصر', g:'g1', works:[]},
+  {id:'arkoun', name:'محمد أركون', category:'مفكر معاصر', g:'g1', works:[]},
+  {id:'jabri', name:'محمد عابد الجابري', category:'باحث معاصر', g:'g1', works:[]},
+  {id:'fazlur', name:'فضل الرحمن', category:'باحث معاصر', g:'g1', works:[]},
+  {id:'khalafallah', name:'محمد أحمد خلف الله', category:'باحث معاصر', g:'g1', works:[{t:'الفن القصصي في القرآن', k:'كتاب', u:'https://archive.org/details/noor-book.com_20220414'}]},
+  {id:'soroush', name:'عبد الكريم سروش', category:'مفكر معاصر', g:'g1', works:[]},
+  {id:'talbi', name:'محمد الطالبي', category:'مفكر معاصر', g:'g1', works:[]},
+  {id:'ozturk', name:'ياشار نوري أوزتورك', category:'باحث معاصر', g:'g1', works:[]},
   {id:'m-hedayah', name:'الدكتور محمد هداية', category:'باحث / قراءة معاصرة', g:'g1', works:[]},
   {id:'h-sebai', name:'الدكتور حسن السباعي', category:'باحث / قراءة معاصرة', g:'g1', works:[]},
-  {id:'samarraie', name:'فاضل السامرائي', category:'لغوي / بياني', g:'g2', works:[{t:'لمسات بيانية', k:'برنامج'}, {t:'التعبير القرآني', k:'كتاب'}]},
-  {id:'shaarawi', name:'محمد متولي الشعراوي', category:'مفسر', g:'g2', works:[{t:'خواطر الشعراوي', k:'تفسير'}],
+  {id:'samarraie', name:'فاضل السامرائي', category:'لغوي / بياني', g:'g2', works:[{t:'لمسات بيانية', k:'برنامج', u:'https://quranpedia.net/book/1502'}, {t:'التعبير القرآني', k:'كتاب', u:'https://archive.org/details/20211014_20211014_1306'}]},
+  {id:'shaarawi', name:'محمد متولي الشعراوي', category:'مفسر', g:'g2', works:[{t:'خواطر الشعراوي', k:'تفسير', u:'https://archive.org/details/ELshandawily1'}],
     spot82:'<p><b>تفسيره لهذه الآية تحديدًا (من «خواطر الشعراوي»):</b> يبدأ بأن أسلوب «أفلا» توبيخي، يقرّع من يترك التدبر وهو قادر عليه. يميّز بين التدبر والتفكر والتذكر والتعقل والعلم كمراحل متتالية للعقل.</p><p>يبني استدلاله على أن الاختلاف والتناقض في الكلام يصدر عادة ممن يتغيّر رأيه بتغيّر الحال أو التجربة (كما يتناقض شاعر أنكر البعث ثم أثبته)، أما كلام الله فلا يتغيّر علمه، فلا يقع فيه تناقض.</p><p>ثم يردّ مباشرة على دعاوى «اختلافات» رفعها مستشرقون: أيام خلق الأرض (يوسّع الأربعة أيام بضم اليومين الأولين إليها فلا تعارض مع الستة)، وآية «وما رميت إذ رميت» (يفرّق بين فعل الرمي الشكلي المنسوب للنبي ﷺ وأثره الحقيقي المنسوب لله، فلا تناقض بل اختلاف جهة)، واختلاف القراءات مثل «مالك/ملك يوم الدين» (يراها ترادفًا لا تعارضًا). ويستدل أيضًا بأن كفار قريش أنفسهم، رغم فصاحتهم وعداوتهم، لم يتهموا القرآن بالتناقض.</p><span class="tag fact">تفسير مباشر موثّق للآية — «خواطر الشعراوي»، سورة النساء ٨٢</span>'},
   {id:'mahmoud-shakir', name:'محمود شاكر', category:'لغوي / بياني', g:'g2', works:[]},
-  {id:'bint-shati', name:'عائشة عبد الرحمن (بنت الشاطئ)', category:'لغوية / بيانية', g:'g2', works:[{t:'التفسير البياني للقرآن الكريم', k:'كتاب'}]},
-  {id:'khouli', name:'أمين الخولي', category:'لغوي / بياني', g:'g2', works:[{t:'مناهج تجديد', k:'كتاب'}]},
-  {id:'rafii', name:'مصطفى صادق الرافعي', category:'لغوي / بياني', g:'g2', works:[{t:'إعجاز القرآن والبلاغة النبوية', k:'كتاب'}]},
-  {id:'matani', name:'عبد العظيم المطعني', category:'لغوي / بياني', g:'g2', works:[{t:'خصائص التعبير القرآني وسماته البلاغية', k:'كتاب'}, {t:'المجاز في اللغة والقرآن الكريم', k:'كتاب'}]},
-  {id:'hassan', name:'تمام حسان', category:'لغوي / بياني', g:'g2', works:[{t:'اللغة العربية: معناها ومبناها', k:'كتاب'}, {t:'البيان في روائع القرآن', k:'كتاب'}, {t:'خواطر من تأمل لغة القرآن الكريم', k:'كتاب'}]}
+  {id:'bint-shati', name:'عائشة عبد الرحمن (بنت الشاطئ)', category:'لغوية / بيانية', g:'g2', works:[]},
+  {id:'khouli', name:'أمين الخولي', category:'لغوي / بياني', g:'g2', works:[{t:'مناهج تجديد', k:'كتاب', u:'https://archive.org/details/AAlexandrina-087373'}]},
+  {id:'rafii', name:'مصطفى صادق الرافعي', category:'لغوي / بياني', g:'g2', works:[]},
+  {id:'matani', name:'عبد العظيم المطعني', category:'لغوي / بياني', g:'g2', works:[{t:'خصائص التعبير القرآني وسماته البلاغية', k:'كتاب', u:'https://archive.org/details/4306Bok'}]},
+  {id:'hassan', name:'تمام حسان', category:'لغوي / بياني', g:'g2', works:[]}
 ];
 // READINGS: verified verbatim materials only. NEVER invent content.
 // {authorId, surahNumber, verseNumber, title, content, sourceTitle, sourceUrl, sourceType, publicationDate, verified}
@@ -2277,9 +2278,13 @@ function renderScholarDir(f, elId){
     h += list.map(function(p){
       var b = '<details><summary>' + p.name + ' <span class="tag reading">' + p.category + '</span> <span class="tag ' + (p.n ? 'fact' : 'reflect') + '">' + (p.n ? 'توجد مواد موثقة' : 'بانتظار مصدر') + '</span></summary>';
       if(p.works && p.works.length){
-        b += '<p class="hint">أعمال منشورة للبحث فيها:</p><p>' + p.works.map(function(w){ return '<span class="tag study">' + esc(w.t) + ' (' + esc(w.k) + ')</span>'; }).join(' ') + '</p>';
+        b += '<p class="hint">أعمال منشورة — كل عنوان هنا مرتبط بمصدر مفتوح فُحص فعليًا:</p><p>' + p.works.map(function(w){
+          return w.u
+            ? '<a class="tag study" href="' + w.u + '" target="_blank" rel="noopener" style="text-decoration:none">' + esc(w.t) + ' (' + esc(w.k) + ') ↗</a>'
+            : '<span class="tag study">' + esc(w.t) + ' (' + esc(w.k) + ')</span>';
+        }).join(' ') + '</p>';
       } else {
-        b += '<p class="hint">لا قائمة أعمال موثقة بعد.</p>';
+        b += '<p class="hint">لا تُعرض قائمة عناوين بلا مصدر: ما لم يتوفر له رابط مفتوح مفحوص يبقى خارج الفهرس حتى يُوثَّق.</p>';
       }
       if(p.spot82 && CUR.s === 4 && CUR.a === 82) b += p.spot82;
       b += '<p class="hint">المواد المرتبطة به تظهر تلقائيًا في تبويب «المفسرون والمعاصرون» عند توفر مادة موثقة. ' + (p.n ? 'المواد الموثقة: ' + arNum(p.n) : 'لا مواد موثقة بعد.') + '</p>';
@@ -2334,8 +2339,10 @@ function encHasVerseMaterial(s, a){
   return encRefsFor(s, a).length > 0;
 }
 function encVerifiedCount(authorId){
+  // يُحتسب ما يمكن فتحه فعلًا: كتاب متاح للقراءة، أو مادة مرتبطة بآية موثقة.
   var n = 0;
   if(ENCY){
+    ENCY.works.forEach(function(w){ if(w.authorId === authorId && encIsAvailable(w)) n++; });
     ENCY.verseReferences.forEach(function(r){ if(r.authorId === authorId && r.verificationStatus === 'verified') n++; });
   }
   try{
