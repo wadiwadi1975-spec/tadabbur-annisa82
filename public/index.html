@@ -429,7 +429,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
 @keyframes rSpin{to{transform:rotate(360deg);}}
 @media (prefers-reduced-motion:reduce){.state .spin{animation:none;}}
 .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;max-height:320px;overflow:auto;padding:2px;}
-.rchip{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:7px 6px;cursor:pointer;text-align:center;font-family:'Scheherazade New','Amiri',serif;font-size:1.25rem;color:var(--ink);line-height:1.5;}
+.rchip{width:100%;appearance:none;-webkit-appearance:none;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:7px 6px;cursor:pointer;text-align:center;font-family:'Scheherazade New','Amiri',serif;font-size:1.25rem;color:var(--ink);line-height:1.5;}
 .rchip:hover{border-color:var(--gold);color:var(--gold);}
 .rchip small{display:block;font-size:.68rem;color:var(--muted);font-family:'Cairo','Tajawal',sans-serif;letter-spacing:0;}
 .roothd{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;border-bottom:1px dashed var(--line);padding-bottom:12px;margin-bottom:12px;}
@@ -443,6 +443,8 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
 .occrow .chip{font-size:.78rem;padding:5px 12px;}
 .lemrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:7px 2px;}
 .lemrow:last-child{border-bottom:none;}
+.lemrow.act{background:rgba(216,188,122,.12);border-radius:10px;padding-left:10px;padding-right:10px;}
+.lemrow.act b.rword{color:var(--gold);}
 .cmpbox{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;}
 .cmpbox .cc{text-align:center;}
 .cmpbox .cc b{display:block;color:var(--gold);font-size:1.2rem;}
@@ -4121,8 +4123,8 @@ function renderRootList(){
     var list = RIDX.list.filter(function(x){ return !q || nrmRootKey(x.a).indexOf(q) >= 0 || x.c.toLowerCase().indexOf(q.toLowerCase()) >= 0; });
     var vis = (RLISTALL || q) ? list : list.slice(0, 120);
     box.innerHTML = vis.map(function(x){
-      return '<div class="rchip" onclick="rootJump(&quot;' + esc(x.c) + '&quot;)">' + esc(x.a) +
-        '<small>' + arNum(x.t) + ' موضعًا · ' + esc(x.c) + '</small></div>';
+      return '<button type="button" class="rchip" onclick="rootJump(&quot;' + esc(x.c) + '&quot;)">' + esc(x.a) +
+        '<small>' + arNum(x.t) + ' موضعًا · ' + esc(x.c) + '</small></button>';
     }).join('') || '<p class="hint">لا جذور مطابقة لهذا الرسم في الفهرس.</p>';
     var more = document.getElementById('rootListMore');
     if(more) more.style.display = (!q && list.length > 120 && !RLISTALL) ? 'block' : 'none';
@@ -4194,15 +4196,64 @@ function rootFormFilter(i){
   RF.lem = (RF.lem === RCURFORMS[i].l) ? '' : RCURFORMS[i].l;
   RPAGE = 40;
   renderRootOccs();
+  scrollRootOccs();
 }
-function rootFilterSet(k, v){ RF[k] = (k === 's') ? parseInt(v, 10) : v; RPAGE = 40; renderRootOccs(); }
+function rootFilterSet(k, v){ RF[k] = (k === 's') ? parseInt(v, 10) : v; RPAGE = 40; renderRootOccs(); scrollRootOccs(); }
 function rootMore(){ RPAGE += 40; renderRootOccs(); }
+/* مزيلات التصفية الظاهرة فوق القائمة */
+function activeFilterChips(){
+  var out = [];
+  if(RF.s){
+    var su = ((QDATA && QDATA.surahs[RF.s - 1]) || {});
+    out.push('<button type="button" class="chip on" onclick="rootClearFilters(\'s\')">السورة: ' + esc(su.name || RF.s) + ' ✕</button>');
+  }
+  if(RF.pos) out.push('<button type="button" class="chip on" onclick="rootClearFilters(\'pos\')">الصورة الصرفية: ' + esc(POSAR[RF.pos] || RF.pos) + ' ✕</button>');
+  if(RF.lem){
+    var fo = RCURFORMS.filter(function(x){ return x.l === RF.lem; })[0] || {};
+    out.push('<button type="button" class="chip on" onclick="rootClearFilters(\'lem\')">الصيغة: ' + esc(fo.a || fo.l || RF.lem) + ' ✕</button>');
+  }
+  return out.join('');
+}
+function rootClearFilters(k){
+  if(k === 's' || !k){ RF.s = 0; var a = document.querySelector('#rootResult .rfilter select'); if(a) a.value = '0'; }
+  if(k === 'pos' || !k){ RF.pos = ''; var b = document.querySelectorAll('#rootResult .rfilter select')[1]; if(b) b.value = ''; }
+  if(k === 'lem' || !k) RF.lem = '';
+  RPAGE = 40;
+  renderRootOccs();
+}
+/* مزامنة حالة أزرار «عرض المواضع» مع التصفية الحالية */
+function syncLemButtons(){
+  var list = document.getElementById('rootLemList');
+  if(!list) return;
+  var btns = list.querySelectorAll('button[data-i]');
+  Array.prototype.forEach.call(btns, function(b){
+    var i = parseInt(b.getAttribute('data-i'), 10), fo = RCURFORMS[i];
+    if(!fo) return;
+    var on = (RF.lem === fo.l);
+    b.className = 'chip' + (on ? ' on' : '');
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.textContent = on ? 'إلغاء التصفية' : 'عرض المواضع';
+    var row = b.parentNode;
+    while(row && row !== list && (!row.className || row.className.indexOf('lemrow') < 0)) row = row.parentNode;
+    if(row && row !== list) row.className = 'lemrow' + (on ? ' act' : '');
+  });
+}
+function scrollRootOccs(){
+  try{
+    var el = document.getElementById('rootOccs');
+    if(!el || !el.scrollIntoView) return;
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(function(){ try{ window.scrollBy(0, -70); }catch(e){} }, 320);
+  }catch(e){}
+}
 function rootLemRow(fo, i){
-  return '<div class="lemrow"><div><b class="rword" style="font-size:1.1rem">' + esc(fo.a || fo.l) + '</b> ' +
+  var on = (RF.lem === fo.l);
+  return '<div class="lemrow' + (on ? ' act' : '') + '"><div><b class="rword" style="font-size:1.1rem">' + esc(fo.a || fo.l) + '</b> ' +
     '<span class="badge">' + esc(POSAR[fo.t] || fo.t) + '</span> <span class="hint">' + esc(featAr(fo.f)) + '</span> ' +
     '<span class="mono">' + esc(fo.l) + '</span></div>' +
     '<div><b style="color:var(--gold)">' + arNum(fo.o.length) + '</b> <span class="hint">موضعًا</span> ' +
-    '<button class="chip" onclick="rootFormFilter(' + i + ')">' + (RF.lem === fo.l ? 'إلغاء التصفية' : 'اعرض المواضع') + '</button></div></div>';
+    '<button type="button" data-i="' + i + '" aria-pressed="' + (on ? 'true' : 'false') + '" class="chip' + (on ? ' on' : '') + '" onclick="rootFormFilter(' + i + ')">' +
+    (on ? 'إلغاء التصفية' : 'عرض المواضع') + '</button></div></div>';
 }
 function renderRoot(code){
   var box = document.getElementById('rootResult');
@@ -4242,7 +4293,7 @@ function renderRoot(code){
     posList.map(function(p){ return '<option value="' + esc(p) + '">' + esc(POSAR[p] || p) + ' (' + arNum(posc[p]) + ')</option>'; }).join('') + '</select>' +
     '</div>';
   h += '<div class="group-label">الصيغ المشتقّة من هذا الجذر (' + arNum(forms.length) + ')</div>' +
-    '<div>' + forms.map(function(fo, i){ return rootLemRow(fo, i); }).join('') + '</div>';
+    '<div id="rootLemList">' + forms.map(function(fo, i){ return rootLemRow(fo, i); }).join('') + '</div>';
   h += '<div class="group-label">المواضع في المصحف</div><div id="rootOccs"></div>';
   box.innerHTML = h;
   renderRootOccs();
@@ -4256,14 +4307,17 @@ function occWord(o){
 function renderRootOccs(){
   var box = document.getElementById('rootOccs');
   if(!box || !RCUR) return;
+  syncLemButtons();
+  var chips = activeFilterChips();
   var f = RCURALL.filter(function(o){
     return (!RF.s || o.s === RF.s) && (!RF.pos || o.pos === RF.pos) && (!RF.lem || o.lem === RF.lem);
   });
-  if(!f.length){ box.innerHTML = '<p class="hint">لا موضعًا بهذه التصفية.</p>'; return; }
+  if(!f.length){ box.innerHTML = (chips ? '<div class="chips">' + chips + '</div>' : '') + '<p class="hint">لا موضعًا بهذه التصفية.</p>'; return; }
   var vis = f.slice(0, RPAGE);
   var sum = '';
   if(RF.s || RF.pos || RF.lem) sum = ' (مُصفّاة: ' + [RF.s ? 'سورة ' + (((QDATA && QDATA.surahs[RF.s - 1]) || {}).name || RF.s) : '', RF.pos ? (POSAR[RF.pos] || RF.pos) : '', RF.lem ? (RCURFORMS.filter(function(x){ return x.l === RF.lem; })[0] || {}).a : ''].filter(Boolean).join(' · ') + ')';
-  var h = '<p class="hint">' + arNum(f.length) + ' موضعًا' + sum + ' — تُعرض أول ' + arNum(vis.length) + '.</p>';
+  var h = (chips ? '<div class="chips">' + chips + '</div>' : '') +
+    '<p class="hint">' + arNum(f.length) + ' موضعًا' + sum + ' — تُعرض أول ' + arNum(vis.length) + '.</p>';
   h += '<div class="occlist">' + vis.map(function(o){
     var su = (QDATA && QDATA.surahs[o.s - 1]) || {};
     return '<div class="occrow"><div class="occh"><b>سورة ' + esc(su.name || o.s) + '</b> ﴿' + arNum(o.a) + '﴾' +
