@@ -11,6 +11,7 @@
 | `verify.js` | فحوصات مستقلة: إعادة العد من المصدر، حدود الآيات، مطابقة النص، إحصاء النص، عيّنات بحث. |
 | `checkjs.js` | يفحص صياغة أكواد JavaScript داخل `public/index.html` دون تشغيلها. |
 | `serve.js` | خادم محلي بسيط للاختبار على `http://localhost:8787` (غير مطلوب للنشر). |
+| `gen-logo.ps1` | يولّد أصول الشعار والأيقونات من `assets/logo-medallion-source.png` (يشغَّل عند تغيير الشعار فقط). |
 
 ## أوامر
 
@@ -19,7 +20,15 @@ node tools/build-roots.js     # إعادة بناء قاعدة الجذور
 node tools/verify.js          # التحقق (يجب أن يخرج بكل الفحوصات ناجحة)
 node tools/checkjs.js         # فحص صياغة الكود
 node tools/serve.js           # تشغيل محلي للاختبار
+powershell -ExecutionPolicy Bypass -File tools/gen-logo.ps1   # إعادة توليد الشعار والأيقونات
 ```
+
+## الشعار والأيقونات
+
+- المصدر الأصلي: `assets/logo-medallion-source.png` (مربّع 1254×1254) — **لا يُنشَر**، ويُحفظ لإعادة التوليد.
+- `public/img/logo.png` — 340×340 بشفافية مشتقّة من الإضاءة، حتى يمتزج مع أي خلفية داكنة داخل القائمة الجانبية.
+- `public/icon-192.png` و`public/icon-512.png` و`public/apple-touch-icon.png` — بخلفية سوداء معتمة `rgb(10,9,6)` مطابقة لخلفية الشعار.
+- `public/icon-maskable-512.png` — الأيقونة مصغّرة داخل المنطقة الآمنة (70%) حتى لا يقصّها القناع الدائري، ومُعلَن عنها في `manifest.json` بـ `purpose: maskable`.
 
 ## المصادر والترخيص
 

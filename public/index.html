@@ -300,6 +300,40 @@ nav .links>a.on{color:#E7C88B;border-bottom:2px solid #C9A45C;}
 .sidenav a:hover{background:rgba(201,164,92,.10);color:#E7C88B;}
 .sidenav a.on{background:rgba(201,164,92,.17);color:#E7C88B;border-right-color:#C9A45C;}
 .sidenav .sn-note{margin-top:auto;text-align:center;color:#7E7666;font-size:.68rem;letter-spacing:1px;padding:10px 8px;}
+/* ===== زر القائمة والقائمة الجانبية المنزلقة (الموبايل والأجهزة اللوحية) ===== */
+.navbtn{display:none;}
+@media(max-width:1360px){.links{display:none;}.navbtn{display:inline-grid;}}
+.drawer-bd{position:fixed;inset:0;z-index:110;background:rgba(2,7,5,.74);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s;}
+.drawer-bd.open{opacity:1;visibility:visible;transition:opacity .3s ease;}
+.drawer{position:fixed;top:0;bottom:0;right:0;width:min(86vw,336px);z-index:120;direction:rtl;display:flex;flex-direction:column;background:linear-gradient(180deg,#0B0A07 0%,#081A16 46%,#040D0A 100%);border-left:1px solid rgba(201,164,92,.38);box-shadow:-20px 0 54px rgba(0,0,0,.62);visibility:hidden;transform:translateX(101%);transition:transform .34s cubic-bezier(.22,.61,.36,1),visibility 0s linear .34s;outline:none;}
+.drawer.open{visibility:visible;transform:translateX(0);transition:transform .34s cubic-bezier(.22,.61,.36,1);}
+.drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 52% at 100% 0%, rgba(216,188,122,.15), transparent 64%);}
+.drawer-top{position:relative;flex:none;padding:14px 14px 11px;text-align:center;border-bottom:1px solid rgba(201,164,92,.26);background:linear-gradient(180deg,rgba(216,188,122,.10),rgba(216,188,122,0));}
+.drawer-logo{display:block;width:min(52vw,176px);height:auto;margin:0 auto;}
+.drawer-slogan{display:block;margin-top:3px;color:#E7C88B;font-family:'Aref Ruqaa','Amiri',serif;font-size:1.06rem;letter-spacing:.4px;}
+.drawer-x{position:absolute;top:10px;left:10px;width:36px;height:36px;padding:0;border-radius:50%;background:rgba(201,164,92,.10);border:1px solid rgba(201,164,92,.45);color:#E7C88B;display:inline-grid;place-items:center;cursor:pointer;transition:.2s;}
+.drawer-x:hover{background:rgba(201,164,92,.24);}
+.drawer-x svg{width:16px;height:16px;}
+.drawer-nav{position:relative;flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:10px 10px 14px;}
+.dlist,.dlist ul{list-style:none;margin:0;padding:0;}
+.drow{display:flex;align-items:center;gap:11px;width:100%;min-height:52px;padding:10px 12px;margin:3px 0;border:1px solid transparent;border-radius:13px;background:none;color:#D7CEBA;text-align:start;font-family:inherit;font-size:.93rem;line-height:1.55;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,color .2s;}
+.drow:hover,.drow:focus-visible{background:rgba(201,164,92,.11);border-color:rgba(201,164,92,.34);color:#F3E9CE;}
+.drow.on{background:rgba(201,164,92,.17);border-color:rgba(201,164,92,.5);color:#F5E7C0;border-inline-start:3px solid #C9A45C;padding-inline-start:9px;}
+.dic{flex:0 0 34px;width:34px;height:34px;display:inline-grid;place-items:center;border-radius:11px;background:rgba(201,164,92,.10);border:1px solid rgba(201,164,92,.26);color:#C9A45C;}
+.dic svg{width:18px;height:18px;}
+.dl{flex:1 1 auto;min-width:0;}
+.dchev{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;color:#8E8570;opacity:.75;transition:transform .25s ease,opacity .25s,color .25s;}
+.dchev svg{width:15px;height:15px;}
+.drow[aria-expanded="true"] .dchev{transform:rotate(-90deg);opacity:1;color:#E7C88B;}
+.dgrp{padding:12px 14px 4px;color:#8E8570;font-size:.72rem;letter-spacing:2px;text-align:center;}
+.dgrp::after{content:'';display:block;height:1px;margin-top:6px;background:linear-gradient(to left,rgba(201,164,92,.38),transparent);}
+.dsub{margin:2px 4px 8px 4px;padding-inline-start:6px;border-inline-start:1px solid rgba(201,164,92,.32);max-height:0;overflow:hidden;visibility:hidden;transition:max-height .3s ease,visibility 0s linear .3s;}
+.dsub.open{max-height:600px;visibility:visible;transition:max-height .3s ease;}
+.dsub a{display:flex;align-items:center;gap:9px;min-height:46px;padding:9px 13px;border-radius:11px;color:#BCB29C;text-decoration:none;font-size:.86rem;transition:background .18s,color .18s;}
+.dsub a::before{content:'';flex:0 0 5px;width:5px;height:5px;border-radius:50%;background:#C9A45C;opacity:.7;}
+.dsub a:hover,.dsub a:focus-visible{background:rgba(201,164,92,.12);color:#EBD5A2;}
+.dfoot{flex:none;padding:11px 12px;text-align:center;color:#7E7666;font-size:.7rem;letter-spacing:2px;border-top:1px solid rgba(201,164,92,.24);background:rgba(0,0,0,.30);}
+@media (prefers-reduced-motion:reduce){.drawer,.drawer.open,.drawer-bd,.drawer-bd.open,.dsub,.dsub.open{transition:none;}}
 /* الواجهة الرئيسة (شريط سينمائي) */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
   background:linear-gradient(175deg,rgba(6,19,16,.90) 0%,rgba(8,26,22,.72) 46%,rgba(16,37,31,.82) 100%),url("img/hero.jpg") center 32%/cover no-repeat;
@@ -493,8 +527,110 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
     <button class="iconbtn" onclick="goSec('savedSec')" title="المحفوظات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3.5h12v17l-6-4.6-6 4.6z"/></svg></button>
     <button class="iconbtn" onclick="cycleFont()" title="حجم الخط"><svg viewBox="0 0 24 24" fill="none"><text x="12" y="17.5" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor" font-family="Cairo,Tajawal,sans-serif">أ</text></svg></button>
     <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" title="المظهر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg></button>
+    <button class="iconbtn navbtn" id="drawerBtn" type="button" aria-label="فتح قائمة الأقسام" aria-expanded="false" aria-controls="drawer" onclick="drawerOpen()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </div></nav>
+
+<div class="drawer-bd" id="drawerBd" onclick="drawerClose()" aria-hidden="true"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="قائمة أقسام الموقع">
+  <div class="drawer-top">
+    <img class="drawer-logo" src="img/logo.png" width="340" height="340" alt="القرآن الكريم — شعار ذهبي مزخرف" decoding="async">
+    <span class="drawer-slogan">أفلا يتدبرون</span>
+    <button class="drawer-x" id="drawerCloseBtn" type="button" aria-label="إغلاق القائمة" onclick="drawerClose()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav class="drawer-nav" aria-label="أقسام الموقع">
+    <ul class="dlist">
+
+      <li class="ditem"><a class="drow" href="#home" data-dhref="#home"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.5 10.2V19.5h11v-9.3"/><path d="M10 19.5v-5h4v5"/></svg></span><span class="dl">الرئيسية</span></a></li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#quran-sec" aria-expanded="false" aria-controls="dsub-quran" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg></span><span class="dl">المصحف الشريف</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-quran">
+          <li><a href="#quran-sec">جميع السور والبحث فيها</a></li>
+          <li><a href="#quran-sec" onclick="drawerGo('savedSec',event)">المحفوظات</a></li>
+          <li><a href="#listenSec">الاستماع والتلاوة</a></li>
+          <li class="dgrp">سور سريعة</li>
+          <li><a href="#quran-sec" onclick="openSurahLink(1)">الفاتحة</a></li>
+          <li><a href="#quran-sec" onclick="openSurahLink(2)">البقرة</a></li>
+          <li><a href="#quran-sec" onclick="openSurahLink(18)">الكهف</a></li>
+          <li><a href="#quran-sec" onclick="openSurahLink(19)">مريم</a></li>
+          <li><a href="#quran-sec" onclick="openSurahLink(4)">النساء</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#study" aria-expanded="false" aria-controls="dsub-tadabbur" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span class="dl">التدبر</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-tadabbur">
+          <li><a href="#study" onclick="gotoStudy('tadabbur',event)">رحلة تدبر الآية</a></li>
+          <li><a href="#notebookSec">دفتر التدبر</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#study" aria-expanded="false" aria-controls="dsub-tafsir" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 6c2.5-1.2 5.5-1.2 8 .4v12c-2.5-1.6-5.5-1.6-8-.4z"/><circle cx="16.5" cy="15.5" r="4"/><path d="M19.5 18.5L22 21"/></svg></span><span class="dl">التفسير</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-tafsir">
+          <li><a href="#study" onclick="gotoStudy('tafsir',event)">تفسير الآية</a></li>
+          <li><a href="#encSec">التفاسير والقراءات المعتمدة</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#study" aria-expanded="false" aria-controls="dsub-lang" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6.6c3-1.3 6-1.3 9 .3 3-1.6 6-1.6 9-.3v11c-3-1.3-6-1.3-9 .3-3-1.6-6-1.6-9-.3z"/><path d="M12 7v11"/></svg></span><span class="dl">اللغة والبلاغة</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-lang">
+          <li><a href="#study" onclick="gotoStudy('words',event)">معاني الكلمات والجذور</a></li>
+          <li><a href="#encSec" onclick="openGharib()">غريب القرآن</a></li>
+          <li><a href="#search">البحث في الكلمات والآيات</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#study" aria-expanded="false" aria-controls="dsub-links" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="6" cy="6.4" r="2.6"/><circle cx="6" cy="17.6" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M6 9v6M8.4 7.4l7.1 3.3M8.4 16.6l7.1-3.3"/></svg></span><span class="dl">الربط بين الآيات والسور</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-links">
+          <li><a href="#study" onclick="gotoStudy('links',event)">الروابط بين الآيات</a></li>
+          <li><a href="#study" onclick="gotoStudy('context',event)">السياق القرآني</a></li>
+          <li><a href="#compareSec">علوم مقارنة السور</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#rootsSec" aria-expanded="false" aria-controls="dsub-roots" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="4.6" r="2.2"/><circle cx="5.8" cy="18.4" r="2.2"/><circle cx="18.2" cy="18.4" r="2.2"/><path d="M12 6.8v4.4M12 11.2 6.6 16.4M12 11.2l5.4 5.2"/></svg></span><span class="dl">إحصاء الجذور</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-roots">
+          <li><a href="#rootsSec" onclick="drawerNav('rootsSec','rootsSearchBox',event)">ابحث عن جذر</a></li>
+          <li><a href="#rootsSec" onclick="drawerNav('rootsSec','rootsBrowseBox',event)">تصفّح الجذور</a></li>
+          <li><a href="#rootsSec" onclick="drawerNav('rootsSec','rootSrc',event)">المصادر والمنهجية</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#statSec" aria-expanded="false" aria-controls="dsub-stat" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="dl">إحصاء القرآن</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-stat">
+          <li><a href="#statSec" onclick="drawerNav('statSec','statSearchBox',event)">بحث كلمة أو عبارة</a></li>
+          <li><a href="#statSec" onclick="drawerNav('statSec','statCompareBox',event)">مقارنة بين عبارتين</a></li>
+          <li><a href="#statSec" onclick="drawerNav('statSec','statSurahBox',event)">إحصاء السور</a></li>
+          <li><a href="#statSec" onclick="drawerNav('statSec','statMethodBox',event)">منهجية العد</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem"><a class="drow" href="#study" data-dhref="#study" onclick="gotoStudy('grammar',event)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5c-2 2.4-2 11.6 0 14M16 5c2 2.4 2 11.6 0 14M10.5 12h3"/></svg></span><span class="dl">إعراب القرآن</span></a></li>
+
+      <li class="ditem"><a class="drow" href="#study" data-dhref="#study" onclick="gotoStudy('hadith',event)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5z"/><path d="M9 8h6M9 12h6M9 16h3.5"/></svg></span><span class="dl">أسباب النزول والحديث</span></a></li>
+
+      <li class="ditem">
+        <button class="drow" type="button" data-dhref="#study" aria-expanded="false" aria-controls="dsub-mind" onclick="drawerToggle(this)"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 6.4a3.2 3.2 0 0 0-6 1.4A3 3 0 0 0 4.2 14a3 3 0 0 0 4.3 2.7A3 3 0 0 0 12 18z"/><path d="M12 6.4a3.2 3.2 0 0 1 6 1.4A3 3 0 0 1 19.8 14a3 3 0 0 1-4.3 2.7A3 3 0 0 1 12 18z"/><path d="M12 6.4V18"/></svg></span><span class="dl">العقل وماذا قال الآخرون</span><span class="dchev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></span></button>
+        <ul class="dsub" id="dsub-mind">
+          <li><a href="#study" onclick="gotoStudy('mind',event)">العقل</a></li>
+          <li><a href="#study" onclick="gotoStudy('horizons',event)">الآفاق</a></li>
+          <li><a href="#study" onclick="gotoStudy('others',event)">ماذا قال الآخرون</a></li>
+        </ul>
+      </li>
+
+      <li class="ditem"><a class="drow" href="#/about" data-dhref="#/about"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3.5 4.5h6v15h-6z"/><path d="M11 4.5h6v15h-6z"/><path d="M3.5 9h6M11 9h6"/><path d="M19.6 5.4l1.8 13.2"/></svg></span><span class="dl">المكتبة والمصادر</span></a></li>
+
+    </ul>
+  </nav>
+  <div class="dfoot">— ✦ —</div>
+</aside>
+
 <aside class="sidenav">
   <div class="sn-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M12 2.5L21.5 12 12 21.5 2.5 12z"/></svg></div>
   <a href="#quran-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg><span>القرآن</span></a>
@@ -717,7 +853,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
       <div class="stgrid" id="statCards"></div>
       <p class="hint" style="text-align:center;margin:-4px 0 16px">الكلمة = كل مقطع تضمّ حرفًا عربيًا واحدًا على الأقل؛ والحروف معدودة دون التشكيل.</p>
 
-      <div class="qbox">
+      <div class="qbox" id="statSearchBox">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>بحث كلمة أو عبارة</h3>
         <div class="searchrow"><input id="statQ" placeholder="مثال: الصبر · يوم القيامة" onkeydown="if(event.key==='Enter')statSearchRun()"><button class="btn" style="padding:10px 22px;" onclick="statSearchRun()">بحث</button></div>
         <div class="chips" id="statChips"></div>
@@ -725,13 +861,13 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
         <div id="statRes"></div>
       </div>
 
-      <div class="qbox">
+      <div class="qbox" id="statCompareBox">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="1.5"/><rect x="13" y="5" width="8" height="14" rx="1.5"/><path d="M11 12h2"/></svg>مقارنة بين عبارتين</h3>
         <div class="searchrow"><input id="cmpA" placeholder="العبارة الأولى (مثال: الصبر)"><input id="cmpB" placeholder="العبارة الثانية (مثال: الطمأنينة)"><button class="btn" style="padding:10px 22px;" onclick="statCompare()">قارن</button></div>
         <div id="cmpRes"><p class="hint">اكتب عبارتين لتقارن عدد المرات وعدد الآيات في النص نفسه وبالمنهجية نفسها للطرفين.</p></div>
       </div>
 
-      <div class="qbox">
+      <div class="qbox" id="statSurahBox">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>إحصاء السور</h3>
         <div class="searchrow" style="max-width:420px"><input id="stSurahQ" placeholder="ابحث عن سورة..." oninput="renderStatSurahs()"></div>
         <div class="tablewrap"><table class="sttable"><thead><tr>
@@ -745,7 +881,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
         <div id="statRoots"><p class="hint">جارٍ التحميل…</p></div>
       </div>
 
-      <div class="qbox">
+      <div class="qbox" id="statMethodBox">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg>منهجية العد</h3>
         <ul class="hint" style="padding-inline-start:18px;line-height:2.1;margin:0">
           <li><b>النص المعتمد</b>: النص القرآني الموجود في هذا الموقع (Tanzil — رسم عثماني). كل الأرقام تُحسب منه عند فتح الصفحة، ولا شيء منها مكتوب مسبقًا.</li>
@@ -766,7 +902,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
     <h2 class="sec-t">إحصاء الجذور</h2>
     <p class="sub">جذور مأخوذة من تحليل صرفي موثّق (Quranic Arabic Corpus) — لا جذر يُستنتج من تشابه الحروف، ولا عدد يُعرض قبل التحقق، وكل موضع يفتح في آيته الصحيحة.</p>
     <div class="orn">— ✦ —</div>
-    <div class="qbox">
+    <div class="qbox" id="rootsSearchBox">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>ابحث عن جذر</h3>
       <div class="searchrow"><input id="rootQ" placeholder="مثال: ع ل م · علم · Elm" onkeydown="if(event.key==='Enter')rootSearchRun()"><button class="btn" style="padding:10px 22px;" onclick="rootSearchRun()">ابحث</button></div>
       <div id="rootState"></div>
@@ -774,7 +910,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
       <div id="rootResult"></div>
       <p class="hint">يقبل البحث: حروف الجذر بترتيبها (مع أو بدون مسافات)، أو الرمز اللاتيني المستخدم في المصدر (مثل <span class="mono">qwl</span> و <span class="mono">Elm</span>)، أو كلمة من المصحف فتُعرض الجذور الموثّقة لها (مثل «يقول» ← ق و ل). ويُجرَّب تلقائيًا حذف ألف التعريف («الله» ← «له») لأن أصل الجذر لا يدخل فيه.</p>
     </div>
-    <div class="qbox">
+    <div class="qbox" id="rootsBrowseBox">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>تصفّح الجذور</h3>
       <div class="searchrow" style="max-width:420px"><input id="rootListQ" placeholder="اكتب حروفًا لتصفّح الجذور..." oninput="renderRootList()"></div>
       <div class="rgrid" id="rootList"><p class="hint">جارٍ تحميل الفهرس…</p></div>
@@ -4422,8 +4558,180 @@ function syncNavActive(){
       var son = !!(want && sn[sj].getAttribute && sn[sj].getAttribute('href') === want);
       if(son){ sn[sj].classList.add('on'); } else { sn[sj].classList.remove('on'); }
     }
+    drawerSyncActive(want);
   }catch(e){}
 }
+/* ===== القائمة الجانبية المنزلقة (الموبايل) ===== */
+var DRAWER_OPEN = false, DRAWER_FOCUS = null;
+function drawerWant(){
+  var want = null;
+  if(CUR_VIEW === 'home') want = '#home';
+  else if(CUR_VIEW === 'about') want = '#/about';
+  else if(CUR_VIEW === 'listen') want = '#listenSec';
+  else if(CUR_VIEW === 'notebook') want = '#notebookSec';
+  else if(CUR_VIEW === 'enc') want = '#encSec';
+  else if(CUR_VIEW === 'compare') want = '#compareSec';
+  else if(CUR_VIEW === 'stat') want = '#statSec';
+  else if(CUR_VIEW === 'roots') want = '#rootsSec';
+  else if(CUR_VIEW === 'search') want = '#search';
+  else if(CUR_VIEW === 'quran') want = '#quran-sec';
+  return want;
+}
+function drawerSyncActive(want){
+  try{
+    var d = document.getElementById('drawer');
+    if(!d) return;
+    if(want === undefined || want === null) want = drawerWant();
+    var items = d.querySelectorAll('.drow, .dsub a');
+    var i, el, hit = null;
+    for(i = 0; i < items.length; i++){
+      el = items[i];
+      var t = el.getAttribute('data-dhref') || el.getAttribute('href') || '';
+      if(want && t === want){ hit = el; break; }
+    }
+    for(i = 0; i < items.length; i++){ items[i].classList.remove('on'); items[i].removeAttribute('aria-current'); }
+    if(!hit) return;
+    hit.classList.add('on');
+    hit.setAttribute('aria-current', 'true');
+    var btn = null;
+    if(hit.classList.contains('drow')){ if(hit.getAttribute('aria-expanded') !== null) btn = hit; }
+    else if(hit.closest){ var host = hit.closest('.ditem'); if(host) btn = host.querySelector('.drow[aria-expanded]'); }
+    if(btn) drawerSetSub(btn, true);
+  }catch(e){}
+}
+function drawerSetSub(btn, open){
+  try{
+    if(!btn) return;
+    var id = btn.getAttribute('aria-controls');
+    var ul = id ? document.getElementById(id) : null;
+    if(!ul) return;
+    if(open){ ul.classList.add('open'); } else { ul.classList.remove('open'); }
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }catch(e){}
+}
+function drawerToggle(btn){
+  try{
+    if(!btn) return;
+    var id = btn.getAttribute('aria-controls');
+    var ul = id ? document.getElementById(id) : null;
+    if(!ul) return;
+    drawerSetSub(btn, !ul.classList.contains('open'));
+  }catch(e){}
+}
+function drawerOpen(){
+  try{
+    var d = document.getElementById('drawer'), bd = document.getElementById('drawerBd'), b = document.getElementById('drawerBtn');
+    if(!d || DRAWER_OPEN) return;
+    DRAWER_FOCUS = document.activeElement;
+    DRAWER_OPEN = true;
+    var pad = 0, sbw = 0;
+    try{
+      pad = parseInt(window.getComputedStyle(document.body).paddingRight, 10) || 0;
+      sbw = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+    }catch(e1){}
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    if(sbw > 0) document.body.style.paddingRight = (pad + sbw) + 'px';
+    d.classList.add('open');
+    if(bd) bd.classList.add('open');
+    if(b){ b.setAttribute('aria-expanded', 'true'); b.setAttribute('aria-label', 'إغلاق قائمة الأقسام'); }
+    drawerSyncActive();
+    /* إن كان القسم الحالي خارج مجال العرض داخل القائمة، مرّر إليه */
+    try{
+      var on = d.querySelector('.drow.on'), nav = d.querySelector('.drawer-nav');
+      if(on && nav){
+        var nr = nav.getBoundingClientRect(), rr = on.getBoundingClientRect();
+        if(rr.top < nr.top + 4 || rr.bottom > nr.bottom - 4){
+          nav.scrollTop = nav.scrollTop + (rr.top - nr.top) - 14;
+        }
+      }
+    }catch(e0){}
+    /* التركيز ينتقل إلى زر الإغلاق فورًا ما إن تصبح القائمة ظاهرة */
+    var x = document.getElementById('drawerCloseBtn');
+    if(x){
+      var fn = 0;
+      var focusIn = function(){
+        if(!DRAWER_OPEN) return;
+        var vis = 'visible';
+        try{ vis = window.getComputedStyle(x).visibility; }catch(e1){}
+        if(vis === 'visible'){ try{ x.focus(); }catch(e2){} return; }
+        if(fn++ < 40) setTimeout(focusIn, 25);
+      };
+      setTimeout(focusIn, 20);
+    }
+  }catch(e){}
+}
+function drawerClose(){
+  if(!DRAWER_OPEN) return;
+  DRAWER_OPEN = false;
+  try{
+    var d = document.getElementById('drawer'), bd = document.getElementById('drawerBd'), b = document.getElementById('drawerBtn');
+    if(d) d.classList.remove('open');
+    if(bd) bd.classList.remove('open');
+    if(b){ b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', 'فتح قائمة الأقسام'); }
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }catch(e){}
+  try{ if(DRAWER_FOCUS && DRAWER_FOCUS.focus) DRAWER_FOCUS.focus(); }catch(e2){}
+}
+/* تنقّل داخلي يفتح قسمًا ثم يمرّر إلى عنصر بداخله (دون تغيير القائمة) */
+function drawerGo(id, ev){
+  if(ev && ev.preventDefault){ try{ ev.preventDefault(); }catch(e){} }
+  try{ goSec(id); }catch(e){}
+}
+function drawerNav(sec, anchor, ev){
+  if(ev && ev.preventDefault){ try{ ev.preventDefault(); }catch(e){} }
+  try{
+    var el = document.getElementById(anchor || sec) || document.getElementById(sec);
+    if(!el) { goSec(sec); return; }
+    var prev = CUR_VIEW;
+    var v = viewName(el) || 'home';
+    showView(v);
+    var h = currentRoute();
+    if(!(h && h.indexOf('#/') === 0)){ try{ history.replaceState(null, '', '#' + sec); }catch(e1){} }
+    syncNavActive();
+    if(prev !== v){ try{ scrollToTopNow(); }catch(e2){} }
+    var to = anchor || sec;
+    setTimeout(function(){ try{ scrollToId(to); }catch(e){} }, prev !== v ? 70 : 40);
+  }catch(e){ try{ goSec(anchor || sec); }catch(e2){} }
+}
+/* إغلاق القائمة بعد اختيار قسم فيها */
+document.addEventListener('click', function(e){
+  if(!DRAWER_OPEN) return;
+  try{
+    var t = e.target;
+    if(!t || !t.closest) return;
+    var a = t.closest('a[href]');
+    if(a && a.closest('#drawer')) drawerClose();
+  }catch(err){}
+});
+/* دعم لوحة المفاتيح: Esc للإغلاق وحصر التنقّل داخل القائمة */
+document.addEventListener('keydown', function(e){
+  if(!DRAWER_OPEN) return;
+  var k = e.key;
+  if(k === 'Escape' || e.keyCode === 27){ try{ e.preventDefault(); }catch(err){} drawerClose(); return; }
+  if(k === 'Tab' || e.keyCode === 9){
+    var d = document.getElementById('drawer');
+    if(!d) return;
+    var f = d.querySelectorAll('a[href],button');
+    var vis = [];
+    for(var i = 0; i < f.length; i++){
+      var el = f[i];
+      if(!el.offsetParent && el !== document.activeElement) continue;
+      var sub = el.closest ? el.closest('.dsub') : null;
+      if(sub && !sub.classList.contains('open')) continue;
+      vis.push(el);
+    }
+    if(!vis.length) return;
+    var first = vis[0], last = vis[vis.length - 1];
+    if(e.shiftKey && document.activeElement === first){ try{ e.preventDefault(); }catch(err){} last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ try{ e.preventDefault(); }catch(err){} first.focus(); }
+  }
+});
+window.addEventListener('resize', function(){
+  if(DRAWER_OPEN && window.innerWidth > 1360) drawerClose();
+});
 function openNav(id){
   var el = document.getElementById(id);
   if(!el) return false;
