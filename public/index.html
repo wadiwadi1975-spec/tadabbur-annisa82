@@ -113,6 +113,11 @@ button.primary{background:var(--gold);color:#141310;border:none;padding:9px 18px
 .qbox h3{margin:0 0 10px;color:var(--gold);}
 .searchrow{display:flex;gap:8px;margin-bottom:12px;position:relative;}
 .searchrow input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;color:var(--ink);font-size:.95rem;}
+.srch-surah{max-width:420px;}
+.srch-surah .srch-ic{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;width:17px;height:17px;color:var(--muted);pointer-events:none;}
+.srch-surah .srch-ic svg{width:17px;height:17px;display:block;}
+.srch-surah input{padding-right:38px;}
+.srch-surah input::placeholder{color:var(--muted);opacity:.9;}
 .suggest{position:absolute;top:calc(100% + 6px);right:0;left:0;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.5);z-index:70;max-height:62vh;overflow:auto;padding:6px;text-align:start;}
 .sug-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px 3px;color:var(--gold);font-size:.8rem;font-weight:800;border-top:1px solid var(--line);margin-top:4px;}
 .sug-h:first-child{border-top:none;margin-top:0;}
@@ -777,7 +782,7 @@ footer .fline{font-family:'Aref Ruqaa',serif;color:#E7C88B;font-size:1.08rem;mar
     <div class="qgrid2">
       <div class="qbox">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5c3-1.4 6.5-1.4 8 .6 1.5-2 5-2 8-.6v13c-3-1.4-6.5-1.4-8 .6-1.5-2-5-2-8-.6z"/><path d="M12 5.6v13"/></svg>جميع السور</h3>
-        <div class="searchrow"><input id="surahSearch" placeholder="ابحث عن سورة..." oninput="filterSurahs(this.value)"></div>
+        <div class="searchrow srch-surah"><span class="srch-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></span><input id="surahSearch" placeholder="اكتب اسم السورة أو رقمها..." oninput="filterSurahs(this.value)"></div>
         <div class="sgrid" id="surahGrid"><p class="hint">جارٍ تحميل قائمة السور…</p></div>
         <button class="more" id="surahMore" onclick="toggleSurahs()">المزيد من السور ▾</button>
         <p class="src">النص: مشروع <a href="https://tanzil.net/download/" target="_blank" rel="noopener">Tanzil</a> — رسم عثماني (مصحف المدينة).</p>
