@@ -2525,7 +2525,7 @@ function encStatsHTML(){
     '<p><button class="btn-ghost" style="padding:6px 16px;font-size:.85rem;" onclick="encShowSources()">مصادر المكتبة</button></p>';
 }
 function encShowSources(){
-  if(!ENCY) return;
+  if(!encDataReady()) return;
   var seen = {}, rows = [];
   ENCY.works.forEach(function(w){
     if(!w.sourceName && !w.sourceUrl) return;
@@ -2597,10 +2597,43 @@ function encHomeBack(){
 function encShowDetail(html){
   var d = document.getElementById('encDetail'), r = document.getElementById('encResults');
   if(!d) return;
+  /* صفحة المؤلف/الكتاب تُرسم داخل #encDetail الواقعة في قسم الموسوعة (#encSec).
+     إن ضُغط الزر من خارج هذا القسم — دليل الباحثين أو تبويب «المفسرون والمعاصرون»
+     في لوحة تفسير الآية — بقي القسم مخفيًا وتُكتب الصفحة دون أن يراها أحد.
+     نضمن ظهور القسم أولًا ثم نعرض التفاصيل ونمرّر الشاشة إليها. */
+  try{
+    var sec = document.getElementById('encSec');
+    if(!(sec && sec.getClientRects && sec.getClientRects().length)){
+      showView('enc');
+      try{ history.replaceState(null, '', '#encSec'); }catch(e){ try{ location.hash = '#encSec'; }catch(y){} }
+      try{ syncNavActive(); }catch(e){}
+    }
+  }catch(e){}
   d.innerHTML = '<p><button class="btn-ghost" onclick="encHomeBack()">‹ عودة إلى نتائج الموسوعة</button></p>' + html;
   d.style.display = '';
   if(r) r.style.display = 'none';
   try{ d.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+}
+/* عدم توفّر الفهرس حالة يراها المستخدم، لا صمت:
+   إن لم يُحمَّل encyclopedia.json بعد (تعذّر الجلب أو ضعف الاتصال)
+   نعرض رسالة تقول السبب وزرًا لإعادة المحاولة، بدل أن «لا يحدث شيء». */
+function encDataReady(){
+  if(ENCY) return true;
+  encShowDetail(
+    '<div class="group-label">فهرس الموسوعة غير محمّل</div>' +
+    '<div class="res">' +
+    '<p class="hint">لم يُكتمل تحميل <b>encyclopedia.json</b> بعد — ولهذا لا تُفتح صفحات المؤلفين والكتب.</p>' +
+    '<p class="hint">السبب غالبًا: ضعف الاتصال، أو توقف تحميل الملف قبل اكتماله. أعد التحميل ثم اضغط اسم المؤلف من جديد.</p>' +
+    '<p><button class="btn-ghost" onclick="encReloadData()">إعادة تحميل الفهرس الآن</button></p>' +
+    '</div>'
+  );
+  return false;
+}
+function encReloadData(){
+  var el = document.getElementById('encResults');
+  if(el){ encHomeBack(); el.innerHTML = '<p class="hint">جارٍ تحميل فهرس الموسوعة…</p>'; }
+  ENC_LOAD = false;
+  loadEncyclopedia(function(){ try{ encHomeBack(); }catch(e){} });
 }
 function encIsAvailable(w){
   var s = w && w.availabilityStatus;
@@ -2678,7 +2711,7 @@ function encWorkCard(w){
   return h;
 }
 function encShowAuthor(id){
-  if(!ENCY) return;
+  if(!encDataReady()) return;
   var a = encAuthorOf(id);
   if(!a){ encShowDetail('<p class="hint">هذا المؤلف غير موجود في قاعدة البيانات حاليًا.</p>'); return; }
   var works = (ENCY._authorWorks[a.id]) || [];
@@ -2699,7 +2732,7 @@ function encShowAuthor(id){
   encShowDetail(h);
 }
 function encShowWork(id){
-  if(!ENCY) return;
+  if(!encDataReady()) return;
   var w = ENCY._work[id] || ENCY._research[id];
   if(!w){ encShowDetail('<p class="hint">هذا العمل غير موجود في قاعدة البيانات حاليًا.</p>'); return; }
   VL_WORK = id;
@@ -2781,7 +2814,11 @@ function vlinkFormHTML(workId){
   return h;
 }
 function vlinkAdd(workId){
-  if(!ENCY) return;
+  if(!ENCY){
+    vlinkMsg('فهرس الموسوعة غير محمّل بعد — انتظر لحظة أو أعد تحميل الصفحة ثم أعد المحاولة.');
+    try{ loadEncyclopedia(); }catch(e){}
+    return;
+  }
   var w = ENCY._work[workId] || ENCY._research[workId];
   if(!w){ vlinkMsg('هذا العمل غير موجود حاليًا.'); return; }
   var val = function(id){ var el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; };
@@ -2850,7 +2887,7 @@ function encRenderResults(list, heading){
   el.innerHTML = h;
 }
 function encBrowse(){
-  if(!ENCY) return;
+  if(!encDataReady()) return;
   var list = encFilterList(ENC_FILTER);
   var head = 'تصفح الموسوعة — ' + encCatLabel(ENC_FILTER);
   if(ENC_FILTER === 'all'){
@@ -2874,7 +2911,7 @@ function encBrowse(){
   encRenderResults(list, head);
 }
 function encBrowseGroup(gid){
-  if(!ENCY) return;
+  if(!encDataReady()) return;
   var el = document.getElementById('encResults');
   if(!el) return;
   encHomeBack();
@@ -3160,8 +3197,12 @@ function loadEncyclopedia(cb){
   fetchJSON('data/encyclopedia.json', 20000, function(d){
     ENC_LOAD = false;
     if(!d || !d.authors || !d.works){
+      var msg = '<p class="hint">تعذر تحميل فهرس الموسوعة حاليًا — تحقق من الاتصال ثم أعد المحاولة.</p>' +
+        '<p><button class="btn-ghost" onclick="encReloadData()">إعادة المحاولة</button></p>';
       var el = document.getElementById('encResults');
-      if(el) el.innerHTML = '<p class="hint">تعذر تحميل فهرس الموسوعة حاليًا.</p><button class="btn-ghost" onclick="loadEncyclopedia()">إعادة المحاولة</button>';
+      if(el) el.innerHTML = msg;
+      var det = document.getElementById('encDetail');
+      if(det && det.style.display !== 'none'){ try{ encShowDetail(msg); }catch(e){} }
       return;
     }
     encIndex(d);
